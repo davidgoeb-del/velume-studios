@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velume Studios</title>
+  <meta name="description" content="Velume Studios. Ambient software projects.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Fullscreen Interactive Canvas -->
+  <canvas id="aurora-canvas" aria-hidden="true"></canvas>
+
+  <!-- Pinned Top Brand Header -->
+  <header class="brand-container">
+    <span class="shimmer-text">Velume Studios</span>
+  </header>
+
+  <!-- Collapsible Symmetrical Soundscape Widget (Bottom Left - Matches Lumora) -->
+  <div class="soundscape-widget collapsed" id="soundscape-widget">
+    
+    <!-- Main Toggle Trigger (Note Icon - Always visible at bottom) -->
+    <button class="soundscape-toggle-btn" id="soundscape-toggle" onclick="toggleWidgetMenu()" aria-label="Open Background Music Menu" title="Choose Background Music">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon">
+        <path d="M9 18V5l12-2v13"></path>
+        <circle cx="6" cy="18" r="3"></circle>
+        <circle cx="18" cy="16" r="3"></circle>
+      </svg>
+    </button>
+
+    <!-- Expanded Tracks List (Vertical stacking, flows upward) -->
+    <div class="soundscape-menu" id="soundscape-menu" aria-hidden="true">
+      <!-- Marigold Lofi -->
+      <button class="soundscape-btn" id="sbtn-marigold" onclick="selectTrack('marigold')" aria-label="Play Marigold Lofi">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+          <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+          <path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5.5Z"/>
+          <path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z"/>
+        </svg>
+        <span class="tooltip">Marigold Lofi</span>
+        <span class="soundscape-btn-dot" id="dot-marigold" style="display:none;">
+          <span class="ping-wave"></span>
+          <span class="core-dot"></span>
+        </span>
+      </button>
+
+      <!-- Wet Pavement Zen -->
+      <button class="soundscape-btn" id="sbtn-wetpavement" onclick="selectTrack('wetpavement')" aria-label="Play Wet Pavement Zen">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+          <path d="M2 6c.6 0 1.2-.2 1.6-.6L6 3.8C6.4 3.4 7 3 8 3s1.6.4 2 1l2.4 2.6c.4.4 1 .4 1.6 0L16.4 4c.4-.6 1-1 2-1s1.6.4 2 1l2.4 2.6c.4.4.4 1 0 1.4"/>
+          <path d="M2 12c.6 0 1.2-.2 1.6-.6l2.4-2.6c.4-.4 1-.8 2-.8s1.6.4 2 1l2.4 2.6c.4.4 1 .4 1.6 0L16.4 10c.4-.6 1-1 2-1s1.6.4 2 1l2.4 2.6c.4.4.4 1 0 1.4"/>
+          <path d="M2 18c.6 0 1.2-.2 1.6-.6l2.4-2.6c.4-.4 1-.8 2-.8s1.6.4 2 1l2.4 2.6c.4.4 1 .4 1.6 0L16.4 16c.4-.6 1-1 2-1s1.6.4 2 1l2.4 2.6c.4.4.4 1 0 1.4"/>
+        </svg>
+        <span class="tooltip">Wet Pavement Zen</span>
+        <span class="soundscape-btn-dot" id="dot-wetpavement" style="display:none;">
+          <span class="ping-wave"></span>
+          <span class="core-dot"></span>
+        </span>
+      </button>
+      
+      <!-- Velvet Pressure -->
+      <button class="soundscape-btn" id="sbtn-velvet" onclick="selectTrack('velvet')" aria-label="Play Velvet Pressure">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <span class="tooltip">Velvet Pressure</span>
+        <span class="soundscape-btn-dot" id="dot-velvet" style="display:none;">
+          <span class="ping-wave"></span>
+          <span class="core-dot"></span>
+        </span>
+      </button>
+      
+      <!-- Harmonic Safety -->
+      <button class="soundscape-btn" id="sbtn-harmonic" onclick="selectTrack('harmonic')" aria-label="Play Harmonic Safety">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+          <path d="M9 18V5l12-2v13"/>
+          <circle cx="6" cy="18" r="3"/>
+          <circle cx="18" cy="16" r="3"/>
+        </svg>
+        <span class="tooltip">Harmonic Safety</span>
+        <span class="soundscape-btn-dot" id="dot-harmonic" style="display:none;">
+          <span class="ping-wave"></span>
+          <span class="core-dot"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
