@@ -335,10 +335,9 @@ body {
   align-items: center;
   justify-content: center;
   height: 42px;
-  padding: 0 20px;
-  border-radius: 21px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(10, 5, 20, 0.45);
+  padding: 0;
+  border: none;
+  background: transparent;
   color: var(--color-text-secondary);
   font-family: inherit;
   font-size: 0.75rem;
@@ -346,27 +345,21 @@ body {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   cursor: pointer;
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .project-toggle-btn:hover {
   color: #fff;
-  background: rgba(12, 6, 24, 0.6);
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-1px);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 .project-toggle-btn:active {
-  transform: translateY(0) scale(0.98);
+  transform: scale(0.98);
 }
 
 .project-widget-wrapper.expanded .project-toggle-btn {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.2);
   color: #fff;
+  text-shadow: 0 0 12px rgba(167, 139, 250, 0.45);
 }
 
 .project-menu {
@@ -464,22 +457,17 @@ body {
   letter-spacing: 0.05em;
   color: var(--primary-accent);
   text-decoration: none;
-  padding: 4px 12px;
-  background: rgba(167, 139, 250, 0.08);
-  border: 1px solid rgba(167, 139, 250, 0.2);
-  border-radius: 12px;
+  padding: 4px 0;
   transition: all 0.2s ease;
 }
 
 .project-launch-link:hover {
-  background: rgba(167, 139, 250, 0.15);
-  border-color: rgba(167, 139, 250, 0.45);
   color: #fff;
-  transform: translateY(-1px);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 .project-launch-link:active {
-  transform: translateY(0) scale(0.97);
+  transform: scale(0.97);
 }
 
 
