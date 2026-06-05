@@ -273,8 +273,8 @@ function initAuroraBackground() {
 
   // Pointer Interaction Bindings
   window.addEventListener('pointerdown', (e) => {
-    // Prevent dragging canvas nodes when manipulating the audio widget controls
-    if (e.target.closest('#soundscape-widget')) return;
+    // Prevent dragging canvas nodes when manipulating the audio widget or project portal controls
+    if (e.target.closest('#soundscape-widget') || e.target.closest('#project-widget')) return;
     
     pointer.down = true;
     pointer.x = e.clientX;
@@ -369,12 +369,33 @@ function toggleWidgetMenu() {
   }
 }
 
-// Close widget menu if clicked outside
-document.addEventListener('click', (e) => {
-  const widget = document.getElementById('soundscape-widget');
+function toggleProjectMenu() {
+  const widget = document.getElementById('project-widget');
+  const menu = document.getElementById('project-menu');
   if (!widget) return;
-  if (!widget.contains(e.target) && widget.classList.contains('expanded')) {
+
+  const isCollapsed = widget.classList.contains('collapsed');
+  if (isCollapsed) {
+    widget.classList.remove('collapsed');
+    widget.classList.add('expanded');
+    if (menu) menu.removeAttribute('aria-hidden');
+  } else {
+    widget.classList.remove('expanded');
+    widget.classList.add('collapsed');
+    if (menu) menu.setAttribute('aria-hidden', 'true');
+  }
+}
+
+// Close widget menus if clicked outside
+document.addEventListener('click', (e) => {
+  const soundscapeWidget = document.getElementById('soundscape-widget');
+  if (soundscapeWidget && !soundscapeWidget.contains(e.target) && soundscapeWidget.classList.contains('expanded')) {
     toggleWidgetMenu();
+  }
+
+  const projectWidget = document.getElementById('project-widget');
+  if (projectWidget && !projectWidget.contains(e.target) && projectWidget.classList.contains('expanded')) {
+    toggleProjectMenu();
   }
 });
 
