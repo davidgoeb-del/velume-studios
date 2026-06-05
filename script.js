@@ -273,8 +273,8 @@ function initAuroraBackground() {
 
   // Pointer Interaction Bindings
   window.addEventListener('pointerdown', (e) => {
-    // Prevent dragging canvas nodes when manipulating the audio widget or project portal controls
-    if (e.target.closest('#soundscape-widget') || e.target.closest('#project-widget')) return;
+    // Prevent dragging canvas nodes when manipulating the unified dock controls
+    if (e.target.closest('#velume-dock')) return;
     
     pointer.down = true;
     pointer.x = e.clientX;
@@ -339,63 +339,36 @@ let isPlayingMusic = false;
 let musicVolume = 0.15; // Cozy default volume (15%) matching Lumora
 
 function updateWidgetPlayingState(isPlaying) {
-  const widget = document.getElementById('soundscape-widget');
   const toggleBtn = document.getElementById('soundscape-toggle');
-  if (!widget || !toggleBtn) return;
+  if (!toggleBtn) return;
 
   if (isPlaying) {
-    widget.classList.add('playing-music');
     toggleBtn.classList.add('playing');
   } else {
-    widget.classList.remove('playing-music');
     toggleBtn.classList.remove('playing');
   }
 }
 
 function toggleWidgetMenu() {
-  const widget = document.getElementById('soundscape-widget');
+  const dockMusicWrapper = document.getElementById('dock-music-wrapper');
   const menu = document.getElementById('soundscape-menu');
-  if (!widget) return;
+  if (!dockMusicWrapper) return;
 
-  const isCollapsed = widget.classList.contains('collapsed');
-  if (isCollapsed) {
-    widget.classList.remove('collapsed');
-    widget.classList.add('expanded');
+  const isExpanded = dockMusicWrapper.classList.contains('expanded');
+  if (!isExpanded) {
+    dockMusicWrapper.classList.add('expanded');
     if (menu) menu.removeAttribute('aria-hidden');
   } else {
-    widget.classList.remove('expanded');
-    widget.classList.add('collapsed');
+    dockMusicWrapper.classList.remove('expanded');
     if (menu) menu.setAttribute('aria-hidden', 'true');
   }
 }
 
-function toggleProjectMenu() {
-  const widget = document.getElementById('project-widget');
-  const menu = document.getElementById('project-menu');
-  if (!widget) return;
-
-  const isCollapsed = widget.classList.contains('collapsed');
-  if (isCollapsed) {
-    widget.classList.remove('collapsed');
-    widget.classList.add('expanded');
-    if (menu) menu.removeAttribute('aria-hidden');
-  } else {
-    widget.classList.remove('expanded');
-    widget.classList.add('collapsed');
-    if (menu) menu.setAttribute('aria-hidden', 'true');
-  }
-}
-
-// Close widget menus if clicked outside
+// Close widget menu if clicked outside
 document.addEventListener('click', (e) => {
-  const soundscapeWidget = document.getElementById('soundscape-widget');
-  if (soundscapeWidget && !soundscapeWidget.contains(e.target) && soundscapeWidget.classList.contains('expanded')) {
+  const musicWrapper = document.getElementById('dock-music-wrapper');
+  if (musicWrapper && !musicWrapper.contains(e.target) && musicWrapper.classList.contains('expanded')) {
     toggleWidgetMenu();
-  }
-
-  const projectWidget = document.getElementById('project-widget');
-  if (projectWidget && !projectWidget.contains(e.target) && projectWidget.classList.contains('expanded')) {
-    toggleProjectMenu();
   }
 });
 

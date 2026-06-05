@@ -121,17 +121,18 @@ body {
 }
 
 /* ==========================================================================
-   BOUTIQUE FLOATING SOUNDSCAPE WIDGET (DARK COSMIC STYLE)
+   UNIFIED SYMMETRICAL BOTTOM DOCK (CENTER BOTTOM)
    ========================================================================== */
 
-.soundscape-widget {
+.velume-dock {
   position: fixed;
   bottom: 24px;
-  left: 12px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 999;
   display: flex;
-  flex-direction: column-reverse; /* Stack upwards: note button bottom, tracks top */
   align-items: center;
+  gap: 8px;
   background: rgba(10, 5, 20, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4),
@@ -142,103 +143,146 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  gap: 6px;
   pointer-events: auto;
 }
 
-@media (min-width: 768px) {
-  .soundscape-widget {
-    left: 24px;
-  }
-}
-
-.soundscape-widget:hover {
+.velume-dock:hover {
   background: rgba(12, 6, 24, 0.6);
   border-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
 }
 
-.soundscape-widget.expanded {
-  border-color: rgba(167, 139, 250, 0.2);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6),
-              0 0 25px rgba(167, 139, 250, 0.05);
-}
-
-.soundscape-menu {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.soundscape-widget.collapsed .soundscape-menu {
-  max-height: 0;
-  opacity: 0;
-  pointer-events: none;
-  overflow: hidden;
-  padding-bottom: 0;
-}
-
-.soundscape-widget.expanded .soundscape-menu {
-  max-height: 250px;
-  opacity: 1;
-  pointer-events: auto;
-  padding-bottom: 4px;
-}
-
-/* Toggle button styling */
-.soundscape-toggle-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
+.dock-item-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.dock-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
   border: 1px solid transparent;
   background: transparent;
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
 }
 
-.soundscape-widget.collapsed .soundscape-toggle-btn {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.05);
-  color: var(--color-text-secondary);
-}
-
-.soundscape-widget.collapsed .soundscape-toggle-btn:hover {
+.dock-btn:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
+  transform: scale(1.1);
 }
 
-/* Active closed (playing music while collapsed) */
-.soundscape-widget.collapsed.playing-music .soundscape-toggle-btn {
+.dock-btn:active {
+  transform: scale(0.96);
+}
+
+/* Music active closed state */
+#soundscape-toggle.playing {
   background: rgba(16, 185, 129, 0.08);
   border-color: rgba(16, 185, 129, 0.2);
   color: var(--active-accent);
 }
 
-.soundscape-widget.collapsed.playing-music .soundscape-toggle-btn svg {
+#soundscape-toggle.playing svg {
   animation: pulse-slow 2s infinite ease-in-out;
 }
 
-/* When expanded, the toggle button becomes active grey */
-.soundscape-widget.expanded .soundscape-toggle-btn {
+/* Expanded state for wrapper */
+.dock-item-wrapper.expanded .dock-btn {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 
-.soundscape-widget.expanded .soundscape-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
+.dock-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 2px;
 }
 
-/* Track buttons styling */
+/* Tooltip overlay styling (floating above dock items) */
+.dock-btn .tooltip {
+  visibility: hidden;
+  background-color: rgba(10, 5, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1000;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  opacity: 0;
+  font-family: inherit;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.dock-btn:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* Vertical Popover Track Selection Menu */
+.soundscape-menu {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 50px;
+  background: rgba(10, 5, 20, 0.55);
+  border: 1px solid transparent;
+  border-radius: 25px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              margin-bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.dock-item-wrapper:not(.expanded) .soundscape-menu {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  padding: 0;
+  border-width: 0;
+  margin-bottom: 0;
+}
+
+.dock-item-wrapper.expanded .soundscape-menu {
+  max-height: 250px;
+  opacity: 1;
+  pointer-events: auto;
+  padding: 6px;
+  border-color: rgba(255, 255, 255, 0.08);
+  margin-bottom: 6px;
+}
+
 .soundscape-btn {
   position: relative;
   display: flex;
@@ -251,7 +295,7 @@ body {
   background: transparent;
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .soundscape-btn:hover {
@@ -259,14 +303,12 @@ body {
   background: rgba(255, 255, 255, 0.06);
 }
 
-/* Active track style (loaded or paused) */
 .soundscape-btn.active {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.15);
   color: #fff;
 }
 
-/* Active playing track style */
 .soundscape-btn.active.playing {
   background: rgba(16, 185, 129, 0.08);
   border-color: rgba(16, 185, 129, 0.2);
@@ -317,7 +359,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: #34d399; /* emerald-400 */
+  background-color: #34d399;
   opacity: 0.75;
   animation: dot-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
@@ -327,7 +369,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: #10b981; /* emerald-500 */
+  background-color: #10b981;
 }
 
 @keyframes dot-ping {
@@ -341,7 +383,7 @@ body {
   }
 }
 
-/* Tooltip overlay styling */
+/* Tooltip overlay styling inside popover (placed left) */
 .soundscape-btn .tooltip {
   visibility: hidden;
   background-color: rgba(10, 5, 20, 0.95);
@@ -352,7 +394,7 @@ body {
   border-radius: 6px;
   position: absolute;
   z-index: 1000;
-  left: 48px;
+  right: 48px;
   top: 50%;
   transform: translateY(-50%) scale(0.9);
   opacity: 0;
@@ -367,166 +409,6 @@ body {
 }
 
 .soundscape-btn:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(-50%) scale(1);
-}
-
-/* ==========================================================================
-   BOUTIQUE FLOATING PROJECT PORTAL WIDGET (BOTTOM RIGHT - SYMMETRICAL)
-   ========================================================================== */
-
-.project-widget {
-  position: fixed;
-  bottom: 24px;
-  right: 12px;
-  z-index: 999;
-  display: flex;
-  flex-direction: column-reverse; /* Stack upwards: toggle button bottom, links top */
-  align-items: center;
-  background: rgba(10, 5, 20, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4),
-              0 0 20px rgba(167, 139, 250, 0.02);
-  padding: 6px;
-  border-radius: 25px;
-  user-select: none;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  gap: 6px;
-  pointer-events: auto;
-}
-
-@media (min-width: 768px) {
-  .project-widget {
-    right: 24px;
-  }
-}
-
-.project-widget:hover {
-  background: rgba(12, 6, 24, 0.6);
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
-}
-
-.project-widget.expanded {
-  border-color: rgba(167, 139, 250, 0.2);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6),
-              0 0 25px rgba(167, 139, 250, 0.05);
-}
-
-.project-menu {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.project-widget.collapsed .project-menu {
-  max-height: 0;
-  opacity: 0;
-  pointer-events: none;
-  overflow: hidden;
-  padding-bottom: 0;
-}
-
-.project-widget.expanded .project-menu {
-  max-height: 250px;
-  opacity: 1;
-  pointer-events: auto;
-  padding-bottom: 4px;
-}
-
-/* Toggle button styling */
-.project-toggle-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid transparent;
-  background: transparent;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.project-widget.collapsed .project-toggle-btn {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.05);
-  color: var(--color-text-secondary);
-}
-
-.project-widget.collapsed .project-toggle-btn:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-/* When expanded, the toggle button becomes active grey */
-.project-widget.expanded .project-toggle-btn {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #fff;
-}
-
-.project-widget.expanded .project-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-}
-
-/* Project item buttons */
-.project-btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 1px solid transparent;
-  background: transparent;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  text-decoration: none;
-}
-
-.project-btn:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-/* Tooltip overlay styling (positioned left because widget is on the right) */
-.project-btn .tooltip {
-  visibility: hidden;
-  background-color: rgba(10, 5, 20, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--color-text-primary);
-  text-align: center;
-  padding: 4px 8px;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1000;
-  right: 48px; /* Position to the LEFT of the button so it goes inwards */
-  top: 50%;
-  transform: translateY(-50%) scale(0.9);
-  opacity: 0;
-  font-family: inherit;
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-
-.project-btn:hover .tooltip {
   visibility: visible;
   opacity: 1;
   transform: translateY(-50%) scale(1);
