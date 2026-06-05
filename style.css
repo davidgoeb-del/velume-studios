@@ -121,166 +121,91 @@ body {
 }
 
 /* ==========================================================================
-   UNIFIED SYMMETRICAL BOTTOM DOCK (CENTER BOTTOM)
+   ISOLATED FLOATING CORNER WIDGETS
    ========================================================================== */
 
-.velume-dock {
+/* --- Soundscape Widget (Bottom Left) --- */
+.soundscape-widget-wrapper {
   position: fixed;
   bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 24px;
   z-index: 999;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 8px;
-  background: rgba(10, 5, 20, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4),
-              0 0 20px rgba(167, 139, 250, 0.02);
-  padding: 6px;
-  border-radius: 25px;
-  user-select: none;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: auto;
 }
 
-.velume-dock:hover {
-  background: rgba(12, 6, 24, 0.6);
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
-}
-
-.dock-item-wrapper {
+.soundscape-toggle-btn {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.dock-btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  border: 1px solid transparent;
-  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(10, 5, 20, 0.45);
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  text-decoration: none;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.dock-btn:hover {
+.soundscape-toggle-btn:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.06);
-  transform: scale(1.1);
+  background: rgba(12, 6, 24, 0.6);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.08);
 }
 
-.dock-btn:active {
+.soundscape-toggle-btn:active {
   transform: scale(0.96);
 }
 
 /* Music active closed state */
-#soundscape-toggle.playing {
+.soundscape-toggle-btn.playing {
   background: rgba(16, 185, 129, 0.08);
   border-color: rgba(16, 185, 129, 0.2);
   color: var(--active-accent);
 }
 
-#soundscape-toggle.playing svg {
+.soundscape-toggle-btn.playing svg {
   animation: pulse-slow 2s infinite ease-in-out;
 }
 
 /* Expanded state for wrapper */
-.dock-item-wrapper.expanded .dock-btn {
+.soundscape-widget-wrapper.expanded .soundscape-toggle-btn {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 
-.dock-divider {
-  width: 1px;
-  height: 16px;
-  background: rgba(255, 255, 255, 0.08);
-  margin: 0 2px;
-}
-
-/* Tooltip overlay styling (floating above dock items) */
-.dock-btn .tooltip {
-  visibility: hidden;
-  background-color: rgba(10, 5, 20, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--color-text-primary);
-  text-align: center;
-  padding: 4px 8px;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1000;
-  bottom: 48px;
-  left: 50%;
-  transform: translateX(-50%) scale(0.9);
-  opacity: 0;
-  font-family: inherit;
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-
-.dock-btn:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-  transform: translateX(-50%) scale(1);
-}
-
-/* Vertical Popover Track Selection Menu */
 .soundscape-menu {
-  position: absolute;
-  bottom: 48px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 6px;
-  width: 50px;
-  background: rgba(10, 5, 20, 0.55);
-  border: 1px solid transparent;
+  background: rgba(10, 5, 20, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 25px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              margin-bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-}
-
-.dock-item-wrapper:not(.expanded) .soundscape-menu {
-  max-height: 0;
-  opacity: 0;
-  pointer-events: none;
-  padding: 0;
-  border-width: 0;
-  margin-bottom: 0;
-}
-
-.dock-item-wrapper.expanded .soundscape-menu {
-  max-height: 250px;
-  opacity: 1;
-  pointer-events: auto;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   padding: 6px;
-  border-color: rgba(255, 255, 255, 0.08);
-  margin-bottom: 6px;
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  pointer-events: none;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.soundscape-widget-wrapper.expanded .soundscape-menu {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
 }
 
 .soundscape-btn {
@@ -328,22 +253,6 @@ body {
   color: #f59e0b;
 }
 
-@keyframes spin-slow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes pulse-slow {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.7;
-  }
-}
-
 /* Radar ping active dot styling */
 .soundscape-btn-dot {
   position: absolute;
@@ -372,19 +281,9 @@ body {
   background-color: #10b981;
 }
 
-@keyframes dot-ping {
-  0% {
-    transform: scale(1);
-    opacity: 0.75;
-  }
-  100% {
-    transform: scale(2.5);
-    opacity: 0;
-  }
-}
-
-/* Tooltip overlay styling inside popover (placed left) */
-.soundscape-btn .tooltip {
+/* Tooltip overlay styling */
+.soundscape-btn .tooltip,
+.soundscape-toggle-btn .tooltip {
   visibility: hidden;
   background-color: rgba(10, 5, 20, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -394,7 +293,7 @@ body {
   border-radius: 6px;
   position: absolute;
   z-index: 1000;
-  right: 48px;
+  left: 48px;
   top: 50%;
   transform: translateY(-50%) scale(0.9);
   opacity: 0;
@@ -408,9 +307,238 @@ body {
   pointer-events: none;
 }
 
-.soundscape-btn:hover .tooltip {
+.soundscape-btn:hover .tooltip,
+.soundscape-toggle-btn:hover .tooltip {
   visibility: visible;
   opacity: 1;
   transform: translateY(-50%) scale(1);
+}
+
+
+/* --- Projects Widget (Bottom Right) --- */
+.project-widget-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  width: 280px;
+  pointer-events: auto;
+}
+
+.project-toggle-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 21px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(10, 5, 20, 0.45);
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-toggle-btn:hover {
+  color: #fff;
+  background: rgba(12, 6, 24, 0.6);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.project-toggle-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.project-widget-wrapper.expanded .project-toggle-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.project-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: rgba(10, 5, 20, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 18px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  pointer-events: none;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-widget-wrapper.expanded .project-menu {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.project-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.project-item-title {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 4px 0;
+  width: 100%;
+  text-align: right;
+  transition: color 0.2s ease;
+}
+
+.project-item-title:hover {
+  color: #fff;
+}
+
+.project-item.expanded .project-item-title {
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Accordion Drawer CSS Grid transition */
+.project-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  overflow: hidden;
+  width: 100%;
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s ease;
+}
+
+.project-item.expanded .project-detail {
+  grid-template-rows: 1fr;
+}
+
+.project-item.expanded .project-detail {
+  opacity: 1;
+}
+
+.project-detail-inner {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: 8px;
+  padding-bottom: 2px;
+}
+
+.project-description {
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.project-launch-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--primary-accent);
+  text-decoration: none;
+  padding: 4px 12px;
+  background: rgba(167, 139, 250, 0.08);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.project-launch-link:hover {
+  background: rgba(167, 139, 250, 0.15);
+  border-color: rgba(167, 139, 250, 0.45);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.project-launch-link:active {
+  transform: translateY(0) scale(0.97);
+}
+
+
+/* --- Shared Animations --- */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.75;
+  }
+}
+
+@keyframes dot-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+
+/* --- Responsive Layout (Mobile overrides) --- */
+@media (max-width: 600px) {
+  .soundscape-widget-wrapper {
+    bottom: 16px;
+    left: 16px;
+  }
+  
+  .project-widget-wrapper {
+    bottom: 16px;
+    right: 16px;
+    width: 220px;
+  }
+
+  .project-menu {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .project-description {
+    font-size: 0.68rem;
+  }
 }
 

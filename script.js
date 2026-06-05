@@ -273,8 +273,8 @@ function initAuroraBackground() {
 
   // Pointer Interaction Bindings
   window.addEventListener('pointerdown', (e) => {
-    // Prevent dragging canvas nodes when manipulating the unified dock controls
-    if (e.target.closest('#velume-dock')) return;
+    // Prevent dragging canvas nodes when manipulating the corner widgets
+    if (e.target.closest('#soundscape-widget-wrapper') || e.target.closest('#project-widget-wrapper')) return;
     
     pointer.down = true;
     pointer.x = e.clientX;
@@ -350,25 +350,70 @@ function updateWidgetPlayingState(isPlaying) {
 }
 
 function toggleWidgetMenu() {
-  const dockMusicWrapper = document.getElementById('dock-music-wrapper');
+  const wrapper = document.getElementById('soundscape-widget-wrapper');
   const menu = document.getElementById('soundscape-menu');
-  if (!dockMusicWrapper) return;
+  if (!wrapper) return;
 
-  const isExpanded = dockMusicWrapper.classList.contains('expanded');
+  const isExpanded = wrapper.classList.contains('expanded');
   if (!isExpanded) {
-    dockMusicWrapper.classList.add('expanded');
+    wrapper.classList.add('expanded');
     if (menu) menu.removeAttribute('aria-hidden');
   } else {
-    dockMusicWrapper.classList.remove('expanded');
+    wrapper.classList.remove('expanded');
     if (menu) menu.setAttribute('aria-hidden', 'true');
   }
 }
 
-// Close widget menu if clicked outside
+function toggleProjectMenu() {
+  const wrapper = document.getElementById('project-widget-wrapper');
+  const menu = document.getElementById('project-menu');
+  if (!wrapper) return;
+
+  const isExpanded = wrapper.classList.contains('expanded');
+  if (!isExpanded) {
+    wrapper.classList.add('expanded');
+    if (menu) menu.removeAttribute('aria-hidden');
+  } else {
+    wrapper.classList.remove('expanded');
+    if (menu) menu.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function toggleProjectDetail(projectId) {
+  const targetItem = document.getElementById(`item-${projectId}`);
+  if (!targetItem) return;
+
+  const isExpanded = targetItem.classList.contains('expanded');
+  
+  // Collapse all project items first
+  document.querySelectorAll('.project-item').forEach(item => {
+    item.classList.remove('expanded');
+    const btn = item.querySelector('.project-item-title');
+    const detail = item.querySelector('.project-detail');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+    if (detail) detail.setAttribute('aria-hidden', 'true');
+  });
+
+  // Toggle state of clicked item
+  if (!isExpanded) {
+    targetItem.classList.add('expanded');
+    const btn = targetItem.querySelector('.project-item-title');
+    const detail = targetItem.querySelector('.project-detail');
+    if (btn) btn.setAttribute('aria-expanded', 'true');
+    if (detail) detail.setAttribute('aria-hidden', 'false');
+  }
+}
+
+// Close menus if clicked outside
 document.addEventListener('click', (e) => {
-  const musicWrapper = document.getElementById('dock-music-wrapper');
-  if (musicWrapper && !musicWrapper.contains(e.target) && musicWrapper.classList.contains('expanded')) {
+  const soundscapeWrapper = document.getElementById('soundscape-widget-wrapper');
+  if (soundscapeWrapper && !soundscapeWrapper.contains(e.target) && soundscapeWrapper.classList.contains('expanded')) {
     toggleWidgetMenu();
+  }
+
+  const projectWrapper = document.getElementById('project-widget-wrapper');
+  if (projectWrapper && !projectWrapper.contains(e.target) && projectWrapper.classList.contains('expanded')) {
+    toggleProjectMenu();
   }
 });
 
