@@ -42,10 +42,24 @@ function initAuroraBackground() {
     { r: 79, g: 70, b: 229, a: 0.08 }      /* Slate Indigo */
   ];
 
+  let lastWidth = 0;
+  let lastHeight = 0;
+
   // Setup Responsive Canvas size
   function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
+    const currentWidth = window.innerWidth;
+    const currentHeight = window.innerHeight;
+
+    // Mobile optimization: Bypass canvas recreations for address bar toolbar collapses
+    if (currentWidth === lastWidth && Math.abs(currentHeight - lastHeight) < 120) {
+      return;
+    }
+
+    lastWidth = currentWidth;
+    lastHeight = currentHeight;
+
+    width = currentWidth;
+    height = currentHeight;
     canvas.width = width * dpr;
     canvas.height = height * dpr;
     ctx.scale(dpr, dpr);
@@ -356,6 +370,14 @@ function toggleWidgetMenu() {
 
   const isExpanded = wrapper.classList.contains('expanded');
   if (!isExpanded) {
+    // Collapse project widget menu
+    const projectWrapper = document.getElementById('project-widget-wrapper');
+    const projectMenu = document.getElementById('project-menu');
+    if (projectWrapper && projectWrapper.classList.contains('expanded')) {
+      projectWrapper.classList.remove('expanded');
+      if (projectMenu) projectMenu.setAttribute('aria-hidden', 'true');
+    }
+
     wrapper.classList.add('expanded');
     if (menu) menu.removeAttribute('aria-hidden');
   } else {
@@ -371,6 +393,14 @@ function toggleProjectMenu() {
 
   const isExpanded = wrapper.classList.contains('expanded');
   if (!isExpanded) {
+    // Collapse soundscape widget menu
+    const soundscapeWrapper = document.getElementById('soundscape-widget-wrapper');
+    const soundscapeMenu = document.getElementById('soundscape-menu');
+    if (soundscapeWrapper && soundscapeWrapper.classList.contains('expanded')) {
+      soundscapeWrapper.classList.remove('expanded');
+      if (soundscapeMenu) soundscapeMenu.setAttribute('aria-hidden', 'true');
+    }
+
     wrapper.classList.add('expanded');
     if (menu) menu.removeAttribute('aria-hidden');
   } else {

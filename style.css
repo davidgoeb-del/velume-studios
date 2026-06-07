@@ -24,13 +24,16 @@
 
 html, body {
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
   background-color: var(--bg-color);
   color: var(--color-text-primary);
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   user-select: none;
+  -webkit-user-select: none;
 }
 
 body {
@@ -43,8 +46,9 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   z-index: 0;
+  touch-action: none;
   pointer-events: none;
 }
 
@@ -134,7 +138,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
-  pointer-events: auto;
+  pointer-events: none; /* Let canvas ripples pass through empty areas */
 }
 
 .soundscape-toggle-btn {
@@ -153,6 +157,8 @@ body {
   -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto; /* Enable clicks */
+  touch-action: manipulation;
 }
 
 .soundscape-toggle-btn:hover {
@@ -221,6 +227,8 @@ body {
   color: var(--color-text-secondary);
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto; /* Enable clicks */
+  touch-action: manipulation;
 }
 
 .soundscape-btn:hover {
@@ -326,7 +334,7 @@ body {
   align-items: flex-end;
   gap: 8px;
   width: 280px;
-  pointer-events: auto;
+  pointer-events: none; /* Let canvas ripples pass through empty areas */
 }
 
 .project-toggle-btn {
@@ -346,6 +354,8 @@ body {
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto; /* Enable clicks */
+  touch-action: manipulation;
 }
 
 .project-toggle-btn:hover {
@@ -403,6 +413,8 @@ body {
   width: 100%;
   text-align: right;
   transition: color 0.3s ease, text-shadow 0.3s ease;
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .project-item-title:hover {
@@ -459,6 +471,8 @@ body {
   text-decoration: none;
   padding: 4px 0;
   transition: all 0.2s ease;
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .project-launch-link:hover {
@@ -503,23 +517,51 @@ body {
 /* --- Responsive Layout (Mobile overrides) --- */
 @media (max-width: 600px) {
   .soundscape-widget-wrapper {
-    bottom: 16px;
-    left: 16px;
+    bottom: 28px;
+    left: 20px;
+    gap: 12px;
+  }
+
+  .soundscape-toggle-btn {
+    width: 46px;
+    height: 46px;
+  }
+
+  .soundscape-btn {
+    width: 42px;
+    height: 42px;
   }
   
   .project-widget-wrapper {
-    bottom: 16px;
-    right: 16px;
-    width: 220px;
+    bottom: 28px;
+    right: 20px;
+    width: 240px;
+    gap: 12px;
+  }
+
+  .project-toggle-btn {
+    height: 46px;
+    font-size: 0.78rem;
   }
 
   .project-menu {
     padding: 12px;
-    gap: 10px;
+    gap: 12px;
+  }
+
+  .project-item-title {
+    font-size: 0.82rem;
+    padding: 8px 0;
   }
 
   .project-description {
-    font-size: 0.68rem;
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  .project-launch-link {
+    font-size: 0.72rem;
+    padding: 6px 0;
   }
 }
 
