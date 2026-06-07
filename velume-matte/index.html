@@ -573,54 +573,72 @@
     margin-top: 10px;
   }
 
-  .primary-btn {
-    width: 100%;
-    padding: 15px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.15rem;
-    font-weight: 400;
-    cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    transition: var(--transition);
+  /* Premium Darkroom Console Action Buttons (Concept A) */
+  .darkroom-console {
     display: flex;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: transparent;
+    overflow: hidden;
+    margin-top: 12px;
+    border-radius: 2px;
+  }
+  
+  .console-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    padding: 14px 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+    color: var(--text-primary);
+    transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    user-select: none;
+    outline: none;
   }
-  .primary-btn:hover {
-    background: #000;
-    transform: translateY(-2px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  
+  /* Split line divider via border-left on the second button if it becomes visible */
+  .console-btn#share-btn {
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
   }
-  .primary-btn:active {
-    transform: translateY(0);
+  
+  .console-btn:hover {
+    background: rgba(0, 0, 0, 0.03);
+  }
+  
+  .console-btn:active {
+    background: rgba(0, 0, 0, 0.07);
   }
 
-  .secondary-btn {
-    width: 100%;
-    padding: 12px;
-    background: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: var(--transition);
+  .console-btn-title {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-  .secondary-btn:hover {
-    border-color: var(--text-primary);
+    gap: 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
     color: var(--text-primary);
+  }
+
+  .console-btn-title svg {
+    color: var(--text-primary);
+    flex-shrink: 0;
+  }
+
+  .console-btn-sub {
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    opacity: 0.75;
   }
 
   /* Back Button on edit panel */
@@ -1467,23 +1485,35 @@
           </div>
         </div>
 
-        <button class="primary-btn" onclick="exportAndSaveImage()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          Export Master Print
-        </button>
+        <div class="darkroom-console">
+          <!-- Commit Master Print -->
+          <button class="console-btn" onclick="exportAndSaveImage()">
+            <span class="console-btn-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="0.5" stroke-dasharray="2 2" opacity="0.4" />
+                <rect x="7" y="7" width="10" height="10" />
+                <path d="M12 9v4M10 11l2 2 2-2" />
+              </svg>
+              Commit Master Print
+            </span>
+            <span class="console-btn-sub">[ Archival / Lossless ]</span>
+          </button>
 
-        <button class="secondary-btn" id="share-btn" onclick="shareBorderedImage()" style="display: none;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-            <polyline points="16 6 12 2 8 6"></polyline>
-            <line x1="12" y1="2" x2="12" y2="15"></line>
-          </svg>
-          Share to Social / AirDrop
-        </button>
+          <!-- Share Digital Proof -->
+          <button class="console-btn" id="share-btn" onclick="shareBorderedImage()" style="display: none;">
+            <span class="console-btn-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="18" x2="20" y2="18" opacity="0.4" />
+                <path d="M12 18L7 6M12 18l5-12M12 18V6" />
+                <circle cx="7" cy="6" r="0.75" fill="currentColor" />
+                <circle cx="12" cy="6" r="0.75" fill="currentColor" />
+                <circle cx="17" cy="6" r="0.75" fill="currentColor" />
+              </svg>
+              Share Digital Proof
+            </span>
+            <span class="console-btn-sub">[ System Dialogue ]</span>
+          </button>
+        </div>
       </div>
     </div>
 
