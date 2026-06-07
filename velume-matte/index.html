@@ -1041,17 +1041,17 @@
     transform: scale(0.96);
   }
 
-  /* Music active closed state */
+  /* Music active closed state — Velume purple */
   .soundscape-toggle-btn.playing {
-    background: rgba(16, 185, 129, 0.08);
-    border-color: rgba(16, 185, 129, 0.28);
-    color: #10b981;
-    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.18), 0 1px 4px rgba(0,0,0,0.06);
+    background: rgba(171, 107, 255, 0.1);
+    border-color: rgba(171, 107, 255, 0.4);
+    color: #ab6bff;
+    box-shadow: 0 4px 20px rgba(171, 107, 255, 0.22), 0 1px 4px rgba(0,0,0,0.06);
   }
 
   .soundscape-toggle-btn.playing svg {
     animation: spin-slow 5s linear infinite;
-    filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.55));
+    filter: drop-shadow(0 0 6px rgba(171, 107, 255, 0.7));
   }
 
   /* Expanded state for wrapper */
@@ -1122,12 +1122,11 @@
     color: var(--text-secondary);
   }
   .soundscape-btn.active.playing .track-name {
-    color: #10b981;
+    color: #ab6bff;
   }
 
-  /* Dot: CSS class toggle for reduced-motion compatibility */
-  .soundscape-btn-dot { display: none; }
-  .soundscape-btn-dot.visible { display: flex; }
+  /* Dot removed — button glow is the active signal */
+  .soundscape-btn-dot { display: none !important; }
 
   .soundscape-btn:hover {
     color: var(--text-primary);
@@ -1141,16 +1140,16 @@
   }
 
   .soundscape-btn.active.playing {
-    background: rgba(16, 185, 129, 0.06);
-    border-color: rgba(16, 185, 129, 0.15);
-    color: #10b981;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
+    background: rgba(171, 107, 255, 0.07);
+    border-color: rgba(171, 107, 255, 0.22);
+    color: #ab6bff;
+    box-shadow: 0 2px 10px rgba(171, 107, 255, 0.14);
   }
 
   .soundscape-btn.active.playing svg {
     animation: spin-slow 6s linear infinite;
-    color: #10b981;
-    filter: drop-shadow(0 0 3px rgba(16, 185, 129, 0.4));
+    color: #ab6bff;
+    filter: drop-shadow(0 0 4px rgba(171, 107, 255, 0.5));
   }
 
   .soundscape-btn.error {
@@ -1819,10 +1818,6 @@
         <path d="M5 12a7 7 0 0 1 7-7c2 0 3.5 1 5 3" />
       </svg>
       <span class="track-name">Marigold</span>
-      <span class="soundscape-btn-dot" id="dot-marigold">
-        <span class="ping-wave"></span>
-        <span class="core-dot"></span>
-      </span>
     </button>
 
     <!-- Wet Pavement Zen -->
@@ -1834,10 +1829,6 @@
         <path d="M9 14c0 1.2 1.3 2.2 3 2.2s3-1 3-2.2" />
       </svg>
       <span class="track-name">Wet Pavement</span>
-      <span class="soundscape-btn-dot" id="dot-pavement">
-        <span class="ping-wave"></span>
-        <span class="core-dot"></span>
-      </span>
     </button>
     
     <!-- Velvet Pressure -->
@@ -1848,10 +1839,6 @@
         <ellipse cx="12" cy="11" rx="5" ry="3.5"/>
       </svg>
       <span class="track-name">Velvet</span>
-      <span class="soundscape-btn-dot" id="dot-velvet">
-        <span class="ping-wave"></span>
-        <span class="core-dot"></span>
-      </span>
     </button>
     
     <!-- Harmonic Safety -->
@@ -1862,10 +1849,6 @@
         <path d="M6 12 Q8 8 10 12 Q12 16 14 12 Q16 8 18 12"/>
       </svg>
       <span class="track-name">Harmonic</span>
-      <span class="soundscape-btn-dot" id="dot-harmonic">
-        <span class="ping-wave"></span>
-        <span class="core-dot"></span>
-      </span>
     </button>
   </div>
 
@@ -1972,9 +1955,6 @@
     document.querySelectorAll('.soundscape-btn').forEach(btn => {
       btn.classList.remove('active', 'playing', 'error');
     });
-    document.querySelectorAll('.soundscape-btn-dot').forEach(dot => {
-      dot.classList.remove('visible'); // T5: CSS class toggle
-    });
 
     // Fully release old audio before creating new (T2: audio teardown)
     teardownAudioPlayer();
@@ -1994,8 +1974,6 @@
         btn.classList.remove('error');
         btn.classList.add('playing');
       }
-      const dot = document.getElementById(`dot-${trackId}`);
-      if (dot) dot.classList.add('visible'); // T5: CSS class toggle
       isPlayingMusic = true;
       updateWidgetPlayingState(true);
     });
@@ -2004,8 +1982,6 @@
       console.warn("Audio load error:", e);
       if (btn) btn.classList.remove('playing', 'active');
       if (btn) btn.classList.add('error');
-      const dot = document.getElementById(`dot-${trackId}`);
-      if (dot) dot.classList.remove('visible'); // T5: CSS class toggle
       isPlayingMusic = false;
       updateWidgetPlayingState(false);
     });
