@@ -1,0 +1,2413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velume Matte • Premium Editorial Framing</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Caveat:wght@400;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-app: #f6f5f2;
+    --bg-card: rgba(255, 255, 255, 0.75);
+    --border-color: rgba(0, 0, 0, 0.08);
+    --text-primary: #1a1a1a;
+    --text-secondary: #706e6a;
+    --text-muted: #a6a4a0;
+    --accent: #2e2c29;
+    --shadow-premium: 0 30px 60px rgba(0, 0, 0, 0.06), 0 2px 10px rgba(0, 0, 0, 0.02);
+    --shadow-photo: 0 16px 40px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.04);
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --radius-premium: 16px;
+    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: transparent;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  /* App Layout Grid */
+  .container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 1024px) {
+    .container {
+      grid-template-columns: 1fr;
+      padding: 24px 16px;
+      gap: 32px;
+    }
+  }
+
+  /* Header Branding */
+  .header {
+    text-align: center;
+    margin-bottom: 24px;
+    grid-column: 1 / -1;
+  }
+  .brand-title {
+    font-family: var(--font-serif);
+    font-size: 4.2rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    font-style: italic;
+    line-height: 1.05;
+    margin-bottom: 12px;
+  }
+  @media (max-width: 768px) {
+    .brand-title {
+      font-size: 3.0rem;
+    }
+  }
+  .brand-sub {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  /* Left Side: Creative Workbench Preview */
+  .preview-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #eae8e3;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-premium);
+    aspect-ratio: 1;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.02);
+    overflow: hidden;
+  }
+
+  /* Subtle workbench background pattern */
+  .preview-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Minimalist Fine-Art Upload Zone */
+  .drop-zone {
+    width: 80%;
+    max-width: 380px;
+    aspect-ratio: 1;
+    border: 1px dashed rgba(0, 0, 0, 0.2);
+    background: #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    transition: var(--transition);
+  }
+
+  .drop-zone:hover {
+    border-color: var(--text-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+  }
+
+  .drop-icon-svg {
+    width: 44px;
+    height: 44px;
+    stroke: var(--text-secondary);
+    stroke-width: 0.75px;
+    margin-bottom: 20px;
+    opacity: 0.75;
+    transition: var(--transition);
+  }
+  .drop-zone:hover .drop-icon-svg {
+    stroke: var(--accent);
+    transform: scale(1.05);
+  }
+
+  .drop-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .drop-subtitle {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    margin-bottom: 12px;
+  }
+  .drop-specs {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  #file-input {
+    display: none;
+  }
+
+  /* Render Output Container */
+  .output-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 32px;
+    z-index: 2;
+  }
+
+  .result-img-wrapper {
+    width: 100%;
+    max-width: 460px;
+    max-height: 460px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition);
+  }
+
+  #result-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: var(--shadow-photo);
+    border-radius: 2px;
+    transition: var(--transition);
+  }
+
+  /* Right Side: Elegant Glassmorphic Control Drawer */
+  .control-panel {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-premium);
+    padding: 32px;
+    box-shadow: var(--shadow-premium);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    width: 100%;
+  }
+
+  .control-section {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 24px;
+  }
+  .control-section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .section-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Preset Ratios Grid */
+  .grid-ratios {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  @media (max-width: 480px) {
+    .grid-ratios {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .ratio-btn {
+    padding: 10px 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    background: #fff;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition);
+  }
+  .ratio-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+  }
+  .ratio-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* Frame Styles Selector */
+  .style-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .style-btn {
+    flex: 1;
+    padding: 10px 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    background: #fff;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition);
+  }
+  .style-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+  }
+  .style-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* Range Sliders styling */
+  .range-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .range-container:last-child {
+    margin-bottom: 0;
+  }
+  .range-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .range-label {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .range-val {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    min-width: 32px;
+    text-align: right;
+  }
+
+  .slider-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 3px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 2px;
+    outline: none;
+    transition: background 0.3s;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 1px solid rgba(255,255,255,0.8);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: var(--transition);
+  }
+  input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    background: #000;
+  }
+
+  /* Colors Section */
+  .palette-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .palette-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .circle-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .color-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .color-circle:hover {
+    transform: scale(1.12);
+  }
+  .color-circle.active {
+    transform: scale(1.18);
+  }
+  .color-circle.active::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent);
+  }
+
+  /* Eye Dropper / Custom Color Pickers */
+  .picker-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 4px;
+  }
+
+  .eyedropper-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: var(--transition);
+    opacity: 0.8;
+  }
+  .eyedropper-btn:hover {
+    opacity: 1;
+    transform: scale(1.08);
+    border-color: var(--text-primary);
+  }
+  .eyedropper-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: var(--text-secondary);
+  }
+
+  .custom-picker-wrapper {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .custom-picker-wrapper:hover {
+    transform: scale(1.08);
+    border-color: var(--text-primary);
+  }
+  .custom-picker-wrapper input[type=color] {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 52px;
+    height: 52px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .hex-input-wrapper {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    padding: 6px 10px;
+    gap: 4px;
+  }
+  .hex-hash {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .hex-val {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    border: none;
+    outline: none;
+    width: 60px;
+    text-transform: uppercase;
+  }
+
+  /* Export Settings Controls */
+  .export-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .select-wrapper {
+    flex: 1;
+    position: relative;
+  }
+  .select-wrapper select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background: #fff;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: var(--transition);
+  }
+  .select-wrapper select:hover {
+    border-color: var(--text-primary);
+  }
+  .select-wrapper::after {
+    content: '▼';
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  /* High Quality Buttons styling */
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .primary-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    font-weight: 400;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .primary-btn:hover {
+    background: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  }
+  .primary-btn:active {
+    transform: translateY(0);
+  }
+
+  .secondary-btn {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .secondary-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+  }
+
+  /* Back Button on edit panel */
+  .reset-btn {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+    align-self: flex-start;
+  }
+  .reset-btn:hover {
+    color: var(--text-primary);
+  }
+
+  /* Elegant Branding Footer */
+  .footer {
+    padding: 48px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid rgba(0,0,0,0.04);
+    background: rgba(255, 255, 255, 0.25);
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-link {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding-bottom: 2px;
+    transition: var(--transition);
+    position: relative;
+    display: inline-block;
+  }
+  .footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #a387c4; /* magical purple line */
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .footer-link:hover {
+    color: var(--text-primary);
+  }
+  .footer-link:hover::after {
+    width: 100%;
+  }
+  .footer-credit {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+  }
+
+  /* Ambient Aura Light Fields */
+  .aura-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background-color: #f4eee2; /* Soft warm plaster gallery base */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%2523noise)' opacity='0.02'/%3E%3C/svg%3E");
+  }
+  .aura-cloud {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px); /* Volumetric soft clouds */
+    opacity: 0.72; /* Volumetric cloud density */
+    mix-blend-mode: multiply; /* Rich glaze overlay */
+    transition: var(--transition);
+  }
+  
+  /* Shifting Gold/Ochre Sepia Cloud */
+  .aura-1 {
+    width: 90vw;
+    height: 90vw;
+    background: radial-gradient(circle, #dec098 0%, transparent 75%);
+    top: -30%;
+    left: -25%;
+    animation: fluidCloud1 28s infinite ease-in-out;
+  }
+  
+  /* Overcast Slate Blue-Grey Cloud */
+  .aura-2 {
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, #9fb2c2 0%, transparent 75%);
+    bottom: -25%;
+    right: -20%;
+    animation: fluidCloud2 34s infinite ease-in-out;
+  }
+  
+  /* Graphite Shadow Taupe Cloud */
+  .aura-3 {
+    width: 75vw;
+    height: 75vw;
+    background: radial-gradient(circle, #b1a594 0%, transparent 75%);
+    top: 25%;
+    left: 25%;
+    animation: fluidCloud3 30s infinite ease-in-out;
+  }
+  
+  @keyframes fluidCloud1 {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    33% { transform: translate(12vw, -10vh) scale(1.15) rotate(120deg); }
+    66% { transform: translate(-10vw, 15vh) scale(0.9) rotate(240deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(360deg); }
+  }
+  @keyframes fluidCloud2 {
+    0% { transform: translate(0, 0) scale(0.95) rotate(0deg); }
+    33% { transform: translate(-12vw, 12vh) scale(1.1) rotate(-120deg); }
+    66% { transform: translate(10vw, -10vh) scale(0.85) rotate(-240deg); }
+    100% { transform: translate(0, 0) scale(0.95) rotate(-360deg); }
+  }
+  @keyframes fluidCloud3 {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    33% { transform: translate(10vw, 10vh) scale(1.25) rotate(90deg); }
+    66% { transform: translate(-12vw, -12vh) scale(0.8) rotate(180deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(360deg); }
+  }
+
+  /* Magical Shimmer Text Effect */
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      #333230 0%,
+      #333230 30%,
+      #ab6bff 48%,
+      #c38cff 52%,
+      #ab6bff 56%,
+      #333230 70%,
+      #333230 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    color: #333230; /* Fallback */
+    -webkit-text-fill-color: transparent;
+    animation: textShimmer 4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+    display: inline-block;
+    transition: var(--transition);
+  }
+  
+  .shimmer-text:hover {
+    filter: drop-shadow(0 0 8px rgba(171, 107, 255, 0.6));
+    transform: scale(1.02);
+  }
+  
+  @keyframes textShimmer {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+
+  /* Manifesto Trigger & Modal Styles */
+  .footer-links-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .footer-dot {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+  .manifesto-trigger-btn {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .manifesto-trigger-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #a387c4; /* purple accent line */
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .manifesto-trigger-btn:hover {
+    color: var(--text-primary);
+  }
+  .manifesto-trigger-btn:hover::after {
+    width: 100%;
+  }
+
+  /* Manifesto Slide-Up Overlay Modal */
+  .manifesto-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .manifesto-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .manifesto-card {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-radius: var(--radius-premium);
+    padding: 48px 40px;
+    width: 90%;
+    max-width: 520px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
+    position: relative;
+    transform: scale(0.9) translateY(45px);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    text-align: center;
+  }
+  .manifesto-overlay.active .manifesto-card {
+    transform: scale(1) translateY(0);
+  }
+  .close-manifesto-btn {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    line-height: 1;
+  }
+  .close-manifesto-btn:hover {
+    color: var(--text-primary);
+    transform: scale(1.15);
+  }
+  .manifesto-title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 2.2rem;
+    font-weight: 300;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+  .manifesto-text {
+    font-family: var(--font-serif);
+    font-size: 1.22rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .manifesto-author {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-top: 32px;
+  }
+
+  /* --- Symmetrical Boutique Floating Soundscape Widget (Bottom Left) --- */
+  .soundscape-widget-wrapper {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    pointer-events: none; /* Let clicks pass through empty space */
+  }
+
+  .soundscape-toggle-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(253, 250, 245, 0.85);
+    color: var(--text-muted);
+    cursor: pointer;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 15px rgba(40, 36, 32, 0.06);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto; /* Enable clicks */
+    touch-action: manipulation;
+  }
+
+  .soundscape-toggle-btn:hover {
+    color: var(--text-primary);
+    background: rgba(253, 250, 245, 0.95);
+    border-color: rgba(0, 0, 0, 0.15);
+    transform: scale(1.08);
+  }
+
+  .soundscape-toggle-btn:active {
+    transform: scale(0.96);
+  }
+
+  /* Music active closed state */
+  .soundscape-toggle-btn.playing {
+    background: rgba(16, 185, 129, 0.06);
+    border-color: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+  }
+
+  .soundscape-toggle-btn.playing svg {
+    animation: pulse-slow 2s infinite ease-in-out;
+  }
+
+  /* Expanded state for wrapper */
+  .soundscape-widget-wrapper.expanded .soundscape-toggle-btn {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.12);
+    color: var(--text-primary);
+  }
+
+  .soundscape-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: rgba(253, 250, 245, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 25px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 6px;
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    pointer-events: none;
+    box-shadow: 0 12px 32px rgba(40, 36, 32, 0.08);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .soundscape-widget-wrapper.expanded .soundscape-menu {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .soundscape-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto; /* Enable clicks */
+    touch-action: manipulation;
+  }
+
+  .soundscape-btn:hover {
+    color: var(--text-primary);
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .soundscape-btn.active {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: var(--text-primary);
+  }
+
+  .soundscape-btn.active.playing {
+    background: rgba(16, 185, 129, 0.06);
+    border-color: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
+  }
+
+  .soundscape-btn.active.playing svg {
+    animation: spin-slow 6s linear infinite;
+    color: #10b981;
+    filter: drop-shadow(0 0 2px rgba(16, 185, 129, 0.3));
+  }
+
+  .soundscape-btn.error {
+    background: rgba(239, 68, 68, 0.06);
+    border-color: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+  }
+
+  /* Radar ping active dot styling */
+  .soundscape-btn-dot {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 6px;
+    height: 6px;
+    display: flex;
+  }
+
+  .soundscape-btn-dot .ping-wave {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #34d399;
+    opacity: 0.75;
+    animation: dot-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .soundscape-btn-dot .core-dot {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #10b981;
+  }
+
+  /* Tooltip overlay styling */
+  .soundscape-btn .tooltip,
+  .soundscape-toggle-btn .tooltip {
+    visibility: hidden;
+    background-color: #1e1e1e;
+    color: #fff;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1000;
+    left: 48px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.9);
+    opacity: 0;
+    font-family: inherit;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .soundscape-btn:hover .tooltip,
+  .soundscape-toggle-btn:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+
+  @keyframes spin-slow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.08);
+      opacity: 0.75;
+    }
+  }
+
+  @keyframes dot-ping {
+    0% {
+      transform: scale(1);
+      opacity: 0.75;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  /* Matte Annotation Styles */
+  .annotation-input-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .annotation-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    background: #fff;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: var(--transition);
+  }
+  .annotation-input:focus {
+    border-color: var(--accent);
+  }
+  .autofill-btn {
+    padding: 10px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: var(--transition);
+  }
+  .autofill-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+  }
+
+  .annotation-styles {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .annotation-style-btn {
+    flex: 1;
+    padding: 10px 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    background: #fff;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition);
+  }
+  .annotation-style-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+  }
+  .annotation-style-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .tape-colors-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .tape-color-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
+    position: relative;
+  }
+  .tape-color-circle:hover {
+    transform: scale(1.12);
+  }
+  .tape-color-circle.active {
+    transform: scale(1.18);
+  }
+  .tape-color-circle.active::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 6px;
+    border: 1.5px solid var(--accent);
+  }
+
+  /* Hidden Canvas */
+  #hidden-canvas {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- Ambient Aura Light Fields -->
+<div class="aura-bg">
+  <div class="aura-cloud aura-1"></div>
+  <div class="aura-cloud aura-2"></div>
+  <div class="aura-cloud aura-3"></div>
+</div>
+
+<div class="container">
+  
+  <!-- Header Block -->
+  <div class="header">
+    <h1 class="brand-title">Velume Matte</h1>
+    <div class="brand-sub"><span class="shimmer-text">Velume Studios</span> &bull; Archival Framing</div>
+  </div>
+
+  <!-- Left Column: Workshop Workbench -->
+  <div class="preview-wrapper" id="workbench">
+    
+    <!-- Upload State Drop Zone -->
+    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+      <svg class="drop-icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <div class="drop-title">Your work is art. Never compromise.</div>
+      <div class="drop-subtitle">Velume Matte &bull; Lossless Archival Frame</div>
+      <p class="drop-specs">Drag your photograph here, or tap to select</p>
+    </div>
+    <input type="file" id="file-input" accept="image/*">
+
+    <!-- Active State: Dynamic Image View -->
+    <div class="output-container" id="output-view">
+      <div class="result-img-wrapper" id="img-wrapper">
+        <img id="result-image" alt="Prism bordered edit">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right Column: Premium Control Panel -->
+  <div class="control-panel">
+    
+    <!-- Back Button to load a new image -->
+    <button class="reset-btn" id="reset-btn" style="display:none;" onclick="resetToGallery()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Frame another print
+    </button>
+
+    <!-- Layout section -->
+    <div class="control-section">
+      <div class="section-title">
+        <span>1. Layout & Proportion</span>
+      </div>
+      
+      <!-- Frame Style buttons -->
+      <div class="style-selector">
+        <button class="style-btn active" id="style-classic" onclick="setStyle('classic')">Classic Centered</button>
+        <button class="style-btn" id="style-polaroid" onclick="setStyle('polaroid')">Polaroid Matte</button>
+        <button class="style-btn" id="style-gallery" onclick="setStyle('gallery')">Museum Matte</button>
+      </div>
+
+      <!-- Ratio Button Grid -->
+      <div class="grid-ratios">
+        <button class="ratio-btn active" data-w="1" data-h="1" onclick="setRatio(this)">1:1 Square</button>
+        <button class="ratio-btn" data-w="4" data-h="5" onclick="setRatio(this)">4:5 Portrait</button>
+        <button class="ratio-btn" data-w="9" data-h="16" onclick="setRatio(this)">9:16 Canvas</button>
+        <button class="ratio-btn" data-w="5" data-h="4" onclick="setRatio(this)">5:4 Fine Art</button>
+        <button class="ratio-btn" data-w="2" data-h="3" onclick="setRatio(this)">2:3 35mm</button>
+        <button class="ratio-btn" data-w="3" data-h="2" onclick="setRatio(this)">3:2 Original</button>
+        <button class="ratio-btn" data-w="16" data-h="9" onclick="setRatio(this)">16:9 Cinema</button>
+        <button class="ratio-btn" id="ratio-native" data-w="native" data-h="native" onclick="setRatio(this)">Native Aspect</button>
+      </div>
+    </div>
+
+    <!-- Fine Art Sliders -->
+    <div class="control-section">
+      <div class="section-title">
+        <span>2. Matting & Details</span>
+      </div>
+
+      <!-- Width Slider -->
+      <div class="range-container">
+        <div class="range-header">
+          <span class="range-label">Matte Border Weight</span>
+          <span class="range-val" id="val-border">5%</span>
+        </div>
+        <div class="slider-wrapper">
+          <input type="range" id="slide-border" min="1" max="25" value="5" oninput="updateBorderPct(this.value)">
+        </div>
+      </div>
+
+      <!-- Rounded Corners Slider -->
+      <div class="range-container">
+        <div class="range-header">
+          <span class="range-label">Corner Softness</span>
+          <span class="range-val" id="val-radius">0px</span>
+        </div>
+        <div class="slider-wrapper">
+          <input type="range" id="slide-radius" min="0" max="50" value="0" oninput="updateRadius(this.value)">
+        </div>
+      </div>
+
+      <!-- Keyline Stroke Slider -->
+      <div class="range-container">
+        <div class="range-header">
+          <span class="range-label">Fine Gallery Keyline</span>
+          <span class="range-val" id="val-keyline">0px</span>
+        </div>
+        <div class="slider-wrapper">
+          <input type="range" id="slide-keyline" min="0" max="6" value="0" oninput="updateKeyline(this.value)">
+        </div>
+      </div>
+    </div>
+
+    <!-- Matte Annotation System -->
+    <div class="control-section">
+      <div class="section-title">
+        <span>3. Matte Annotation</span>
+      </div>
+
+      <!-- Text Input & Date Auto-fill -->
+      <div class="annotation-input-wrapper">
+        <input type="text" id="annotation-input" class="annotation-input" placeholder="Type annotation... (e.g. Kyoto, 2026)" oninput="updateAnnotationText(this.value)">
+        <button class="autofill-btn" onclick="insertCurrentDate()" title="Insert Current Date">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Annotation Style Buttons -->
+      <div class="annotation-styles">
+        <button class="annotation-style-btn active" id="astyle-sharpie" onclick="setAnnotationStyle('sharpie')">Felt Sharpie</button>
+        <button class="annotation-style-btn" id="astyle-pencil" onclick="setAnnotationStyle('pencil')">Museum Pencil</button>
+        <button class="annotation-style-btn" id="astyle-dymo" onclick="setAnnotationStyle('dymo')">Dymo Tape</button>
+      </div>
+
+      <!-- Dymo Tape Color Options -->
+      <div id="tape-colors-section" class="tape-colors-row" style="display: none;">
+        <span class="palette-label" style="margin-right: 8px;">Tape Color:</span>
+        <div class="tape-color-circle active" style="background:#1a1a1a;" data-color="black" onclick="setTapeColor(this)" title="Embassy Black"></div>
+        <div class="tape-color-circle" style="background:#901a1e;" data-color="red" onclick="setTapeColor(this)" title="Vintage Red"></div>
+        <div class="tape-color-circle" style="background:#134e32;" data-color="green" onclick="setTapeColor(this)" title="Studio Green"></div>
+        <div class="tape-color-circle" style="background:#003c71;" data-color="blue" onclick="setTapeColor(this)" title="Pacific Blue"></div>
+      </div>
+    </div>
+
+    <!-- Palette and Preset Colors -->
+    <div class="control-section">
+      <div class="section-title">
+        <span>4. Color Curation</span>
+      </div>
+
+      <div class="palette-wrapper">
+        
+        <!-- Standard Studio Colors -->
+        <div>
+          <div class="palette-label" style="margin-bottom:8px;">Studio Colorways</div>
+          <div class="circle-row" id="presets-row">
+            <div class="color-circle active" style="background:#ffffff;" data-color="#ffffff" onclick="setColor(this)" title="Studio White"></div>
+            <div class="color-circle" style="background:#fcf9f2;" data-color="#fcf9f2" onclick="setColor(this)" title="Pure Cream"></div>
+            <div class="color-circle" style="background:#efeae0;" data-color="#efeae0" onclick="setColor(this)" title="Warm Sand"></div>
+            <div class="color-circle" style="background:#d4d8cf;" data-color="#d4d8cf" onclick="setColor(this)" title="Soft Eucalyptus"></div>
+            <div class="color-circle" style="background:#ebdcd4;" data-color="#ebdcd4" onclick="setColor(this)" title="Muted Terracotta"></div>
+            <div class="color-circle" style="background:#1e1e1e;" data-color="#1e1e1e" onclick="setColor(this)" title="Gallery Charcoal"></div>
+          </div>
+        </div>
+
+        <!-- Intelligent Extracted Colors -->
+        <div id="palette-auto-section" style="display:none;">
+          <div class="palette-label" style="margin-bottom:8px;">Coordinated Palette (Auto)</div>
+          <div class="circle-row" id="palette-auto-row">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Custom picker and HEX display -->
+        <div>
+          <div class="palette-label" style="margin-bottom:8px;">Surgical Color Picker</div>
+          <div class="picker-controls">
+            <!-- EyeDropper API Button -->
+            <button class="eyedropper-btn" id="eyedropper-btn" onclick="triggerEyeDropper()" title="Pick color from screen">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.707 5.826l-2.533-2.533a1.996 1.996 0 00-2.828 0L3.53 15.109a1 1 0 00-.263.464l-1.25 5a1 1 0 001.213 1.213l5-1.25a1 1 0 00.464-.263l11.813-11.813a2.001 2.001 0 000-2.834zM5.414 17l9-9 1.586 1.586-9 9H5.414V17zm11.758-10.172l-1.586-1.586 1.066-1.066 1.586 1.586-1.066 1.066z"/>
+              </svg>
+            </button>
+            <!-- Custom HTML Color Picker -->
+            <div class="custom-picker-wrapper" title="Select color wheel">
+              <input type="color" id="custom-color-input" value="#ffffff" oninput="setCustomColor(this.value)">
+            </div>
+            <!-- Text HEX view -->
+            <div class="hex-input-wrapper">
+              <span class="hex-hash">#</span>
+              <input type="text" class="hex-val" id="hex-text-input" maxlength="6" value="FFFFFF" oninput="setHexColor(this.value)">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Export Panel -->
+    <div class="control-section" id="export-section" style="opacity: 0.4; pointer-events: none;">
+      <div class="section-title">
+        <span>5. High-Fidelity Export</span>
+      </div>
+
+      <div class="action-buttons">
+        <div class="export-row">
+          <div class="select-wrapper">
+            <select id="export-res-select">
+              <option value="export-1080">Social Feed (1080px)</option>
+              <option value="export-2048">Digital Portfolio (2048px)</option>
+              <option value="export-4k">Fine Art Exhibition (4K - 3840px)</option>
+              <option value="export-original" selected>Archival Master (Original Resolution)</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="primary-btn" onclick="exportAndSaveImage()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export Master Print
+        </button>
+
+        <button class="secondary-btn" id="share-btn" onclick="shareBorderedImage()" style="display: none;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+            <polyline points="16 6 12 2 8 6"></polyline>
+            <line x1="12" y1="2" x2="12" y2="15"></line>
+          </svg>
+          Share to Social / AirDrop
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Footer Branding -->
+<div class="footer">
+  <div class="footer-links-row">
+    <a href="https://velumestudios.com" class="footer-link" target="_blank"><span class="shimmer-text">velumestudios.com</span></a>
+    <span class="footer-dot">&bull;</span>
+    <button class="manifesto-trigger-btn" onclick="openManifesto()">The Manifesto</button>
+    <span class="footer-dot">&bull;</span>
+    <span class="footer-credit">Designed by David Goeb</span>
+  </div>
+</div>
+
+<!-- The Manifesto Slide-Up Overlay -->
+<div class="manifesto-overlay" id="manifesto-modal" onclick="closeManifesto(event)">
+  <div class="manifesto-card" onclick="event.stopPropagation()">
+    <button class="close-manifesto-btn" onclick="closeManifesto(event)">&times;</button>
+    <div class="manifesto-title">The Manifesto</div>
+    <div class="manifesto-text">
+      <p>Social grids are loud. They squeeze our perspectives, force unnatural crops, and strip away the space our photographs need to breathe.</p>
+      <p>We believe in preserving the uncropped, absolute truth of a visual composition. We believe in quiet margins, fine-art proportions, and zero nonsense.</p>
+      <p>We wanted a simple, uncompromised way to let a photograph breathe. So we built Velume Matte.</p>
+      <p>Just wrap it in a matte and let it speak.</p>
+    </div>
+    <div class="manifesto-author">&mdash; David Goeb, Velume Studios</div>
+  </div>
+</div>
+
+<!-- Symmetrical Boutique Floating Vertical Background Music Control Widget (Bottom Left) -->
+<div class="soundscape-widget-wrapper" id="soundscape-widget-wrapper" onclick="event.stopPropagation()">
+  <!-- Expanded Tracks List (Vertical stacking, flows upward) -->
+  <div class="soundscape-menu" id="soundscape-menu" aria-hidden="true">
+    <!-- Marigold Lofi -->
+    <button class="soundscape-btn" id="sbtn-marigold" onclick="selectTrack('marigold')" aria-label="Play Marigold Lofi">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 5a7 7 0 0 1 7 7c0 2-1 3.5-3 5" />
+        <path d="M19 12a7 7 0 0 1-7 7c-2 0-3.5-1-5-3" />
+        <path d="M12 19a7 7 0 0 1-7-7c0-2 1-3.5 3-5" />
+        <path d="M5 12a7 7 0 0 1 7-7c2 0 3.5 1 5 3" />
+      </svg>
+      <span class="tooltip">Marigold Lofi</span>
+      <span class="soundscape-btn-dot" id="dot-marigold" style="display:none;">
+        <span class="ping-wave"></span>
+        <span class="core-dot"></span>
+      </span>
+    </button>
+
+    <!-- Wet Pavement Zen -->
+    <button class="soundscape-btn" id="sbtn-pavement" onclick="selectTrack('pavement')" aria-label="Play Wet Pavement Zen">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+        <line x1="3" y1="14" x2="21" y2="14" />
+        <line x1="12" y1="4" x2="12" y2="14" />
+        <path d="M6 14c0 2.5 2.7 4.5 6 4.5s6-2 6-4.5" />
+        <path d="M9 14c0 1.2 1.3 2.2 3 2.2s3-1 3-2.2" />
+      </svg>
+      <span class="tooltip">Wet Pavement Zen</span>
+      <span class="soundscape-btn-dot" id="dot-pavement" style="display:none;">
+        <span class="ping-wave"></span>
+        <span class="core-dot"></span>
+      </span>
+    </button>
+    
+    <!-- Velvet Pressure -->
+    <button class="soundscape-btn" id="sbtn-velvet" onclick="selectTrack('velvet')" aria-label="Play Velvet Pressure">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+        <ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(-30 12 12)" />
+        <ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(30 12 12)" />
+        <circle cx="12" cy="12" r="1" />
+      </svg>
+      <span class="tooltip">Velvet Pressure</span>
+      <span class="soundscape-btn-dot" id="dot-velvet" style="display:none;">
+        <span class="ping-wave"></span>
+        <span class="core-dot"></span>
+      </span>
+    </button>
+    
+    <!-- Harmonic Safety -->
+    <button class="soundscape-btn" id="sbtn-harmonic" onclick="selectTrack('harmonic')" aria-label="Play Harmonic Safety">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12c3-3 6-3 9 0s6 3 9 0" />
+        <path d="M3 12c3 3 6 3 9 0s6-3 9 0" />
+      </svg>
+      <span class="tooltip">Harmonic Safety</span>
+      <span class="soundscape-btn-dot" id="dot-harmonic" style="display:none;">
+        <span class="ping-wave"></span>
+        <span class="core-dot"></span>
+      </span>
+    </button>
+  </div>
+
+  <!-- Toggle Button -->
+  <button class="soundscape-toggle-btn" id="soundscape-toggle" onclick="toggleWidgetMenu()" aria-label="Background Music Menu" title="Choose Background Music">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon">
+      <path d="M9 18V5l12-2v13"></path>
+      <circle cx="6" cy="18" r="3"></circle>
+      <circle cx="18" cy="16" r="3"></circle>
+    </svg>
+    <span class="tooltip">Soundscapes</span>
+  </button>
+</div>
+
+<!-- Hidden drawing canvas -->
+<canvas id="hidden-canvas"></canvas>
+
+<script>
+  // Symmetrical Soundscape Tracks (Nosnikwah / Blue Seriously Reworks)
+  // Localized and completely playable offline!
+  const SOUNDSCAPE_TRACKS = {
+    marigold: {
+      id: 'marigold',
+      name: 'Marigold Lofi',
+      file: './nosnikwah/01 Marigold 1 1.mp3'
+    },
+    pavement: {
+      id: 'pavement',
+      name: 'Wet Pavement Zen',
+      file: './nosnikwah/Wet Pavement Zen.mp3'
+    },
+    velvet: {
+      id: 'velvet',
+      name: 'Velvet Pressure',
+      file: './nosnikwah/Velvet Pressure.mp3'
+    },
+    harmonic: {
+      id: 'harmonic',
+      name: 'Harmonic Safety',
+      file: './nosnikwah/Harmonic Safety.mp3'
+    }
+  };
+
+  let activeTrack = null;
+  let audioPlayer = null;
+  let isPlayingMusic = false;
+  let musicVolume = 0.15; // Cozy default volume (15%) matching Lumora and Velume Studios
+
+  function updateWidgetPlayingState(isPlaying) {
+    const toggleBtn = document.getElementById('soundscape-toggle');
+    if (!toggleBtn) return;
+
+    if (isPlaying) {
+      toggleBtn.classList.add('playing');
+    } else {
+      toggleBtn.classList.remove('playing');
+    }
+  }
+
+  function toggleWidgetMenu() {
+    const wrapper = document.getElementById('soundscape-widget-wrapper');
+    const menu = document.getElementById('soundscape-menu');
+    if (!wrapper) return;
+
+    const isExpanded = wrapper.classList.contains('expanded');
+    if (!isExpanded) {
+      wrapper.classList.add('expanded');
+      if (menu) menu.removeAttribute('aria-hidden');
+    } else {
+      wrapper.classList.remove('expanded');
+      if (menu) menu.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  // Close menus if clicked outside
+  document.addEventListener('click', (e) => {
+    const soundscapeWrapper = document.getElementById('soundscape-widget-wrapper');
+    if (soundscapeWrapper && !soundscapeWrapper.contains(e.target) && soundscapeWrapper.classList.contains('expanded')) {
+      toggleWidgetMenu();
+    }
+  });
+
+  function selectTrack(trackId) {
+    const track = SOUNDSCAPE_TRACKS[trackId];
+    if (!track) return;
+
+    // Toggle play/pause if the same track is clicked
+    if (activeTrack && activeTrack.id === trackId) {
+      toggleMusic();
+      return;
+    }
+
+    // Clear visual states for all buttons
+    document.querySelectorAll('.soundscape-btn').forEach(btn => {
+      btn.classList.remove('active', 'playing', 'error');
+    });
+    document.querySelectorAll('.soundscape-btn-dot').forEach(dot => {
+      dot.style.display = 'none';
+    });
+
+    if (audioPlayer) {
+      audioPlayer.pause();
+    }
+    updateWidgetPlayingState(false);
+
+    activeTrack = track;
+    const btn = document.getElementById(`sbtn-${trackId}`);
+    if (btn) btn.classList.add('active');
+    
+    // Create and launch audio stream
+    audioPlayer = new Audio(track.file);
+    audioPlayer.loop = true;
+    audioPlayer.volume = musicVolume;
+
+    audioPlayer.addEventListener('canplay', () => {
+      if (btn) {
+        btn.classList.remove('error');
+        btn.classList.add('playing');
+      }
+      const dot = document.getElementById(`dot-${trackId}`);
+      if (dot) dot.style.display = 'flex';
+      isPlayingMusic = true;
+      updateWidgetPlayingState(true);
+    });
+
+    audioPlayer.addEventListener('error', (e) => {
+      console.warn("Audio load error:", e);
+      if (btn) btn.classList.remove('playing', 'active');
+      if (btn) btn.classList.add('error');
+      const dot = document.getElementById(`dot-${trackId}`);
+      if (dot) dot.style.display = 'none';
+      isPlayingMusic = false;
+      updateWidgetPlayingState(false);
+    });
+
+    audioPlayer.play().then(() => {
+      // Play resolved
+    }).catch(err => {
+      console.warn("Autoplay blocked:", err);
+      if (btn) btn.classList.add('error');
+      isPlayingMusic = false;
+      updateWidgetPlayingState(false);
+    });
+  }
+
+  function toggleMusic() {
+    if (!audioPlayer || !activeTrack) return;
+    const btn = document.getElementById(`sbtn-${activeTrack.id}`);
+
+    if (isPlayingMusic) {
+      audioPlayer.pause();
+      if (btn) btn.classList.remove('playing');
+      isPlayingMusic = false;
+      updateWidgetPlayingState(false);
+    } else {
+      audioPlayer.play().then(() => {
+        if (btn) btn.classList.add('playing');
+        isPlayingMusic = true;
+        updateWidgetPlayingState(true);
+      }).catch(err => {
+        console.warn("Trigger failed:", err);
+        if (btn) btn.classList.add('error');
+        updateWidgetPlayingState(false);
+      });
+    }
+  }
+
+  let loadedImg = null;
+  let originalFileName = "velume-matte";
+  
+  // Design properties defaults
+  let borderPct = 5;
+  let borderRadius = 0;
+  let keylineThickness = 0;
+  let layoutStyle = 'classic'; // 'classic', 'polaroid', 'gallery'
+  let borderColor = '#ffffff';
+  let keylineColor = 'rgba(0, 0, 0, 0.15)'; // Elegant default inner stroke
+
+  // Annotation properties
+  let annotationText = "";
+  let annotationStyle = "sharpie";
+  let tapeColor = "black";
+  
+  // Ratio sizing (null/native means original aspect ratio of image)
+  let ratioW = 1;
+  let ratioH = 1;
+
+  // Initialize
+  const dropZone = document.getElementById('drop-zone');
+  const fileInput = document.getElementById('file-input');
+  const workbench = document.getElementById('workbench');
+  const outputView = document.getElementById('output-view');
+  const resultImg = document.getElementById('result-image');
+  const exportSection = document.getElementById('export-section');
+  const resetBtn = document.getElementById('reset-btn');
+  const shareBtn = document.getElementById('share-btn');
+  const canvas = document.getElementById('hidden-canvas');
+
+  // Drag & drop triggers
+  fileInput.addEventListener('change', e => { if(e.target.files[0]) handleFile(e.target.files[0]); });
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.style.borderColor = 'var(--accent)'; });
+  dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = 'rgba(0,0,0,0.2)'; });
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.style.borderColor = 'rgba(0,0,0,0.2)';
+    const f = e.dataTransfer.files[0];
+    if (f) handleFile(f);
+  });
+
+  // Handle uploaded file
+  function handleFile(file) {
+    // Keep original filename
+    const dotIdx = file.name.lastIndexOf('.');
+    originalFileName = dotIdx !== -1 ? file.name.substring(0, dotIdx) : file.name;
+
+    const r = new FileReader();
+    r.onload = ev => {
+      const img = new Image();
+      img.onload = () => {
+        loadedImg = img;
+        
+        // Hide upload dropzone, reveal edit screen
+        dropZone.style.display = 'none';
+        outputView.style.display = 'flex';
+        exportSection.style.opacity = '1';
+        exportSection.style.pointerEvents = 'auto';
+        resetBtn.style.display = 'flex';
+
+        // Check if Web Share API is available for files
+        if (navigator.canShare && navigator.share) {
+          shareBtn.style.display = 'flex';
+        }
+
+        // Auto-extract photo color palette
+        generateAutoPalette(img);
+
+        // Perform initial draw
+        renderPreview();
+      };
+      img.src = ev.target.result;
+    };
+    r.readAsDataURL(file);
+  }
+
+  // Draw render onto preview hidden canvas
+  function renderPreview() {
+    if (!loadedImg) return;
+    drawToCanvas(canvas, 'preview');
+    // Set the source of the high-res img viewer to the canvas representation
+    resultImg.src = canvas.toDataURL('image/jpeg', 0.96);
+  }
+
+  // Master Drawing Logic
+  function drawToCanvas(targetCanvas, renderMode) {
+    const ctx = targetCanvas.getContext('2d');
+    
+    // 1. Establish resolution bounds
+    let base;
+    if (renderMode === 'preview') {
+      base = 1200; // Fast preview base
+    } else if (renderMode === 'export-1080') {
+      base = 1080;
+    } else if (renderMode === 'export-2048') {
+      base = 2048;
+    } else if (renderMode === 'export-4k') {
+      base = 3840;
+    } else if (renderMode === 'export-original') {
+      base = 'original';
+    }
+
+    // Determine current ratio values
+    let activeW = ratioW;
+    let activeH = ratioH;
+
+    // Handle native image ratio crop mode
+    if (ratioW === 'native') {
+      activeW = loadedImg.width;
+      activeH = loadedImg.height;
+    }
+
+    let cw, ch;
+    if (base === 'original') {
+      const iw = loadedImg.width;
+      const ih = loadedImg.height;
+      
+      // Calculate original sized bounding canvas
+      const approxBase = Math.max(iw, ih) * 1.35;
+      let tempCw, tempCh;
+      if (activeW >= activeH) {
+        tempCh = approxBase; tempCw = Math.round(approxBase * activeW / activeH);
+      } else {
+        tempCw = approxBase; tempCh = Math.round(approxBase * activeH / activeW);
+      }
+      
+      const s_min = Math.min(tempCw, tempCh);
+      const b = Math.round(s_min * borderPct / 100);
+      
+      let borderL = b, borderR = b, borderT = b, borderB = b;
+      if (layoutStyle === 'polaroid') {
+        borderB = Math.round(b * 3.2);
+      } else if (layoutStyle === 'gallery') {
+        borderL = Math.round(b * 0.8);
+        borderR = Math.round(b * 0.8);
+        borderT = Math.round(b * 0.8);
+        borderB = Math.round(b * 1.8);
+      }
+      
+      const aw = tempCw - (borderL + borderR);
+      const ah = tempCh - (borderT + borderB);
+      const sc = Math.min(aw / iw, ah / ih);
+      
+      const scaleFactor = 1 / sc;
+      cw = Math.round(tempCw * scaleFactor);
+      ch = Math.round(tempCh * scaleFactor);
+    } else {
+      if (activeW >= activeH) {
+        ch = base; cw = Math.round(base * activeW / activeH);
+      } else {
+        cw = base; ch = Math.round(base * activeH / activeW);
+      }
+    }
+
+    targetCanvas.width = cw;
+    targetCanvas.height = ch;
+
+    // 2. Draw canvas background frame color
+    ctx.fillStyle = borderColor;
+    ctx.fillRect(0, 0, cw, ch);
+
+    // 3. Compute dynamic photo margins
+    const s_min = Math.min(cw, ch);
+    const b = Math.round(s_min * borderPct / 100);
+    
+    let borderL = b, borderR = b, borderT = b, borderB = b;
+    if (layoutStyle === 'polaroid') {
+      borderB = Math.round(b * 3.2);
+    } else if (layoutStyle === 'gallery') {
+      borderL = Math.round(b * 0.8);
+      borderR = Math.round(b * 0.8);
+      borderT = Math.round(b * 0.8);
+      borderB = Math.round(b * 1.8);
+    }
+
+    const aw = cw - (borderL + borderR);
+    const ah = ch - (borderT + borderB);
+    
+    // 4. Calculate fitting metrics
+    const sc = Math.min(aw / loadedImg.width, ah / loadedImg.height);
+    const dw = Math.round(loadedImg.width * sc);
+    const dh = Math.round(loadedImg.height * sc);
+    
+    const dx = borderL + Math.round((aw - dw) / 2);
+    const dy = borderT + Math.round((ah - dh) / 2);
+
+    // 5. Draw Image with Clip Path for Corner Rounding
+    // We scale the rounded corners proportionally based on canvas base
+    const scaledRadius = Math.round(borderRadius * (s_min / 1200));
+
+    ctx.save();
+    ctx.beginPath();
+    if (scaledRadius > 0) {
+      if (typeof ctx.roundRect === 'function') {
+        ctx.roundRect(dx, dy, dw, dh, scaledRadius);
+      } else {
+        // Fallback custom round bounds path drawing
+        ctx.arc(dx + scaledRadius, dy + scaledRadius, scaledRadius, Math.PI, Math.PI * 1.5);
+        ctx.arc(dx + dw - scaledRadius, dy + scaledRadius, scaledRadius, Math.PI * 1.5, Math.PI * 2);
+        ctx.arc(dx + dw - scaledRadius, dy + dh - scaledRadius, scaledRadius, 0, Math.PI * 0.5);
+        ctx.arc(dx + scaledRadius, dy + dh - scaledRadius, scaledRadius, Math.PI * 0.5, Math.PI);
+        ctx.closePath();
+      }
+      ctx.clip();
+    }
+    ctx.drawImage(loadedImg, 0, 0, loadedImg.width, loadedImg.height, dx, dy, dw, dh);
+    ctx.restore();
+
+    // 6. Draw Fine Art Keyline Frame
+    if (keylineThickness > 0) {
+      ctx.beginPath();
+      // Ensure keyline stroke matches light/dark theme contrast nicely
+      ctx.strokeStyle = keylineColor;
+      ctx.lineWidth = Math.max(1, Math.round(keylineThickness * (s_min / 1200)));
+      if (scaledRadius > 0 && typeof ctx.roundRect === 'function') {
+        ctx.roundRect(dx, dy, dw, dh, scaledRadius);
+      } else {
+        ctx.rect(dx, dy, dw, dh);
+      }
+      ctx.stroke();
+    }
+
+    // 7. Draw Matte Annotation
+    if (annotationText.trim() !== "") {
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      
+      if (annotationStyle === 'sharpie') {
+        const fontSize = Math.max(14, Math.round(s_min * 0.032));
+        ctx.font = `600 ${fontSize}px 'Caveat', cursive`;
+        // Draw elegant pen ink (deep charcoal, slightly translucent like real ink)
+        ctx.fillStyle = 'rgba(30, 30, 30, 0.85)';
+        ctx.fillText(annotationText, cw / 2, (dy + dh + ch) / 2);
+      } else if (annotationStyle === 'pencil') {
+        const fontSize = Math.max(10, Math.round(s_min * 0.015));
+        ctx.font = `400 ${fontSize}px 'Plus Jakarta Sans', sans-serif`;
+        ctx.fillStyle = 'rgba(90, 88, 84, 0.72)'; // Pencil graphite
+        const spacedText = annotationText.split('').join('  ').toUpperCase();
+        ctx.fillText(spacedText, cw / 2, (dy + dh + ch) / 2);
+      } else if (annotationStyle === 'dymo') {
+        const upperText = annotationText.toUpperCase();
+        const fontSize = Math.max(12, Math.round(s_min * 0.025));
+        const charSpacing = fontSize * 0.62;
+        const totalCharsWidth = upperText.length * charSpacing;
+        const tapeWidth = totalCharsWidth + fontSize * 1.4;
+        const tapeHeight = fontSize * 1.8;
+        const tapeX = (cw - tapeWidth) / 2;
+        const tapeY = ((dy + dh + ch) / 2) - (tapeHeight / 2);
+        
+        // Draw tape background with drop-shadow
+        ctx.save();
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.16)';
+        ctx.shadowBlur = Math.max(4, Math.round(s_min * 0.008));
+        ctx.shadowOffsetY = Math.max(2, Math.round(s_min * 0.004));
+        
+        let actualTapeColor = '#1a1a1a';
+        if (tapeColor === 'red') actualTapeColor = '#901a1e';
+        else if (tapeColor === 'green') actualTapeColor = '#134e32';
+        else if (tapeColor === 'blue') actualTapeColor = '#003c71';
+        
+        ctx.fillStyle = actualTapeColor;
+        const tapeCornerRadius = Math.max(2, Math.round(s_min * 0.003));
+        ctx.beginPath();
+        if (typeof ctx.roundRect === 'function') {
+          ctx.roundRect(tapeX, tapeY, tapeWidth, tapeHeight, tapeCornerRadius);
+        } else {
+          ctx.rect(tapeX, tapeY, tapeWidth, tapeHeight);
+        }
+        ctx.fill();
+        ctx.restore();
+
+        // Draw letters
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = `700 ${fontSize}px 'Courier Prime', monospace`;
+        
+        const startX = tapeX + (fontSize * 0.7) + (charSpacing / 2);
+        const centerY = tapeY + (tapeHeight / 2);
+        
+        for (let i = 0; i < upperText.length; i++) {
+          const char = upperText[i];
+          const charX = startX + i * charSpacing;
+          
+          const yOffset = Math.sin(i * 2.3) * (fontSize * 0.06);
+          const angle = Math.sin(i * 3.7) * 0.035;
+          
+          ctx.save();
+          ctx.translate(charX, centerY + yOffset);
+          ctx.rotate(angle);
+          
+          // Embossed shadow
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
+          ctx.fillText(char, -0.5, 0.5);
+          
+          // White text
+          ctx.fillStyle = '#fcfcfc';
+          ctx.fillText(char, 0, 0);
+          ctx.restore();
+        }
+        ctx.restore();
+      }
+      ctx.restore();
+    }
+  }
+
+  // Set aspect ratio crop options
+  function setRatio(btn) {
+    document.querySelectorAll('.ratio-btn').forEach(e => e.classList.remove('active'));
+    btn.classList.add('active');
+    
+    const w = btn.dataset.w;
+    const h = btn.dataset.h;
+    
+    if (w === 'native') {
+      ratioW = 'native';
+      ratioH = 'native';
+    } else {
+      ratioW = parseFloat(w);
+      ratioH = parseFloat(h);
+    }
+    
+    renderPreview();
+  }
+
+  // Set Layout Frame Styles
+  function setStyle(style) {
+    document.querySelectorAll('.style-btn').forEach(e => e.classList.remove('active'));
+    document.getElementById('style-' + style).classList.add('active');
+    layoutStyle = style;
+    renderPreview();
+  }
+
+  // Design Property Updaters
+  function updateBorderPct(val) {
+    borderPct = parseInt(val);
+    document.getElementById('val-border').textContent = val + '%';
+    renderPreview();
+  }
+
+  function updateRadius(val) {
+    borderRadius = parseInt(val);
+    document.getElementById('val-radius').textContent = val + 'px';
+    renderPreview();
+  }
+
+  function updateKeyline(val) {
+    keylineThickness = parseInt(val);
+    document.getElementById('val-keyline').textContent = val + 'px';
+    
+    // Choose dynamic stroke contrast based on background lightness
+    if (isColorDark(borderColor)) {
+      keylineColor = 'rgba(255, 255, 255, 0.15)'; // light keyline for dark frame
+    } else {
+      keylineColor = 'rgba(0, 0, 0, 0.14)'; // dark keyline for light frame
+    }
+
+    renderPreview();
+  }
+
+  // Palette Selection
+  function setColor(el) {
+    document.querySelectorAll('.color-circle').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    borderColor = el.dataset.color;
+    
+    // Update pickers visual representation
+    document.getElementById('custom-color-input').value = borderColor;
+    document.getElementById('hex-text-input').value = borderColor.replace('#', '').toUpperCase();
+
+    // Re-evaluate keyline contrast
+    if (isColorDark(borderColor)) {
+      keylineColor = 'rgba(255, 255, 255, 0.15)';
+    } else {
+      keylineColor = 'rgba(0, 0, 0, 0.14)';
+    }
+
+    renderPreview();
+  }
+
+  // Custom Color Wheel Picker
+  function setCustomColor(color) {
+    // Remove active markers on preset circles
+    document.querySelectorAll('.color-circle').forEach(e => e.classList.remove('active'));
+    borderColor = color;
+    document.getElementById('hex-text-input').value = color.replace('#', '').toUpperCase();
+    
+    if (isColorDark(borderColor)) {
+      keylineColor = 'rgba(255, 255, 255, 0.15)';
+    } else {
+      keylineColor = 'rgba(0, 0, 0, 0.14)';
+    }
+
+    renderPreview();
+  }
+
+  // Text Hex Picker Input
+  function setHexColor(hex) {
+    if (hex.length === 6) {
+      const color = '#' + hex;
+      setCustomColor(color);
+      document.getElementById('custom-color-input').value = color;
+    }
+  }
+
+  // Trigger EyeDropper API (Chromium native screen pixel selector)
+  function triggerEyeDropper() {
+    if (!window.EyeDropper) {
+      alert("The Screen Eyedropper is not fully supported in your current browser. Try Chrome, Edge, or Opera!");
+      return;
+    }
+    const dropper = new EyeDropper();
+    dropper.open().then(result => {
+      setCustomColor(result.sRGBHex);
+      document.getElementById('custom-color-input').value = result.sRGBHex;
+    }).catch(err => {
+      console.log("Eyedropper cancelled or failed", err);
+    });
+  }
+
+  // Calculate HSL brightness to choose contrasting colors automatically
+  function isColorDark(colorHex) {
+    const c = colorHex.replace('#', '');
+    const r = parseInt(c.substring(0, 2), 16);
+    const g = parseInt(c.substring(2, 4), 16);
+    const b = parseInt(c.substring(4, 6), 16);
+    // YIQ brightness formula
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return yiq < 128;
+  }
+
+  // Annotation System Handlers
+  function updateAnnotationText(val) {
+    annotationText = val;
+    renderPreview();
+  }
+
+  function setAnnotationStyle(style) {
+    document.querySelectorAll('.annotation-style-btn').forEach(e => e.classList.remove('active'));
+    document.getElementById('astyle-' + style).classList.add('active');
+    annotationStyle = style;
+    
+    const tapeColorsSec = document.getElementById('tape-colors-section');
+    if (style === 'dymo') {
+      tapeColorsSec.style.display = 'flex';
+    } else {
+      tapeColorsSec.style.display = 'none';
+    }
+    
+    renderPreview();
+  }
+
+  function setTapeColor(el) {
+    document.querySelectorAll('.tape-color-circle').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    tapeColor = el.dataset.color;
+    renderPreview();
+  }
+
+  function insertCurrentDate() {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const formatted = `${year}.${month}.${day}`;
+    
+    const input = document.getElementById('annotation-input');
+    input.value = formatted;
+    annotationText = formatted;
+    renderPreview();
+  }
+
+  // Auto Palette Generation (Canvas Pixel-Sampling algorithm)
+  function generateAutoPalette(img) {
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = 16;
+    tempCanvas.height = 16;
+    tempCtx.drawImage(img, 0, 0, 16, 16);
+    const imgData = tempCtx.getImageData(0, 0, 16, 16).data;
+
+    const colors = [];
+    for (let i = 0; i < imgData.length; i += 4) {
+      const r = imgData[i];
+      const g = imgData[i+1];
+      const b = imgData[i+2];
+      const a = imgData[i+3];
+      if (a < 220) continue; // Ignore transparent margins
+
+      const [h, s, l] = rgbToHsl(r, g, b);
+      // Filter out monochromatic values (pure blacks/greys/whites) to make palettes interesting
+      if (l < 0.12 || l > 0.88 || s < 0.08) continue;
+
+      colors.push({ r, g, b, h, s, l });
+    }
+
+    // Bucket sort hues (8 directions of color wheels)
+    const buckets = Array.from({ length: 8 }, () => []);
+    colors.forEach(c => {
+      const idx = Math.floor(c.h / 45) % 8;
+      buckets[idx].push(c);
+    });
+
+    const sortedBuckets = buckets
+      .map((bucket, idx) => ({ idx, bucket }))
+      .filter(b => b.bucket.length > 0)
+      .sort((a, b) => b.bucket.length - a.bucket.length);
+
+    const extracted = [];
+    for (let i = 0; i < Math.min(5, sortedBuckets.length); i++) {
+      const b = sortedBuckets[i].bucket;
+      let sumR = 0, sumG = 0, sumB = 0;
+      b.forEach(c => { sumR += c.r; sumG += c.g; sumB += c.b; });
+      const avgR = Math.round(sumR / b.length);
+      const avgG = Math.round(sumG / b.length);
+      const avgB = Math.round(sumB / b.length);
+
+      // Pastelize/Mute extracted tones beautifully
+      let [h, s, l] = rgbToHsl(avgR, avgG, avgB);
+      s = Math.max(0.08, Math.min(s * 0.5, 0.28)); // Lower saturation to design-grade pastels
+      l = 0.86 + (l * 0.07); // Lift lightness to gentle, premium background heights
+      
+      const hex = hslToHex(h, s, l);
+      if (!extracted.includes(hex)) extracted.push(hex);
+    }
+
+    // Default neutral fallbacks
+    const fallbacks = ['#e3e8e5', '#e9e3e3', '#e4e2e8', '#e8e8e2', '#e5e7e9'];
+    while (extracted.length < 5) {
+      const nextFb = fallbacks[extracted.length % fallbacks.length];
+      if (!extracted.includes(nextFb)) extracted.push(nextFb);
+      else extracted.push('#e6e6e6');
+    }
+
+    // Populate auto palette section in control UI
+    const autoSection = document.getElementById('palette-auto-section');
+    const autoRow = document.getElementById('palette-auto-row');
+    autoRow.innerHTML = '';
+    
+    extracted.forEach(color => {
+      const node = document.createElement('div');
+      node.className = 'color-circle';
+      node.style.background = color;
+      node.dataset.color = color;
+      node.onclick = function() { setColor(this); };
+      autoRow.appendChild(node);
+    });
+
+    autoSection.style.display = 'block';
+  }
+
+  // Color conversion tools
+  function rgbToHsl(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+    if (max === min) {
+      h = s = 0;
+    } else {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h /= 6;
+    }
+    return [h * 360, s, l];
+  }
+
+  function hslToHex(h, s, l) {
+    let r, g, b;
+    if (s === 0) {
+      r = g = b = l;
+    } else {
+      const hue2rgb = (p, q, t) => {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1/6) return p + (q - p) * 6 * t;
+        if (t < 1/2) return q;
+        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+      };
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      const p = 2 * l - q;
+      r = hue2rgb(p, q, h / 360 + 1/3);
+      g = hue2rgb(p, q, h / 360);
+      b = hue2rgb(p, q, h / 360 - 1/3);
+    }
+    const toHex = x => {
+      const hex = Math.round(x * 255).toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    };
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+  }
+
+  // Export engine and downloader
+  function exportAndSaveImage() {
+    if (!loadedImg) return;
+
+    // Use offscreen canvas to render selected resolution
+    const exportResSelect = document.getElementById('export-res-select').value;
+    const exportCanvas = document.createElement('canvas');
+    
+    // Draw full resolution specifications
+    drawToCanvas(exportCanvas, exportResSelect);
+
+    // Save triggering download anchor
+    const link = document.createElement('a');
+    link.download = originalFileName + "-bordered.jpg";
+    link.href = exportCanvas.toDataURL('image/jpeg', 0.98);
+    link.click();
+  }
+
+  // Web Share API Integration (Social share sheet)
+  function shareBorderedImage() {
+    if (!loadedImg) return;
+
+    const exportResSelect = document.getElementById('export-res-select').value;
+    const exportCanvas = document.createElement('canvas');
+    drawToCanvas(exportCanvas, exportResSelect);
+
+    exportCanvas.toBlob(blob => {
+      const file = new File([blob], `${originalFileName}-bordered.jpg`, { type: 'image/jpeg' });
+      
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({
+          files: [file],
+          title: 'Velume Matte Framing',
+          text: 'Check out my framed photo made with Velume Matte!'
+        })
+        .then(() => console.log('Successfully shared'))
+        .catch(err => console.error('Share cancelled or failed', err));
+      } else {
+        alert("Native sharing is not supported for files on this browser configuration.");
+      }
+    }, 'image/jpeg', 0.98);
+  }
+
+  // Back button and reset states
+  function resetToGallery() {
+    loadedImg = null;
+    fileInput.value = '';
+    
+    dropZone.style.display = 'flex';
+    outputView.style.display = 'none';
+    exportSection.style.opacity = '0.4';
+    exportSection.style.pointerEvents = 'none';
+    resetBtn.style.display = 'none';
+    document.getElementById('palette-auto-section').style.display = 'none';
+  }
+
+  // Manifesto modal controls
+  function openManifesto() {
+    document.getElementById('manifesto-modal').classList.add('active');
+  }
+  function closeManifesto(e) {
+    if (e) e.preventDefault();
+    document.getElementById('manifesto-modal').classList.remove('active');
+  }
+</script>
+</body>
+</html>
