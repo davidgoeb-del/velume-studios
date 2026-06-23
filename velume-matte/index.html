@@ -1146,10 +1146,23 @@
     box-shadow: 0 2px 10px rgba(171, 107, 255, 0.14);
   }
 
-  .soundscape-btn.active.playing svg {
+  .track-abbr {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .soundscape-btn:hover .track-abbr {
+    transform: scale(1.08);
+  }
+
+  .soundscape-btn.active.playing .track-abbr {
     animation: spin-slow 6s linear infinite;
     color: #ab6bff;
-    filter: drop-shadow(0 0 4px rgba(171, 107, 255, 0.5));
+    display: inline-block;
   }
 
   .soundscape-btn.error {
@@ -1810,44 +1823,37 @@
   <div class="soundscape-menu" id="soundscape-menu" aria-hidden="true">
     <!-- Marigold Lofi -->
     <button class="soundscape-btn" id="sbtn-marigold" onclick="selectTrack('marigold')" aria-label="Play Marigold Lofi">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 5a7 7 0 0 1 7 7c0 2-1 3.5-3 5" />
-        <path d="M19 12a7 7 0 0 1-7 7c-2 0-3.5-1-5-3" />
-        <path d="M12 19a7 7 0 0 1-7-7c0-2 1-3.5 3-5" />
-        <path d="M5 12a7 7 0 0 1 7-7c2 0 3.5 1 5 3" />
-      </svg>
+      <span class="track-abbr">mgd</span>
       <span class="track-name">Marigold</span>
+    </button>
+
+    <!-- Not My Sun (Smokey Jazz) -->
+    <button class="soundscape-btn" id="sbtn-notmysun" onclick="selectTrack('notmysun')" aria-label="Play Not My Sun (Smokey Jazz)">
+      <span class="track-abbr">nms</span>
+      <span class="track-name">Not My Sun</span>
     </button>
 
     <!-- Wet Pavement Zen -->
     <button class="soundscape-btn" id="sbtn-pavement" onclick="selectTrack('pavement')" aria-label="Play Wet Pavement Zen">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
-        <line x1="3" y1="14" x2="21" y2="14" />
-        <line x1="12" y1="4" x2="12" y2="14" />
-        <path d="M6 14c0 2.5 2.7 4.5 6 4.5s6-2 6-4.5" />
-        <path d="M9 14c0 1.2 1.3 2.2 3 2.2s3-1 3-2.2" />
-      </svg>
+      <span class="track-abbr">wp</span>
       <span class="track-name">Wet Pavement</span>
+    </button>
+
+    <!-- Stonewater Hymn -->
+    <button class="soundscape-btn" id="sbtn-stonewater" onclick="selectTrack('stonewater')" aria-label="Play Stonewater Hymn">
+      <span class="track-abbr">sh</span>
+      <span class="track-name">Stonewater</span>
     </button>
     
     <!-- Velvet Pressure -->
     <button class="soundscape-btn" id="sbtn-velvet" onclick="selectTrack('velvet')" aria-label="Play Velvet Pressure">
-      <!-- Weighted lens: conveys tactility, heaviness, fabric richness -->
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="btn-icon">
-        <ellipse cx="12" cy="13" rx="9" ry="7"/>
-        <ellipse cx="12" cy="11" rx="5" ry="3.5"/>
-      </svg>
+      <span class="track-abbr">vp</span>
       <span class="track-name">Velvet</span>
     </button>
     
     <!-- Harmonic Safety -->
     <button class="soundscape-btn" id="sbtn-harmonic" onclick="selectTrack('harmonic')" aria-label="Play Harmonic Safety">
-      <!-- Waveform inside a protective circle: containment, warmth, safety -->
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="btn-icon">
-        <circle cx="12" cy="12" r="9"/>
-        <path d="M6 12 Q8 8 10 12 Q12 16 14 12 Q16 8 18 12"/>
-      </svg>
+      <span class="track-abbr">hs</span>
       <span class="track-name">Harmonic</span>
     </button>
   </div>
@@ -1874,10 +1880,20 @@
       name: 'Marigold Lofi',
       file: './nosnikwah/01 Marigold 1 1.mp3'
     },
+    notmysun: {
+      id: 'notmysun',
+      name: 'Not My Sun (Smokey Jazz)',
+      file: './nosnikwah/Not My Sun (LowFi Smokey Jazz Mix).mp3'
+    },
     pavement: {
       id: 'pavement',
       name: 'Wet Pavement Zen',
       file: './nosnikwah/Wet Pavement Zen.mp3'
+    },
+    stonewater: {
+      id: 'stonewater',
+      name: 'Stonewater Hymn',
+      file: './nosnikwah/Stonewater Hymn.mp3'
     },
     velvet: {
       id: 'velvet',

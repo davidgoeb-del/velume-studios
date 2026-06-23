@@ -249,10 +249,23 @@ body {
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
 }
 
-.soundscape-btn.active.playing svg {
+.track-abbr {
+  font-family: inherit;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.soundscape-btn:hover .track-abbr {
+  transform: scale(1.08);
+}
+
+.soundscape-btn.active.playing .track-abbr {
   animation: spin-slow 6s linear infinite;
   color: var(--active-accent);
-  filter: drop-shadow(0 0 2px rgba(16, 185, 129, 0.5));
+  display: inline-block;
 }
 
 .soundscape-btn.error {

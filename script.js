@@ -329,12 +329,21 @@ const SOUNDSCAPE_TRACKS = {
     name: 'Marigold Lofi',
     file: './nosnikwah/marigold_lofi.mp3'
   },
+  notmysun: {
+    id: 'notmysun',
+    name: 'Not My Sun (Smokey Jazz)',
+    file: './nosnikwah/Not My Sun (LowFi Smokey Jazz Mix).mp3'
+  },
   wetpavement: {
     id: 'wetpavement',
     name: 'Wet Pavement Zen',
     file: './nosnikwah/Wet Pavement Zen.mp3'
   },
-
+  stonewater: {
+    id: 'stonewater',
+    name: 'Stonewater Hymn',
+    file: './nosnikwah/Stonewater Hymn.mp3'
+  },
   velvet: {
     id: 'velvet',
     name: 'Velvet Pressure',
