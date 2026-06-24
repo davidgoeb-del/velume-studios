@@ -27,7 +27,7 @@ var import_path = __toESM(require("path"), 1);
 var import_vite = require("vite");
 async function startServer() {
   const app = (0, import_express.default)();
-  const PORT = 3e3;
+  const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3001;
   if (process.env.NODE_ENV !== "production") {
     const vite = await (0, import_vite.createServer)({
       server: { middlewareMode: true },
