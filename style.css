@@ -527,6 +527,66 @@ body {
 }
 
 
+/* --- Contact Widget (Bottom Center) --- */
+.contact-widget-wrapper {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.contact-link-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 8px 16px;
+  opacity: 0.35;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              text-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.contact-link-btn:hover {
+  color: #fff;
+  opacity: 0.9;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.contact-toast {
+  position: absolute;
+  bottom: 40px;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--active-accent); /* emerald green */
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
+.contact-toast.show {
+  opacity: 0.95;
+  transform: translateY(0);
+}
+
+
 /* --- Responsive Layout (Mobile overrides) --- */
 @media (max-width: 600px) {
   .soundscape-widget-wrapper {
@@ -575,6 +635,23 @@ body {
   .project-launch-link {
     font-size: 0.72rem;
     padding: 6px 0;
+  }
+
+  .contact-widget-wrapper {
+    bottom: 28px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .contact-link-btn {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    padding: 8px 0;
+  }
+
+  .contact-toast {
+    bottom: 36px;
+    font-size: 0.58rem;
   }
 }
 

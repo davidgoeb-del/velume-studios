@@ -287,8 +287,8 @@ function initAuroraBackground() {
 
   // Pointer Interaction Bindings
   window.addEventListener('pointerdown', (e) => {
-    // Prevent dragging canvas nodes when manipulating the corner widgets
-    if (e.target.closest('#soundscape-widget-wrapper') || e.target.closest('#project-widget-wrapper')) return;
+    // Prevent dragging canvas nodes when manipulating interactive widgets
+    if (e.target.closest('#soundscape-widget-wrapper') || e.target.closest('#project-widget-wrapper') || e.target.closest('#contact-widget-wrapper')) return;
     
     pointer.down = true;
     pointer.x = e.clientX;
@@ -539,5 +539,31 @@ function toggleMusic() {
       updateWidgetPlayingState(false);
     });
   }
+}
+
+/* ==========================================================================
+   3. EMAIL CLIPBOARD UTILITY
+   ========================================================================== */
+
+function copyEmailToClipboard() {
+  const email = 'hello@velumestudios.com';
+  navigator.clipboard.writeText(email).then(() => {
+    const toast = document.getElementById('contact-toast');
+    if (!toast) return;
+
+    // Show toast
+    toast.classList.add('show');
+    toast.setAttribute('aria-hidden', 'false');
+
+    // Auto-hide toast after 2 seconds
+    setTimeout(() => {
+      toast.classList.remove('show');
+      toast.setAttribute('aria-hidden', 'true');
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy email:', err);
+    // Fallback: Open mailto link if clipboard copy fails
+    window.location.href = `mailto:${email}`;
+  });
 }
 
