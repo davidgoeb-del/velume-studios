@@ -1760,28 +1760,12 @@
         </div>
 
         <div class="action-buttons-container">
-          <!-- Strike a Print -->
-          <button class="pill-btn pill-btn-primary" onclick="exportAndSaveImage()">
+          <!-- Consolidated Smart Strike a Print Button -->
+          <button class="pill-btn pill-btn-primary" onclick="exportPrint()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="0.5" stroke-dasharray="2 2" opacity="0.4" />
-              <rect x="7" y="7" width="10" height="10" />
-              <path d="M12 9v4M10 11l2 2 2-2" />
+              <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 4v12M8 12l4 4 4-4" />
             </svg>
             Strike a Print
-            <span class="pill-btn-meta">[ Lossless ]</span>
-          </button>
-
-          <!-- Send Proof -->
-          <button class="pill-btn pill-btn-secondary" id="share-btn" onclick="shareBorderedImage()" style="display: none;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="4" y1="18" x2="20" y2="18" opacity="0.4" />
-              <path d="M12 18L7 6M12 18l5-12M12 18V6" />
-              <circle cx="7" cy="6" r="0.75" fill="currentColor" />
-              <circle cx="12" cy="6" r="0.75" fill="currentColor" />
-              <circle cx="17" cy="6" r="0.75" fill="currentColor" />
-            </svg>
-            Send Proof
-            <span class="pill-btn-meta">[ Dialogue ]</span>
           </button>
         </div>
       </div>
@@ -2062,7 +2046,6 @@
   const resultImg = document.getElementById('result-image');
   const exportSection = document.getElementById('export-section');
   const resetBtn = document.getElementById('reset-btn');
-  const shareBtn = document.getElementById('share-btn');
   const canvas = document.getElementById('hidden-canvas');
 
   // Drag & drop triggers
@@ -2094,12 +2077,6 @@
         exportSection.style.opacity = '1';
         exportSection.style.pointerEvents = 'auto';
         resetBtn.style.display = 'flex';
-
-        // Check if Web Share API is available for files
-        if (navigator.canShare && navigator.share) {
-          shareBtn.style.display = 'flex';
-        }
-
         // Auto-extract photo color palette
         generateAutoPalette(img);
 
@@ -2675,8 +2652,8 @@
     overlay.classList.remove('active');
   }
 
-  // Export engine and downloader
-  function exportAndSaveImage() {
+  // Smart Consolidated Export Engine
+  function exportPrint() {
     if (!loadedImg) return;
 
     // 1. Trigger the darkroom rendering spinner
@@ -2691,7 +2668,6 @@
       drawToCanvas(exportCanvas, exportResSelect);
 
       // iOS Safari hard canvas size limit: 16,777,216 pixels
-      // drawToCanvas already returns a sized canvas; guard is precautionary
       const MAX_CANVAS_AREA = 16_777_216;
       const canvasArea = exportCanvas.width * exportCanvas.height;
       if (canvasArea > MAX_CANVAS_AREA) {
@@ -2708,56 +2684,53 @@
         exportCanvas.getContext('2d').drawImage(safeCanvas, 0, 0);
       }
 
-      // Use toBlob (binary, no base64 overhead, avoids main-thread memory spike)
+      // Generate the image binary blob
       exportCanvas.toBlob((blob) => {
         if (!blob) {
           alert('Archival print generation failed. Please try again.');
           hideRenderOverlay();
           return;
         }
-        try {
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.download = originalFileName + '-bordered.jpg';
-          link.href = url;
-          link.click();
-          // Revoke after download has a chance to initiate
-          setTimeout(() => URL.revokeObjectURL(url), 60000);
 
-          // 3. Complete step & reveal Success overlay
-          showSuccessOverlay();
-        } catch (err) {
-          console.error('Export failed:', err);
-          alert('Archival print download failed. Please verify browser permissions.');
-          hideRenderOverlay();
+        const fileName = `${originalFileName}-bordered.jpg`;
+        const file = new File([blob], fileName, { type: 'image/jpeg' });
+
+        // If Web Share API is available and can share the file, use native system share sheet
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+            files: [file],
+            title: 'Velume Matte Print',
+            text: 'Your Archival Print from Velume Matte.'
+          })
+          .then(() => {
+            console.log('Successfully shared/saved via system sheet');
+            hideRenderOverlay();
+          })
+          .catch((err) => {
+            console.error('System share cancelled or failed:', err);
+            hideRenderOverlay();
+          });
+        } else {
+          // Fallback: Direct browser download for desktop/unsupported environments
+          try {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = fileName;
+            link.href = url;
+            link.click();
+            // Revoke after download has a chance to initiate
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+
+            // Complete step & reveal Success overlay
+            showSuccessOverlay();
+          } catch (err) {
+            console.error('Direct download failed:', err);
+            alert('Archival print download failed. Please verify browser permissions.');
+            hideRenderOverlay();
+          }
         }
       }, 'image/jpeg', 0.95);
     }, 1000); // 1-second darkroom delay
-  }
-
-  // Web Share API Integration (Social share sheet)
-  function shareBorderedImage() {
-    if (!loadedImg) return;
-
-    const exportResSelect = document.getElementById('export-res-select').value;
-    const exportCanvas = document.createElement('canvas');
-    drawToCanvas(exportCanvas, exportResSelect);
-
-    exportCanvas.toBlob(blob => {
-      const file = new File([blob], `${originalFileName}-bordered.jpg`, { type: 'image/jpeg' });
-      
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share({
-          files: [file],
-          title: 'Velume Matte Framing',
-          text: 'Check out my framed photo made with Velume Matte!'
-        })
-        .then(() => console.log('Successfully shared'))
-        .catch(err => console.error('Share cancelled or failed', err));
-      } else {
-        alert("Native sharing is not supported for files on this browser configuration.");
-      }
-    }, 'image/jpeg', 0.98);
   }
 
   // Back button and reset states
