@@ -527,16 +527,13 @@ body {
 }
 
 
-/* --- Contact Widget (Bottom Center) --- */
+/* --- Contact Widget (Under Pinned Title) --- */
 .contact-widget-wrapper {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
+  margin-top: 1.2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   pointer-events: none;
 }
 
@@ -551,7 +548,7 @@ body {
   letter-spacing: 0.25em;
   text-transform: uppercase;
   cursor: pointer;
-  padding: 8px 16px;
+  padding: 6px 12px;
   opacity: 0.35;
   transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               text-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -567,18 +564,19 @@ body {
 
 .contact-toast {
   position: absolute;
-  bottom: 40px;
+  bottom: 28px; /* Appears directly above the button text inside brand-container */
   font-size: 0.62rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--active-accent); /* emerald green */
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(6px);
   pointer-events: none;
   transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+  white-space: nowrap;
 }
 
 .contact-toast.show {
@@ -638,19 +636,17 @@ body {
   }
 
   .contact-widget-wrapper {
-    bottom: 28px;
-    width: 100%;
-    text-align: center;
+    margin-top: 0.8rem;
   }
 
   .contact-link-btn {
     font-size: 0.62rem;
     letter-spacing: 0.2em;
-    padding: 8px 0;
+    padding: 6px 0;
   }
 
   .contact-toast {
-    bottom: 36px;
+    bottom: 24px;
     font-size: 0.58rem;
   }
 }

@@ -20,6 +20,12 @@
   <!-- Pinned Top Brand Header -->
   <header class="brand-container">
     <span class="shimmer-text">Velume Studios</span>
+    <div class="contact-widget-wrapper" id="contact-widget-wrapper">
+      <button class="contact-link-btn" onclick="copyEmailToClipboard()" aria-label="Copy contact email hello@velumestudios.com" title="Copy hello@velumestudios.com">
+        hello@velumestudios.com
+      </button>
+      <span class="contact-toast" id="contact-toast" aria-hidden="true">Copied to clipboard</span>
+    </div>
   </header>
 
   <!-- Soundscape Widget (Bottom Left) -->
@@ -96,14 +102,6 @@
       </svg>
       <span class="tooltip">Soundscapes</span>
     </button>
-  </div>
-
-  <!-- Contact Link (Bottom Center) -->
-  <div class="contact-widget-wrapper" id="contact-widget-wrapper">
-    <button class="contact-link-btn" onclick="copyEmailToClipboard()" aria-label="Copy contact email hello@velumestudios.com" title="Copy hello@velumestudios.com">
-      hello@velumestudios.com
-    </button>
-    <span class="contact-toast" id="contact-toast" aria-hidden="true">Copied to clipboard</span>
   </div>
 
   <!-- Projects Widget (Bottom Right) -->
