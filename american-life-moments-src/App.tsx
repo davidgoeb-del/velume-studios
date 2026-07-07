@@ -1231,7 +1231,11 @@ export default function App() {
       if (fallbackCalled) return;
       fallbackCalled = true;
       activeAudioRef.current = null;
-      runWebSpeechSynthesisExpressionFallback(expKey, examplesText);
+      if (storyId <= 5) {
+        runWebSpeechSynthesisExpressionFallback(expKey, [phrase]);
+      } else {
+        runWebSpeechSynthesisExpressionFallback(expKey, examplesText);
+      }
     };
 
     audio.onerror = triggerFallback;
