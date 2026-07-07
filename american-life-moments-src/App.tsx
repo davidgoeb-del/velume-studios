@@ -1578,6 +1578,7 @@ export default function App() {
   const volume = (import.meta.env.VITE_LUMORA_VOLUME as string) || '1';
   const offset = volume === '2' ? 50 : 0;
   const volumeStories = STORIES_DATA.filter(s => volume === '2' ? s.id > 50 : s.id <= 50);
+  const currentLevels = LEVELS_DATA.filter(l => volume === '2' ? l.id > 5 : l.id <= 5);
   const filteredStories = volumeStories.filter((story) => {
     if (selectedLevel !== null) {
       const startId = (selectedLevel - 1) * 10 + 1 + offset;
@@ -2552,7 +2553,7 @@ export default function App() {
                     );
                   })()}
 
-                  {LEVELS_DATA.map((level) => {
+                  {currentLevels.map((level) => {
                     const startId = (level.id - 1) * 10 + 1;
                     const endId = level.id * 10;
                     const completedInLevel = completedStories.filter(id => id >= startId && id <= endId).length;
@@ -2633,7 +2634,7 @@ export default function App() {
                 {/* Levels Navigation Tabs */}
                 <div className="flex justify-center mb-6 animate-slide-up-fade">
                   <div className="flex items-center gap-1 bg-white/70 border border-stone-200/30 p-1.5 rounded-3xl backdrop-blur-md shadow-sm overflow-x-auto max-w-full">
-                    {LEVELS_DATA.map(l => {
+                    {currentLevels.map(l => {
                       const isActive = l.id === selectedLevel;
                       const IconComponent = LEVEL_ICONS[l.id] || Sparkles;
                       return (
@@ -3189,7 +3190,7 @@ export default function App() {
             {/* Bottom Levels Navigation Tabs */}
             <div className="flex justify-center mt-8 mb-12 animate-slide-up-fade">
               <div className="flex items-center gap-1 bg-white/70 border border-stone-200/30 p-1.5 rounded-3xl backdrop-blur-md shadow-sm overflow-x-auto max-w-full">
-                {LEVELS_DATA.map(l => {
+                {currentLevels.map(l => {
                   const isActive = l.id === selectedLevel;
                   const IconComponent = LEVEL_ICONS[l.id] || Sparkles;
                   return (
