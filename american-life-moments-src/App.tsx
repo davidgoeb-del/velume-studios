@@ -1284,6 +1284,16 @@ export default function App() {
         }
         setPlayingStoryId(null);
       }
+
+      if (!isNowExpanded) {
+        setTimeout(() => {
+          const element = document.getElementById(`story-${id}`);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
+
       return {
         ...prev,
         [id]: isNowExpanded
@@ -1565,11 +1575,13 @@ export default function App() {
     return phrase.category.toLowerCase() === activeTab.toLowerCase();
   });
 
-  const VOL1_STORIES = STORIES_DATA.filter(s => s.id <= 50);
-  const filteredStories = VOL1_STORIES.filter((story) => {
+  const volume = (import.meta.env.VITE_LUMORA_VOLUME as string) || '1';
+  const offset = volume === '2' ? 50 : 0;
+  const volumeStories = STORIES_DATA.filter(s => volume === '2' ? s.id > 50 : s.id <= 50);
+  const filteredStories = volumeStories.filter((story) => {
     if (selectedLevel !== null) {
-      const startId = (selectedLevel - 1) * 10 + 1;
-      const endId = selectedLevel * 10;
+      const startId = (selectedLevel - 1) * 10 + 1 + offset;
+      const endId = selectedLevel * 10 + offset;
       if (story.id < startId || story.id > endId) {
         return false;
       }
@@ -2101,7 +2113,7 @@ export default function App() {
                 Lumora
               </h1>
               <p className="font-serif italic text-[#7c5e39] font-bold text-[28px] sm:text-[34px] mt-2 transition-colors group-hover:text-[#5c4428] text-balance leading-normal">
-                American Life Moments — Volume I
+                American Life Moments — Volume {volume === '2' ? 'II' : 'I'}
               </p>
               <p className="font-sans text-[16px] sm:text-[18px] text-stone-500 mt-1 transition-colors group-hover:text-stone-600 text-balance leading-relaxed">
                 Learn English vocabulary &amp; expressions in real everyday situations
@@ -2113,15 +2125,15 @@ export default function App() {
                 {/* Gentle Progress Indicator */}
                 <div className="max-w-md mx-auto text-center font-sans select-none mb-10">
                   <div className="flex justify-between items-center text-[13px] font-serif italic text-stone-500 mb-1.5 px-0.5">
-                    <span>{completedStories.length} of {STORIES_DATA.length} moments explored</span>
+                    <span>{completedStories.filter(id => volume === '2' ? id > 50 : id <= 50).length} of {volumeStories.length} moments explored</span>
                     <span className="font-sans not-italic text-xs font-semibold text-[#2e4f3c]">
-                      {Math.round((completedStories.length / STORIES_DATA.length) * 100)}%
+                      {Math.round((completedStories.filter(id => volume === '2' ? id > 50 : id <= 50).length / volumeStories.length) * 100)}%
                     </span>
                   </div>
                   <div className="w-full h-1.5 bg-stone-200/60 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-[#2e4f3c] transition-all duration-700 ease-out rounded-full"
-                      style={{ width: `${(completedStories.length / STORIES_DATA.length) * 100}%` }}
+                      style={{ width: `${(completedStories.filter(id => volume === '2' ? id > 50 : id <= 50).length / volumeStories.length) * 100}%` }}
                     />
                   </div>
                 </div>
@@ -3168,15 +3180,7 @@ export default function App() {
 
                     </div>
                   </div>
-                    {/* Tap to Reveal Indicator */}
-                    {!isExpanded && (
-                      <div 
-                        className="text-center mt-5 text-[13px] sm:text-[14px] uppercase tracking-wider font-sans transition-colors duration-200"
-                        style={{ color: style.textColor }}
-                      >
-                        Tap to read story & details
-                      </div>
-                    )}
+
                   </article>
                 );
               })}
