@@ -874,6 +874,7 @@ export default function App() {
   const [selectedTrack, setSelectedTrack] = useState(TRACKS[0]);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
   const musicVolume = 0.30; // Cozy default background volume (30%)
+  const SPEECH_VOLUME = 1.0; // Clear, consistent maximum volume for speech
   const [isMusicOpen, setIsMusicOpen] = useState(false);
   const [audioError, setAudioError] = useState(false);
   const [isAudioLoading, setIsAudioLoading] = useState(false);
@@ -933,6 +934,7 @@ export default function App() {
 
     const audioPath = `./audio/stories/story_${story.id}.mp3`;
     const audio = new Audio(audioPath);
+    audio.volume = SPEECH_VOLUME;
     audio.playbackRate = 1.0; // Play pre-rendered slower (80% speed) audio track naturally
     activeAudioRef.current = audio;
 
@@ -1030,6 +1032,7 @@ export default function App() {
     const audioPath = `./audio/vocab/story_${storyId}_vocab_${slug}.mp3`;
 
     const audio = new Audio(audioPath);
+    audio.volume = SPEECH_VOLUME;
     audio.playbackRate = 1.0; // Play pre-rendered slower (80% speed) audio track naturally
     activeAudioRef.current = audio;
 
@@ -1116,6 +1119,7 @@ export default function App() {
 
     const audioPath = `./audio/moments/story_${storyId}_moment.mp3`;
     const audio = new Audio(audioPath);
+    audio.volume = SPEECH_VOLUME;
     audio.playbackRate = 1.0; // Play pre-rendered slower (80% speed) audio track naturally
     activeAudioRef.current = audio;
 
@@ -1209,6 +1213,7 @@ export default function App() {
     const audioPath = `./audio/expressions/story_${storyId}_expression_${slug}.mp3`;
 
     const audio = new Audio(audioPath);
+    audio.volume = SPEECH_VOLUME;
     audio.playbackRate = 1.0; // Play pre-rendered slower (80% speed) audio track naturally
     activeAudioRef.current = audio;
 
@@ -1357,6 +1362,7 @@ export default function App() {
     const audioPath = `audio/phrases/${slug}.mp3`;
 
     const audio = new Audio(audioPath);
+    audio.volume = SPEECH_VOLUME;
     audio.playbackRate = 1.0; // Play pre-rendered slower (80% speed) audio track naturally
     activeAudioRef.current = audio;
 
