@@ -156,21 +156,57 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: rgba(255, 255, 255, 0.45);
       border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      padding: 1.5rem 1.8rem;
-      box-shadow: 0 10px 30px rgba(60, 47, 31, 0.03);
+      padding: 1.8rem 2rem;
+      box-shadow: 0 10px 30px rgba(60, 47, 31, 0.02);
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                   background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                   border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                   box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    /* Essentials Card colorway */
+    .menu-item.card-essentials {
+      background: rgba(255, 253, 249, 0.6);
+      border: 1px solid rgba(235, 220, 185, 0.7);
+    }
+    .menu-item.card-essentials:hover {
+      background-color: rgba(255, 253, 249, 0.95);
+      border-color: rgba(235, 220, 185, 0.9);
+    }
+
+    /* Cafe Culture Card colorway */
+    .menu-item.card-cafe {
+      background: rgba(244, 250, 246, 0.6);
+      border: 1px solid rgba(225, 239, 231, 0.7);
+    }
+    .menu-item.card-cafe:hover {
+      background-color: rgba(244, 250, 246, 0.95);
+      border-color: rgba(225, 239, 231, 0.9);
+    }
+
+    /* Moments Vol I Card colorway */
+    .menu-item.card-moments-v1 {
+      background: rgba(253, 245, 244, 0.6);
+      border: 1px solid rgba(235, 213, 210, 0.7);
+    }
+    .menu-item.card-moments-v1:hover {
+      background-color: rgba(253, 245, 244, 0.95);
+      border-color: rgba(235, 213, 210, 0.9);
+    }
+
+    /* Moments Vol II Card colorway */
+    .menu-item.card-moments-v2 {
+      background: rgba(246, 245, 251, 0.6);
+      border: 1px solid rgba(235, 219, 232, 0.7);
+    }
+    .menu-item.card-moments-v2:hover {
+      background-color: rgba(246, 245, 251, 0.95);
+      border-color: rgba(235, 219, 232, 0.9);
+    }
+
     .menu-item:hover {
       transform: translateY(-5px);
-      background-color: rgba(255, 255, 255, 0.9);
-      border-color: rgba(255, 255, 255, 0.85);
       box-shadow: 0 16px 40px rgba(60, 47, 31, 0.08);
     }
 
@@ -181,12 +217,21 @@
       letter-spacing: 0.01em;
       text-transform: none;
       color: var(--color-text-primary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.2rem;
       transition: color 0.4s ease;
     }
 
     .menu-item:hover .menu-item-title {
       color: var(--active-accent);
+    }
+
+    .menu-item-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--active-accent);
+      margin-bottom: 0.8rem;
     }
 
     .menu-item-description {
@@ -212,7 +257,7 @@
       text-transform: uppercase;
       font-weight: 500;
       color: var(--active-accent);
-      margin-top: 0.8rem;
+      margin-top: 1rem;
       background: rgba(124, 94, 57, 0.06);
       padding: 6px 14px;
       border-radius: 30px;
@@ -300,30 +345,34 @@
     <div class="menu-container">
       
       <!-- Essentials -->
-      <a href="/lumora-american-essentials/" class="menu-item" target="_blank">
+      <a href="/lumora-american-essentials/" class="menu-item card-essentials" target="_blank">
         <h2 class="menu-item-title">American Essentials</h2>
-        <p class="menu-item-description">An atmospheric phrase explorer and pronunciation trainer for core conversational vocabulary.</p>
+        <span class="menu-item-subtitle">an atmospheric phrase explorer</span>
+        <p class="menu-item-description">Learn through 500 core conversational vocabulary terms, dynamic audio loops, and native spoken expressions.</p>
         <span class="launch-indicator">Launch Module ↗</span>
       </a>
 
       <!-- Cafe Culture -->
-      <a href="/lumora-american-cafe-culture/" class="menu-item" target="_blank">
+      <a href="/lumora-american-cafe-culture/" class="menu-item card-cafe" target="_blank">
         <h2 class="menu-item-title">American Cafe Culture</h2>
-        <p class="menu-item-description">Situational dialogues exploring American social etiquette, coffee house orders, and nuance.</p>
+        <span class="menu-item-subtitle">situational language and etiquette</span>
+        <p class="menu-item-description">Explore social connection, ordering habits, and cultural nuances in American coffee house settings.</p>
         <span class="launch-indicator">Launch Module ↗</span>
       </a>
 
       <!-- Moments Vol I -->
-      <a href="/american-life-moments/" class="menu-item" target="_blank">
+      <a href="/american-life-moments/" class="menu-item card-moments-v1" target="_blank">
         <h2 class="menu-item-title">American Life Moments (Vol I)</h2>
-        <p class="menu-item-description">Stories 1–50 detailing everyday cultural events, set to ambient soundscapes and relative audio loops.</p>
+        <span class="menu-item-subtitle">cadence and audio stories 1–50</span>
+        <p class="menu-item-description">Immerse yourself in everyday snippets of cultural moments, featuring smooth lofi loops and slow speech cadence.</p>
         <span class="launch-indicator">Launch Module ↗</span>
       </a>
 
       <!-- Moments Vol II -->
-      <a href="/american-life-moments-v2/" class="menu-item" target="_blank">
+      <a href="/american-life-moments-v2/" class="menu-item card-moments-v2" target="_blank">
         <h2 class="menu-item-title">American Life Moments (Vol II)</h2>
-        <p class="menu-item-description">Stories 51–100 continuing the audio-narrative exploration of vocabulary and cadence.</p>
+        <span class="menu-item-subtitle">cadence and audio stories 51–100</span>
+        <p class="menu-item-description">Continue the comprehension journey through fifty additional ambient story modules and localized context.</p>
         <span class="launch-indicator">Launch Module ↗</span>
       </a>
 
