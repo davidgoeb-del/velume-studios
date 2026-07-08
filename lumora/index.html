@@ -10,11 +10,11 @@
   
   <style>
     :root {
-      --bg-dark: #0a0512;
-      --color-text-primary: #f8fafc;
-      --color-text-secondary: #94a3b8;
-      --active-accent: #c38cff;
-      --neon-glow: rgba(171, 107, 255, 0.2);
+      --bg-dark: #0a0e0c; /* Deep desaturated sage base */
+      --color-text-primary: #f5f3ef; /* Soft cream/beige white */
+      --color-text-secondary: #8da096; /* Calming sage-slate grey */
+      --active-accent: #a7f3d0; /* Glowing seafoam green */
+      --neon-glow: rgba(167, 243, 208, 0.15);
     }
 
     * {
@@ -44,7 +44,7 @@
       width: 600px;
       height: 600px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(107, 33, 168, 0.15) 0%, rgba(0,0,0,0) 70%);
+      background: radial-gradient(circle, rgba(167, 243, 208, 0.08) 0%, rgba(0,0,0,0) 70%); /* Seafoam Green */
       z-index: 1;
       pointer-events: none;
       animation: drift 25s infinite alternate ease-in-out;
@@ -59,7 +59,7 @@
       bottom: -200px;
       right: -200px;
       animation-delay: -5s;
-      background: radial-gradient(circle, rgba(147, 51, 234, 0.12) 0%, rgba(0,0,0,0) 70%);
+      background: radial-gradient(circle, rgba(254, 243, 199, 0.06) 0%, rgba(0,0,0,0) 70%); /* Warm Cream/Beige */
     }
 
     @keyframes drift {
