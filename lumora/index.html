@@ -10,8 +10,8 @@
   
   <style>
     :root {
-      --color-text-primary: #3c2f1f; /* Deep warm bronze-charcoal */
-      --color-text-secondary: #5c6b60; /* Soft slate-sage green */
+      --color-text-primary: #2e2c29; /* Deep warm charcoal-bronze */
+      --color-text-secondary: #5c4d4c; /* Warm dark grey */
       --active-accent: #7c5e39; /* Gold accent color */
     }
 
@@ -22,7 +22,7 @@
     }
 
     body {
-      background: linear-gradient(135deg, #ffd5d1 0%, #fcf5e7 50%, #d5ebd9 100%);
+      background: linear-gradient(135deg, #ffdcd8 0%, #fbf6ec 50%, #e2f2e5 100%);
       background-size: 300% 300%;
       animation: gradientShift 20s ease infinite alternate;
       color: var(--color-text-primary);
@@ -120,25 +120,21 @@
 
     /* Title Block */
     .brand-title {
-      font-size: clamp(2rem, 6vw, 3.8rem);
-      font-weight: 300;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
-      background: linear-gradient(95deg, #3c2f1f 30%, var(--active-accent) 70%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 8vw, 4.8rem);
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      margin-bottom: 0.2rem;
+      color: #2e2c29;
     }
 
     .brand-subtitle {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: clamp(1rem, 3.5vw, 1.35rem);
-      font-weight: 300;
-      color: var(--color-text-secondary);
-      letter-spacing: 0.05em;
+      font-size: clamp(1.3rem, 4.2vw, 1.7rem);
+      font-weight: 500;
+      color: var(--active-accent);
+      letter-spacing: 0.02em;
       margin-bottom: 4rem;
     }
 
@@ -159,32 +155,34 @@
     }
 
     .menu-item-title {
-      font-size: 0.85rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
       font-weight: 500;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      text-transform: none;
       color: var(--color-text-primary);
       margin-bottom: 0.4rem;
       transition: color 0.4s ease, text-shadow 0.4s ease;
     }
 
     .menu-item:hover .menu-item-title {
-      color: #3c2f1f;
-      text-shadow: 0 0 8px rgba(124, 94, 57, 0.15);
+      color: var(--active-accent);
     }
 
     .menu-item-description {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.95rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
       color: var(--color-text-secondary);
       line-height: 1.6;
       max-width: 480px;
-      opacity: 0.65;
+      opacity: 0.8;
       transition: opacity 0.4s ease;
     }
 
     .menu-item:hover .menu-item-description {
-      opacity: 0.9;
+      opacity: 1;
     }
 
     .launch-indicator {
@@ -271,7 +269,7 @@
     <p class="brand-production">
       A <a href="/" class="prod-link"><span class="shimmer-text">Velume Studios</span></a> Production
     </p>
-    <h1 class="brand-title">LUMORA</h1>
+    <h1 class="brand-title">Lumora</h1>
     <p class="brand-subtitle">An Ambient Language & Culture Suite</p>
   </header>
 
