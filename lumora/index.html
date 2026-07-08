@@ -76,46 +76,38 @@
     }
 
     /* Production Link Styles */
-    .prod-link {
-      text-decoration: none;
-      color: #7c5e39;
+    /* Production Link Styles */
+    .brand-production {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
       font-size: 0.85rem;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
       opacity: 0.85;
-      transition: opacity 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
+    }
+
+    .prod-link {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: #7c5e39; /* Gold color */
+      text-decoration: none;
+      transition: opacity 0.2s ease, text-decoration 0.2s ease;
       display: inline-block;
-      pointer-events: auto;
+      margin: 0 4px;
     }
 
     .prod-link:hover {
-      opacity: 1;
-    }
-
-    .prod-link span.serif-word {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      text-transform: none;
-      font-size: 0.78rem;
-    }
-
-    .prod-link span.sans-word {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      text-transform: uppercase;
-      font-weight: 600;
-      font-style: normal;
-      letter-spacing: 0.18em;
-      margin: 0 4px;
-      color: #7c5e39;
-      transition: text-decoration 0.2s ease;
-      display: inline-block;
-      font-size: 0.65rem;
-    }
-
-    .prod-link:hover span.sans-word {
       text-decoration: underline;
       text-underline-offset: 4px;
+      opacity: 0.9;
     }
 
-    header .prod-link {
+    header .brand-production {
       margin-bottom: 2rem;
     }
 
@@ -269,11 +261,9 @@
 <body>
 
   <header>
-    <a href="/" class="prod-link">
-      <span class="serif-word">a</span>
-      <span class="sans-word">VELUME STUDIOS</span>
-      <span class="serif-word">Production</span>
-    </a>
+    <p class="brand-production">
+      A <a href="/" class="prod-link">Velume Studios</a> Production
+    </p>
     <h1 class="brand-title">LUMORA</h1>
     <p class="brand-subtitle">An Ambient Language & Culture Suite</p>
   </header>
@@ -320,11 +310,9 @@
       <span class="contact-toast" id="contact-toast" aria-hidden="true">Copied to clipboard</span>
     </div>
 
-    <a href="/" class="prod-link">
-      <span class="serif-word">a</span>
-      <span class="sans-word">VELUME STUDIOS</span>
-      <span class="serif-word">Production</span>
-    </a>
+    <p class="brand-production" style="margin-top: 1.5rem; margin-bottom: 0;">
+      A <a href="/" class="prod-link">Velume Studios</a> Production
+    </p>
   </footer>
 
   <script>
