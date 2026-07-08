@@ -75,22 +75,39 @@
       text-align: center;
     }
 
-    /* Back Link */
-    .back-link {
-      color: var(--color-text-secondary);
+    /* Production Link Styles */
+    .prod-link {
       text-decoration: none;
+      color: var(--color-text-secondary);
       font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0.5;
-      transition: opacity 0.4s ease, color 0.4s ease;
+      opacity: 0.45;
+      transition: opacity 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
       display: inline-block;
-      margin-bottom: 2rem;
     }
 
-    .back-link:hover {
+    .prod-link:hover {
       opacity: 0.9;
-      color: var(--active-accent);
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+    }
+
+    .prod-link span.serif-word {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      text-transform: none;
+      font-size: 0.72rem;
+    }
+
+    .prod-link span.sans-word {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      margin: 0 4px;
+    }
+
+    header .prod-link {
+      margin-bottom: 2rem;
     }
 
     /* Title Block */
@@ -178,20 +195,76 @@
       transform: translateY(0);
     }
 
-    /* Footer */
+    /* Footer Container */
     footer {
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    /* Contact Button in Footer */
+    .contact-widget-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .contact-link-btn {
+      background: transparent;
+      border: none;
+      outline: none;
       color: var(--color-text-secondary);
-      opacity: 0.35;
+      font-family: inherit;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 6px 12px;
+      opacity: 0.55;
+      transition: opacity 0.4s ease, text-shadow 0.4s ease;
+      touch-action: manipulation;
+    }
+
+    .contact-link-btn:hover {
+      color: #fff;
+      opacity: 0.9;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    }
+
+    .contact-toast {
+      position: absolute;
+      bottom: 24px;
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--active-accent);
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+      white-space: nowrap;
+    }
+
+    .contact-toast.show {
+      opacity: 0.95;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
 
   <header>
-    <a href="/" class="back-link">← FROM THE STUDIO</a>
+    <a href="/" class="prod-link">
+      <span class="serif-word">A</span>
+      <span class="sans-word">Velume Studios</span>
+      <span class="serif-word">Production</span>
+    </a>
     <h1 class="brand-title">LUMORA</h1>
     <p class="brand-subtitle">An Ambient Language & Culture Suite</p>
   </header>
@@ -231,8 +304,39 @@
   </main>
 
   <footer>
-    VELUME STUDIOS &copy; 2026
+    <div class="contact-widget-wrapper" id="contact-widget-wrapper">
+      <button class="contact-link-btn" onclick="copyEmailToClipboard()" aria-label="Copy contact email hello@velumestudios.com" title="Copy hello@velumestudios.com">
+        hello@velumestudios.com
+      </button>
+      <span class="contact-toast" id="contact-toast" aria-hidden="true">Copied to clipboard</span>
+    </div>
+
+    <a href="/" class="prod-link">
+      <span class="serif-word">A</span>
+      <span class="sans-word">Velume Studios</span>
+      <span class="serif-word">Production</span>
+    </a>
   </footer>
 
+  <script>
+    function copyEmailToClipboard() {
+      const email = 'hello@velumestudios.com';
+      navigator.clipboard.writeText(email).then(() => {
+        const toast = document.getElementById('contact-toast');
+        if (!toast) return;
+
+        toast.classList.add('show');
+        toast.setAttribute('aria-hidden', 'false');
+
+        setTimeout(() => {
+          toast.classList.remove('show');
+          toast.setAttribute('aria-hidden', 'true');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy email:', err);
+        window.location.href = `mailto:${email}`;
+      });
+    }
+  </script>
 </body>
 </html>
