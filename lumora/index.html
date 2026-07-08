@@ -94,7 +94,6 @@
       text-transform: uppercase;
       font-size: 0.68rem;
       letter-spacing: 0.18em;
-      color: #7c5e39; /* Gold color */
       text-decoration: none;
       transition: opacity 0.2s ease, text-decoration 0.2s ease;
       display: inline-block;
@@ -104,7 +103,40 @@
     .prod-link:hover {
       text-decoration: underline;
       text-underline-offset: 4px;
-      opacity: 0.9;
+      opacity: 0.95;
+    }
+
+    /* Magical Shimmer Text Effect */
+    .shimmer-text {
+      background: linear-gradient(
+        90deg,
+        #7c5e39 0%,
+        #7c5e39 30%,
+        #ab6bff 48%,
+        #c38cff 52%,
+        #ab6bff 56%,
+        #7c5e39 70%,
+        #7c5e39 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      color: #7c5e39; /* Fallback */
+      -webkit-text-fill-color: transparent;
+      animation: textShimmer 4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .shimmer-text:hover {
+      filter: drop-shadow(0 0 6px rgba(171, 107, 255, 0.4));
+      transform: scale(1.02);
+    }
+
+    @keyframes textShimmer {
+      0% { background-position: 200% center; }
+      100% { background-position: -200% center; }
     }
 
     header .brand-production {
@@ -262,7 +294,7 @@
 
   <header>
     <p class="brand-production">
-      A <a href="/" class="prod-link">Velume Studios</a> Production
+      A <a href="/" class="prod-link"><span class="shimmer-text">Velume Studios</span></a> Production
     </p>
     <h1 class="brand-title">LUMORA</h1>
     <p class="brand-subtitle">An Ambient Language & Culture Suite</p>
@@ -311,7 +343,7 @@
     </div>
 
     <p class="brand-production" style="margin-top: 1.5rem; margin-bottom: 0;">
-      A <a href="/" class="prod-link">Velume Studios</a> Production
+      A <a href="/" class="prod-link"><span class="shimmer-text">Velume Studios</span></a> Production
     </p>
   </footer>
 
