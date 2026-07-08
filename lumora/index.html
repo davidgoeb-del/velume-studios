@@ -78,32 +78,41 @@
     /* Production Link Styles */
     .prod-link {
       text-decoration: none;
-      color: var(--color-text-secondary);
-      font-size: 0.65rem;
-      opacity: 0.45;
+      color: #7c5e39;
+      font-size: 0.85rem;
+      opacity: 0.85;
       transition: opacity 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
       display: inline-block;
+      pointer-events: auto;
     }
 
     .prod-link:hover {
-      opacity: 0.9;
-      color: #fff;
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+      opacity: 1;
     }
 
     .prod-link span.serif-word {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       text-transform: none;
-      font-size: 0.72rem;
+      font-size: 0.78rem;
     }
 
     .prod-link span.sans-word {
       font-family: 'Plus Jakarta Sans', sans-serif;
       text-transform: uppercase;
-      font-weight: 500;
+      font-weight: 600;
+      font-style: normal;
       letter-spacing: 0.18em;
       margin: 0 4px;
+      color: #7c5e39;
+      transition: text-decoration 0.2s ease;
+      display: inline-block;
+      font-size: 0.65rem;
+    }
+
+    .prod-link:hover span.sans-word {
+      text-decoration: underline;
+      text-underline-offset: 4px;
     }
 
     header .prod-link {
@@ -261,8 +270,8 @@
 
   <header>
     <a href="/" class="prod-link">
-      <span class="serif-word">A</span>
-      <span class="sans-word">Velume Studios</span>
+      <span class="serif-word">a</span>
+      <span class="sans-word">VELUME STUDIOS</span>
       <span class="serif-word">Production</span>
     </a>
     <h1 class="brand-title">LUMORA</h1>
@@ -312,8 +321,8 @@
     </div>
 
     <a href="/" class="prod-link">
-      <span class="serif-word">A</span>
-      <span class="sans-word">Velume Studios</span>
+      <span class="serif-word">a</span>
+      <span class="sans-word">VELUME STUDIOS</span>
       <span class="serif-word">Production</span>
     </a>
   </footer>
