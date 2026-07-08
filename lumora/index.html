@@ -1,22 +1,238 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lumora • American Essentials</title>
-    <link rel="manifest" href="./manifest.json" />
-    <meta name="theme-color" content="#7c5e39" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Lumora" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="./assets/index-BTVyZ-iL.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Ced9yLYI.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumora • Language & Culture Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0a0512;
+      --color-text-primary: #f8fafc;
+      --color-text-secondary: #94a3b8;
+      --active-accent: #c38cff;
+      --neon-glow: rgba(171, 107, 255, 0.2);
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--color-text-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      overflow-x: hidden;
+      position: relative;
+      padding: 4rem 2rem;
+    }
+
+    /* Ambient Nebulae Background */
+    body::before, body::after {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(107, 33, 168, 0.15) 0%, rgba(0,0,0,0) 70%);
+      z-index: 1;
+      pointer-events: none;
+      animation: drift 25s infinite alternate ease-in-out;
+    }
+
+    body::before {
+      top: -200px;
+      left: -200px;
+    }
+
+    body::after {
+      bottom: -200px;
+      right: -200px;
+      animation-delay: -5s;
+      background: radial-gradient(circle, rgba(147, 51, 234, 0.12) 0%, rgba(0,0,0,0) 70%);
+    }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(100px, 50px) scale(1.1); }
+    }
+
+    header, main, footer {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 640px;
+      text-align: center;
+    }
+
+    /* Back Link */
+    .back-link {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      transition: opacity 0.4s ease, color 0.4s ease;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    .back-link:hover {
+      opacity: 0.9;
+      color: var(--active-accent);
+    }
+
+    /* Title Block */
+    .brand-title {
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(95deg, #f8fafc 30%, var(--active-accent) 70%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 3.5vw, 1.35rem);
+      font-weight: 300;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.05em;
+      margin-bottom: 4rem;
+    }
+
+    /* Menu List */
+    .menu-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+      margin-bottom: 4rem;
+    }
+
+    .menu-item {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .menu-item-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-text-primary);
+      margin-bottom: 0.4rem;
+      transition: color 0.4s ease, text-shadow 0.4s ease;
+    }
+
+    .menu-item:hover .menu-item-title {
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    }
+
+    .menu-item-description {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      max-width: 480px;
+      opacity: 0.65;
+      transition: opacity 0.4s ease;
+    }
+
+    .menu-item:hover .menu-item-description {
+      opacity: 0.9;
+    }
+
+    .launch-indicator {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--active-accent);
+      margin-top: 0.4rem;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .menu-item:hover .launch-indicator {
+      opacity: 0.8;
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    footer {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      opacity: 0.35;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="back-link">← FROM THE STUDIO</a>
+    <h1 class="brand-title">LUMORA</h1>
+    <p class="brand-subtitle">An Ambient Language & Culture Suite</p>
+  </header>
+
+  <main>
+    <div class="menu-container">
+      
+      <!-- Essentials -->
+      <a href="/lumora-american-essentials/" class="menu-item" target="_blank">
+        <h2 class="menu-item-title">American Essentials</h2>
+        <p class="menu-item-description">An atmospheric phrase explorer and pronunciation trainer for core conversational vocabulary.</p>
+        <span class="launch-indicator">Launch Module ↗</span>
+      </a>
+
+      <!-- Cafe Culture -->
+      <a href="/lumora-american-cafe-culture/" class="menu-item" target="_blank">
+        <h2 class="menu-item-title">Cafe Culture</h2>
+        <p class="menu-item-description">Situational dialogues exploring American social etiquette, coffee house orders, and nuance.</p>
+        <span class="launch-indicator">Launch Module ↗</span>
+      </a>
+
+      <!-- Moments Vol I -->
+      <a href="/american-life-moments/" class="menu-item" target="_blank">
+        <h2 class="menu-item-title">Life Moments (Vol I)</h2>
+        <p class="menu-item-description">Stories 1–50 detailing everyday cultural events, set to ambient soundscapes and relative audio loops.</p>
+        <span class="launch-indicator">Launch Module ↗</span>
+      </a>
+
+      <!-- Moments Vol II -->
+      <a href="/american-life-moments-v2/" class="menu-item" target="_blank">
+        <h2 class="menu-item-title">Life Moments (Vol II)</h2>
+        <p class="menu-item-description">Stories 51–100 continuing the audio-narrative exploration of vocabulary and cadence.</p>
+        <span class="launch-indicator">Launch Module ↗</span>
+      </a>
+
+    </div>
+  </main>
+
+  <footer>
+    VELUME STUDIOS &copy; 2026
+  </footer>
+
+</body>
+</html>
