@@ -22,9 +22,9 @@
     }
 
     body {
-      background: linear-gradient(135deg, #ffdcd8 0%, #fbf6ec 50%, #e2f2e5 100%);
-      background-size: 300% 300%;
-      animation: gradientShift 20s ease infinite alternate;
+      background: linear-gradient(-45deg, #ffa69e, #ffebae, #9ef0cf, #ffa69e);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
       color: var(--color-text-primary);
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100dvh;
@@ -40,7 +40,7 @@
     @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
-      100% { background-position: 50% 100%; }
+      100% { background-position: 0% 50%; }
     }
 
     header, main, footer {
