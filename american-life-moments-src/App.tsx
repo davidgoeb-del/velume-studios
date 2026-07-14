@@ -691,35 +691,18 @@ export default function App() {
         localStorage.setItem('david_goeb_completed_stories', JSON.stringify(updated));
         return updated;
       });
-      setStoryVibes(prev => {
-        const copy = { ...prev };
-        delete copy[storyId];
-        return copy;
-      });
     } else {
-      // Trigger the vibe check selection inline
-      setVibeCheckingStoryId(storyId);
-      setVibeMessage(null);
-    }
-  };
-
-  const selectStoryVibe = (storyId: number, emoji: string, message: string) => {
-    setStoryVibes(prev => ({ ...prev, [storyId]: emoji }));
-    setVibeMessage(message);
-    
-    // After 1.5 seconds, mark completed and collapse cleanly
-    setTimeout(() => {
+      // Mark completed immediately
       setCompletedStories(prev => {
-        if (prev.includes(storyId)) return prev;
         const updated = [...prev, storyId];
         localStorage.setItem('david_goeb_completed_stories', JSON.stringify(updated));
         return updated;
       });
-      setVibeCheckingStoryId(null);
-      setVibeMessage(null);
-      // Collapse card
-      setExpandedStories(prev => ({ ...prev, [storyId]: false }));
-    }, 1500);
+      // Collapse card cleanly after a short delay so the user feels the completion
+      setTimeout(() => {
+        setExpandedStories(prev => ({ ...prev, [storyId]: false }));
+      }, 600);
+    }
   };
 
   const [savedPhrases, setSavedPhrases] = useState<string[]>(() => {
@@ -1581,14 +1564,10 @@ export default function App() {
     return phrase.category.toLowerCase() === activeTab.toLowerCase();
   });
 
-  const volume = (import.meta.env.VITE_LUMORA_VOLUME as string) || '1';
-  const offset = volume === '2' ? 50 : 0;
-  const volumeStories = STORIES_DATA.filter(s => volume === '2' ? s.id > 50 : s.id <= 50);
-  const currentLevels = LEVELS_DATA.filter(l => volume === '2' ? l.id > 5 : l.id <= 5);
-  const filteredStories = volumeStories.filter((story) => {
+  const filteredStories = STORIES_DATA.filter((story) => {
     if (selectedLevel !== null) {
-      const startId = (selectedLevel - 1) * 10 + 1 + offset;
-      const endId = selectedLevel * 10 + offset;
+      const startId = (selectedLevel - 1) * 10 + 1;
+      const endId = selectedLevel * 10;
       if (story.id < startId || story.id > endId) {
         return false;
       }
@@ -2120,7 +2099,7 @@ export default function App() {
                 Lumora
               </h1>
               <p className="font-serif italic text-[#7c5e39] font-bold text-[28px] sm:text-[34px] mt-2 transition-colors group-hover:text-[#5c4428] text-balance leading-normal">
-                American Life Moments — Volume {volume === '2' ? 'II' : 'I'}
+                American Life Moments
               </p>
               <p className="font-sans text-[16px] sm:text-[18px] text-stone-500 mt-1 transition-colors group-hover:text-stone-600 text-balance leading-relaxed">
                 Learn English vocabulary &amp; expressions in real everyday situations
@@ -2132,15 +2111,15 @@ export default function App() {
                 {/* Gentle Progress Indicator */}
                 <div className="max-w-md mx-auto text-center font-sans select-none mb-10">
                   <div className="flex justify-between items-center text-[13px] font-serif italic text-stone-500 mb-1.5 px-0.5">
-                    <span>{completedStories.filter(id => volume === '2' ? id > 50 : id <= 50).length} of {volumeStories.length} moments explored</span>
+                    <span>{completedStories.length} of {STORIES_DATA.length} moments explored</span>
                     <span className="font-sans not-italic text-xs font-semibold text-[#2e4f3c]">
-                      {Math.round((completedStories.filter(id => volume === '2' ? id > 50 : id <= 50).length / volumeStories.length) * 100)}%
+                      {Math.round((completedStories.length / STORIES_DATA.length) * 100)}%
                     </span>
                   </div>
                   <div className="w-full h-1.5 bg-stone-200/60 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-[#2e4f3c] transition-all duration-700 ease-out rounded-full"
-                      style={{ width: `${(completedStories.filter(id => volume === '2' ? id > 50 : id <= 50).length / volumeStories.length) * 100}%` }}
+                      style={{ width: `${(completedStories.length / STORIES_DATA.length) * 100}%` }}
                     />
                   </div>
                 </div>
@@ -2559,7 +2538,7 @@ export default function App() {
                     );
                   })()}
 
-                  {currentLevels.map((level) => {
+                  {LEVELS_DATA.map((level) => {
                     const startId = (level.id - 1) * 10 + 1;
                     const endId = level.id * 10;
                     const completedInLevel = completedStories.filter(id => id >= startId && id <= endId).length;
@@ -2640,7 +2619,7 @@ export default function App() {
                 {/* Levels Navigation Tabs */}
                 <div className="flex justify-center mb-6 animate-slide-up-fade">
                   <div className="flex items-center gap-1 bg-white/70 border border-stone-200/30 p-1.5 rounded-3xl backdrop-blur-md shadow-sm overflow-x-auto max-w-full">
-                    {currentLevels.map(l => {
+                    {LEVELS_DATA.map(l => {
                       const isActive = l.id === selectedLevel;
                       const IconComponent = LEVEL_ICONS[l.id] || Sparkles;
                       return (
@@ -3092,83 +3071,24 @@ export default function App() {
                           })()}
                         </div>
 
-                        {/* Bottom Action Row: Mark as Completed & Close Story */}
-                        <div className="border-t border-stone-200/40 pt-5 mt-2 flex justify-between items-center gap-3">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleExpandStory(story.id);
-                            }}
-                            className="flex items-center gap-2 px-5 py-2.5 rounded-full font-serif italic text-[14px] sm:text-[15px] tracking-wide border border-stone-200/60 bg-stone-50 hover:bg-stone-100 text-stone-600 hover:text-stone-900 transition-all duration-300 cursor-pointer active:scale-95 shadow-sm font-semibold"
-                          >
-                            <ChevronUp className="w-4 h-4" />
-                            Close Story
-                          </button>
-
-                          {vibeCheckingStoryId === story.id || completedStories.includes(story.id) ? (
-                            <div className="flex flex-col items-end gap-2.5 animate-fade-in text-right max-w-full sm:max-w-md">
-                              <span className="font-sans font-bold text-[13px] text-stone-700">
-                                How did this story make you feel?
+                        {/* Bottom Action Row: Quiet, Centered Single-Button Completion Flow */}
+                        <div className="pt-4 mt-2 flex justify-center items-center">
+                          {completedStories.includes(story.id) ? (
+                            <div className="flex items-center gap-3 animate-fade-in text-[13px] bg-stone-50 border border-stone-200/50 px-4 py-1.5 rounded-full">
+                              <span className="flex items-center gap-1.5 text-stone-500 font-sans font-medium">
+                                <CheckCircle2 className="w-4 h-4 text-emerald-600 animate-scale-up" />
+                                Story completed
                               </span>
-                              <div className="flex flex-wrap items-center justify-end gap-2">
-                                {(() => {
-                                  const currentVibe = storyVibes[story.id];
-                                  const choices = [
-                                    { emoji: '☺️', label: 'Cozy', msg: 'Lovely! Glad it brought a smile to your day.' },
-                                    { emoji: '🤔', label: 'Thoughtful', msg: 'Wonderful! Reflection is where deep learning grows.' },
-                                    { emoji: '😮', label: 'Inspired', msg: 'Exciting! New perspectives are a beautiful thing.' }
-                                  ];
-                                  return choices.map(choice => {
-                                    const isSelected = currentVibe === choice.emoji;
-                                    const isAnySelected = !!currentVibe;
-                                    return (
-                                      <button
-                                        key={choice.label}
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          selectStoryVibe(story.id, choice.emoji, choice.msg);
-                                        }}
-                                        disabled={isAnySelected && !isSelected}
-                                        className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold border transition-all duration-200 cursor-pointer ${
-                                          isSelected
-                                            ? 'bg-amber-50 border-amber-300 text-amber-900 shadow-sm scale-105 font-bold'
-                                            : isAnySelected
-                                              ? 'opacity-40 border-stone-200/50 bg-stone-50 text-stone-400 cursor-not-allowed'
-                                              : 'bg-white border-stone-200 hover:border-stone-300 text-stone-700 hover:bg-stone-50 active:scale-95'
-                                        }`}
-                                      >
-                                        <span>{choice.emoji}</span>
-                                        <span>{choice.label}</span>
-                                      </button>
-                                    );
-                                  });
-                                })()}
-                              </div>
-                              {(() => {
-                                const currentVibe = storyVibes[story.id];
-                                if (!currentVibe) return null;
-                                const messages = {
-                                  '☺️': 'Lovely! Glad it brought a smile to your day.',
-                                  '🤔': 'Wonderful! Reflection is where deep learning grows.',
-                                  '😮': 'Exciting! New perspectives are a beautiful thing.'
-                                };
-                                return (
-                                  <div className="flex items-center gap-3 mt-1.5">
-                                    <span className="font-sans font-semibold text-xs text-emerald-800 bg-emerald-50/80 border border-emerald-100 px-3 py-1.5 rounded-xl text-left">
-                                      {messages[currentVibe]}
-                                    </span>
-                                    <button
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleStoryCompleted(story.id);
-                                      }}
-                                      className="text-[11px] font-sans font-bold text-stone-400 hover:text-stone-700 underline cursor-pointer shrink-0"
-                                    >
-                                      Undo
-                                    </button>
-                                  </div>
-                                );
-                              })()}
+                              <span className="text-stone-300">|</span>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleStoryCompleted(story.id);
+                                }}
+                                className="text-stone-400 hover:text-amber-900 font-sans font-semibold transition-all duration-200 cursor-pointer active:scale-95"
+                              >
+                                Reset
+                              </button>
                             </div>
                           ) : (
                             <button
@@ -3176,10 +3096,10 @@ export default function App() {
                                 e.stopPropagation();
                                 toggleStoryCompleted(story.id);
                               }}
-                              className="flex items-center gap-2 px-5 py-2.5 rounded-full font-serif italic text-[14px] sm:text-[15px] tracking-wide border border-stone-200 text-stone-600 hover:bg-stone-50 hover:border-stone-300 transition-all duration-300 cursor-pointer active:scale-95 shadow-sm font-semibold"
+                              className="flex items-center gap-2 py-2 px-5 rounded-full border border-stone-200/80 bg-stone-50/50 hover:bg-stone-100 hover:border-stone-300 text-stone-500 hover:text-stone-800 font-sans font-semibold text-[13px] tracking-wide transition-all duration-200 cursor-pointer active:scale-95 shadow-sm"
                             >
-                              <CheckCircle2 className="w-4.5 h-4.5 text-stone-400" />
-                              Mark as Completed
+                              <CheckCircle2 className="w-4 h-4 text-stone-400" />
+                              Mark Completed & Close
                             </button>
                           )}
                         </div>
@@ -3196,7 +3116,7 @@ export default function App() {
             {/* Bottom Levels Navigation Tabs */}
             <div className="flex justify-center mt-8 mb-12 animate-slide-up-fade">
               <div className="flex items-center gap-1 bg-white/70 border border-stone-200/30 p-1.5 rounded-3xl backdrop-blur-md shadow-sm overflow-x-auto max-w-full">
-                {currentLevels.map(l => {
+                {LEVELS_DATA.map(l => {
                   const isActive = l.id === selectedLevel;
                   const IconComponent = LEVEL_ICONS[l.id] || Sparkles;
                   return (
