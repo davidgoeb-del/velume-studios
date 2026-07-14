@@ -406,7 +406,6 @@
     </p>
     <h1 class="brand-title">Lumora</h1>
     <p class="brand-subtitle">Calming Journeys in American English & Culture</p>
-    <span class="translation-text" id="trans-subtitle" style="margin-top: -1.2rem; margin-bottom: 2.2rem; font-size: clamp(0.95rem, 3.2vw, 1.15rem); text-align: center;"></span>
     <p class="brand-slogan">
       “Vocabulary is only half the language.<br>
       Learn the culture behind the words to truly live it.”
@@ -531,13 +530,6 @@
       localStorage.setItem('lumora_locale_key', lang);
       const trans = TRANSLATIONS[lang] || TRANSLATIONS['en'];
       
-      const subtitleTrans = document.getElementById('trans-subtitle');
-      if (trans.subtitle) {
-        subtitleTrans.innerHTML = trans.subtitle;
-        subtitleTrans.style.display = 'block';
-      } else {
-        subtitleTrans.style.display = 'none';
-      }
 
       // Handle slogan translation display
       const sloganTrans = document.getElementById('trans-slogan');
