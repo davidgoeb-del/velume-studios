@@ -413,7 +413,8 @@
       A <a href="/" class="prod-link"><span class="shimmer-text">Velume Studios</span></a> Production
     </p>
     <h1 class="brand-title">Lumora</h1>
-    <p class="brand-subtitle" id="brand-subtitle">Calming Journeys in American English & Culture</p>
+    <p class="brand-subtitle">Calming Journeys in American English & Culture</p>
+    <span class="translation-text" id="trans-subtitle" style="margin-top: -1.2rem; margin-bottom: 2.2rem; font-size: clamp(0.95rem, 3.2vw, 1.15rem); text-align: center;"></span>
     <p class="brand-slogan">
       “Vocabulary is only half the language.<br>
       Learn the culture behind the words to truly live it.”
@@ -476,7 +477,7 @@
   <script>
     const TRANSLATIONS = {
       en: {
-        subtitle: 'Calming Journeys in American English & Culture',
+        subtitle: '',
         slogan: '',
         subEssentials: 'a peaceful, zen-like phrase explorer',
         transEssentials: '',
@@ -486,7 +487,7 @@
         transCafe: ''
       },
       ja: {
-        subtitle: 'Calming Journeys in American English & Culture',
+        subtitle: '美式英語と文化の中を歩む、心安らぐ旅',
         slogan: '“語彙は言語の半分に過ぎません。言葉の背景にある文化を学び、真に生きた表現を身につけましょう。”',
         subEssentials: 'a peaceful, zen-like phrase explorer<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">恬靜如禪的片語探索之旅</span>',
         transEssentials: '日常会話で最も役立つ500の表現をマスター。心地よいローファイビートと落ち着いたネイティブ音声を通じて、自然に英語に浸ることができます。',
@@ -541,7 +542,13 @@
       localStorage.setItem('lumora_locale_key', lang);
       const trans = TRANSLATIONS[lang] || TRANSLATIONS['en'];
       
-      document.getElementById('brand-subtitle').innerHTML = trans.subtitle;
+      const subtitleTrans = document.getElementById('trans-subtitle');
+      if (trans.subtitle) {
+        subtitleTrans.innerHTML = trans.subtitle;
+        subtitleTrans.style.display = 'block';
+      } else {
+        subtitleTrans.style.display = 'none';
+      }
 
       // Handle slogan translation display
       const sloganTrans = document.getElementById('trans-slogan');
