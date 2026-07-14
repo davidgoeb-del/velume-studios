@@ -400,7 +400,6 @@
 
   <div class="language-selector-container">
     <select class="language-select" id="lang-select" onchange="changeLanguage(this.value)">
-      <option value="en">🇺🇸 English (EN)</option>
       <option value="ja">🇯🇵 日本語 (JA)</option>
       <option value="zh-TW">🇹🇼 繁體中文 (ZH)</option>
       <option value="ko">🇰🇷 한국어 (KO)</option>
@@ -604,7 +603,8 @@
     }
 
     // Initialize on load
-    const savedLang = localStorage.getItem('lumora_locale_key') || 'en';
+    let savedLang = localStorage.getItem('lumora_locale_key') || 'ja';
+    if (savedLang === 'en') savedLang = 'ja'; // Re-route English users to Japanese translation by default on portal entry
     document.getElementById('lang-select').value = savedLang;
     changeLanguage(savedLang);
   </script>
