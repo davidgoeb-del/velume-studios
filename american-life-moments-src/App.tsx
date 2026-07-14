@@ -2465,11 +2465,6 @@ export default function App() {
                           className={welcomeExpanded ? 'cursor-pointer hover:opacity-85 transition-opacity duration-200' : ''}
                         >
                           <div className="flex items-center justify-between mb-4">
-                            <div className="flex items-center gap-2">
-                              <span className="text-[12px] sm:text-[13px] font-sans font-bold tracking-wider px-2.5 py-0.5 rounded-full" style={{ backgroundColor: '#ebf7f5', color: '#3d6e65' }}>
-                                INTRODUCTION
-                              </span>
-                            </div>
                           </div>
                           <h2 className="font-serif-display text-[1.8rem] sm:text-[2.2rem] font-medium text-stone-900 tracking-tight leading-tight text-left group-hover/card:text-[#3d6e65] transition-colors duration-300">
                             Welcome to the Neighborhood
@@ -2896,12 +2891,6 @@ export default function App() {
                       {/* Top Header Row of Card */}
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
-                          <span 
-                            className="text-[12px] sm:text-[13px] font-sans font-bold tracking-wider px-2.5 py-0.5 rounded-full"
-                            style={{ backgroundColor: style.pillBg, color: style.pillText }}
-                          >
-                            {story.category.toUpperCase()}
-                          </span>
                         </div>
                         <div className="flex items-center gap-2">
                           {completedStories.includes(story.id) && (
