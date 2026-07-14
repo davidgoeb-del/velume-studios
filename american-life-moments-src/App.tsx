@@ -879,9 +879,9 @@ export default function App() {
     }));
   };
   const [expandedVocab, setExpandedVocab] = useState<Record<string, boolean>>({});
-  const [playingStoryId, setPlayingStoryId] = useState<number | null>(null);
+  const [playingStoryId, setPlayingStoryId] = useState<number | string | null>(null);
   const [playingVocabKey, setPlayingVocabKey] = useState<string | null>(null);
-  const [playingMomentId, setPlayingMomentId] = useState<number | null>(null);
+  const [playingMomentId, setPlayingMomentId] = useState<number | string | null>(null);
   const [playingExpressionKey, setPlayingExpressionKey] = useState<string | null>(null);
 
   const toggleExpandVocab = (wordKey: string) => {
@@ -918,7 +918,7 @@ export default function App() {
     const audioPath = `./audio/stories/story_${story.id}.mp3`;
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
-    audio.playbackRate = 1.0; // Play pre-rendered slower (80% speed) audio track naturally
+    audio.playbackRate = 0.80; // Play pre-rendered slower (80% speed) audio track naturally
     activeAudioRef.current = audio;
 
     audio.onplay = () => {
@@ -1016,7 +1016,7 @@ export default function App() {
 
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
-    audio.playbackRate = 1.0; // Play pre-rendered slower (80% speed) audio track naturally
+    audio.playbackRate = 0.80; // Play pre-rendered slower (80% speed) audio track naturally
     activeAudioRef.current = audio;
 
     audio.onplay = () => {
@@ -1076,6 +1076,104 @@ export default function App() {
     window.speechSynthesis.speak(utterance);
   };
 
+  const playWelcomeSpeech = (
+    type: 'story' | 'vocab' | 'expression' | 'moment',
+    key: string,
+    textToSpeak: string,
+    audioPath: string,
+    e: React.MouseEvent
+  ) => {
+    e.stopPropagation();
+    if (typeof window === 'undefined') return;
+
+    let isPlaying = false;
+    if (type === 'story') isPlaying = playingStoryId === key;
+    else if (type === 'vocab') isPlaying = playingVocabKey === key;
+    else if (type === 'expression') isPlaying = playingExpressionKey === key;
+    else if (type === 'moment') isPlaying = playingMomentId === key;
+
+    if (isPlaying) {
+      if (activeAudioRef.current) {
+        activeAudioRef.current.pause();
+        activeAudioRef.current = null;
+      }
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+      
+      if (type === 'story') setPlayingStoryId(null);
+      else if (type === 'vocab') setPlayingVocabKey(null);
+      else if (type === 'expression') setPlayingExpressionKey(null);
+      else if (type === 'moment') setPlayingMomentId(null);
+      return;
+    }
+
+    if (activeAudioRef.current) {
+      activeAudioRef.current.pause();
+      activeAudioRef.current = null;
+    }
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+
+    const audio = new Audio(audioPath);
+    audio.volume = SPEECH_VOLUME;
+    audio.playbackRate = 0.80; // 80% natural study speed
+    activeAudioRef.current = audio;
+
+    audio.onplay = () => {
+      if (type === 'story') setPlayingStoryId(key);
+      else if (type === 'vocab') setPlayingVocabKey(key);
+      else if (type === 'expression') setPlayingExpressionKey(key);
+      else if (type === 'moment') setPlayingMomentId(key);
+    };
+
+    audio.onended = () => {
+      activeAudioRef.current = null;
+      if (type === 'story') setPlayingStoryId(null);
+      else if (type === 'vocab') setPlayingVocabKey(null);
+      else if (type === 'expression') setPlayingExpressionKey(null);
+      else if (type === 'moment') setPlayingMomentId(null);
+    };
+
+    audio.onerror = () => {
+      activeAudioRef.current = null;
+      if (window.speechSynthesis) {
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.rate = 0.80; // Slower cadence
+        
+        const voices = window.speechSynthesis.getVoices();
+        const preferredVoice = voices.find(v => 
+          v.name.includes('Google US English') || 
+          v.name.includes('Samantha') || 
+          v.name.includes('Zira')
+        );
+        if (preferredVoice) utterance.voice = preferredVoice;
+
+        utterance.onstart = () => {
+          if (type === 'story') setPlayingStoryId(key);
+          else if (type === 'vocab') setPlayingVocabKey(key);
+          else if (type === 'expression') setPlayingExpressionKey(key);
+          else if (type === 'moment') setPlayingMomentId(key);
+        };
+
+        utterance.onend = () => {
+          if (type === 'story') setPlayingStoryId(null);
+          else if (type === 'vocab') setPlayingVocabKey(null);
+          else if (type === 'expression') setPlayingExpressionKey(null);
+          else if (type === 'moment') setPlayingMomentId(null);
+        };
+
+        window.speechSynthesis.speak(utterance);
+      }
+    };
+
+    audio.play().catch(() => {
+      // Direct fallback on block
+      audio.onerror(new Event('error'));
+    });
+  };
+
   const playMomentSpeech = (storyId: number, momentText: string, e: React.MouseEvent) => {
     e.stopPropagation();
     if (typeof window === 'undefined') return;
@@ -1103,7 +1201,7 @@ export default function App() {
     const audioPath = `./audio/moments/story_${storyId}_moment.mp3`;
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
-    audio.playbackRate = 1.0; // Play pre-rendered slower (80% speed) audio track naturally
+    audio.playbackRate = 0.80; // Play pre-rendered slower (80% speed) audio track naturally
     activeAudioRef.current = audio;
 
     audio.onplay = () => {
@@ -1197,7 +1295,7 @@ export default function App() {
 
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
-    audio.playbackRate = 1.0; // Play pre-rendered slower (80% speed) audio track naturally
+    audio.playbackRate = 0.80; // Play pre-rendered slower (80% speed) audio track naturally
     activeAudioRef.current = audio;
 
     audio.onplay = () => {
@@ -1346,7 +1444,7 @@ export default function App() {
 
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
-    audio.playbackRate = 1.0; // Play pre-rendered slower (80% speed) audio track naturally
+    audio.playbackRate = 0.80; // Play pre-rendered slower (80% speed) audio track naturally
     activeAudioRef.current = audio;
 
     audio.onplay = () => {
@@ -2373,6 +2471,18 @@ export default function App() {
                                 INTRODUCTION
                               </span>
                             </div>
+                            {/* Welcome story audio play button */}
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                const fullStoryText = welcomeBodyText.map(para => para.en).join(' ');
+                                playWelcomeSpeech('story', 'welcome', fullStoryText, './audio/stories/story_welcome.mp3', e);
+                              }}
+                              className="w-9 h-9 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer active:scale-95 border-[#b8dad4] text-[#3d6e65] hover:bg-[#ebf7f5]/40"
+                              title="Listen to introduction story"
+                            >
+                              {playingStoryId === 'welcome' ? <VolumeX className="w-4.5 h-4.5 animate-pulse" /> : <Volume2 className="w-4.5 h-4.5" />}
+                            </button>
                           </div>
                           <h2 className="font-serif-display text-[1.8rem] sm:text-[2.2rem] font-medium text-stone-900 tracking-tight leading-tight text-left group-hover/card:text-[#3d6e65] transition-colors duration-300">
                             Welcome to the Neighborhood
@@ -2428,14 +2538,26 @@ export default function App() {
                                       style={{ backgroundColor: '#ebf7f5', borderColor: '#b8dad4' }}
                                       className="vocab-card p-4 border cursor-pointer flex flex-col justify-between rounded-2xl hover:scale-[1.01] hover:shadow-md transition-all duration-200"
                                     >
-                                      <div className="flex justify-between items-center w-full">
+                                      <div className="flex justify-between items-center w-full gap-2">
                                         <div className="flex flex-col text-left">
                                           <strong className="vocab-word font-bold text-stone-900 font-sans text-[18px] tracking-tight">{item.word}</strong>
                                           <span className="vocab-def text-stone-600 font-serif italic text-[14.5px] mt-0.5">{def}</span>
                                         </div>
-                                        <span className="text-[10.5px] uppercase font-sans tracking-wider font-semibold text-stone-700 bg-white/70 border border-stone-200/40 px-2.5 py-0.5 rounded-full select-none shadow-sm">
-                                          {isVExp ? 'Hide' : 'Example'}
-                                        </span>
+                                        <div className="flex items-center gap-1.5 shrink-0">
+                                          {/* Vocab voice play button */}
+                                          <button
+                                            onClick={(e) => {
+                                              e.stopPropagation();
+                                              playWelcomeSpeech('vocab', wKey, item.example, `./audio/vocab/story_welcome_vocab_${item.word}.mp3`, e);
+                                            }}
+                                            className="w-7 h-7 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer border-[#b8dad4] text-[#3d6e65] hover:bg-white"
+                                          >
+                                            {playingVocabKey === wKey ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+                                          </button>
+                                          <span className="text-[10.5px] uppercase font-sans tracking-wider font-semibold text-stone-700 bg-white/70 border border-stone-200/40 px-2.5 py-0.5 rounded-full select-none shadow-sm">
+                                            {isVExp ? 'Hide' : 'Example'}
+                                          </span>
+                                        </div>
                                       </div>
                                       <div className={`vocab-example text-stone-800 text-[14.5px] font-sans mt-2 border-t border-stone-200/30 pt-2 ${isVExp ? 'show' : ''}`}>
                                         <span className="italic">💬 {item.example}</span>
@@ -2460,13 +2582,26 @@ export default function App() {
                                       style={{ backgroundColor: '#ebf7f570', borderColor: '#b8dad4' }}
                                       className="p-4 border rounded-2xl flex flex-col justify-between shadow-sm"
                                     >
-                                      <div>
-                                        <strong className="font-bold text-stone-900 font-sans text-[18px] tracking-tight block">{exp.phrase}</strong>
-                                        <span className="text-stone-600 text-[14.5px] font-serif italic block mt-0.5">({transPhrase})</span>
-                                        <div className="mt-3 rounded-2xl px-4 py-3 text-[14.5px] sm:text-[16px] font-sans leading-relaxed border shadow-sm bg-white border-stone-200 text-stone-900">
-                                          <div className="text-stone-800 font-bold">{exp.example}</div>
-                                          {transEx && <div className="text-[13px] sm:text-[14.5px] text-stone-500 italic mt-0.5 font-serif">{transEx}</div>}
+                                      <div className="flex justify-between items-start">
+                                        <div className="text-left">
+                                          <strong className="font-bold text-stone-900 font-sans text-[18px] tracking-tight block">{exp.phrase}</strong>
+                                          <span className="text-stone-600 text-[14.5px] font-serif italic block mt-0.5">({transPhrase})</span>
                                         </div>
+                                        {/* Expressions play button */}
+                                        <button
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            const expKey = `welcome-exp-${eIdx}`;
+                                            playWelcomeSpeech('expression', expKey, exp.example, `./audio/expressions/story_welcome_expression_${exp.phrase.replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '')}.mp3`, e);
+                                          }}
+                                          className="w-7 h-7 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer border-[#b8dad4] text-[#3d6e65] hover:bg-white shrink-0 ml-2"
+                                        >
+                                          {playingExpressionKey === `welcome-exp-${eIdx}` ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+                                        </button>
+                                      </div>
+                                      <div className="mt-3 rounded-2xl px-4 py-3 text-[14.5px] sm:text-[16px] font-sans leading-relaxed border shadow-sm bg-white border-stone-200 text-stone-900">
+                                        <div className="text-stone-800 font-bold">{exp.example}</div>
+                                        {transEx && <div className="text-[13px] sm:text-[14.5px] text-stone-500 italic mt-0.5 font-serif">{transEx}</div>}
                                       </div>
                                     </div>
                                   );
@@ -2479,11 +2614,23 @@ export default function App() {
                               className="p-5 sm:p-6 rounded-[24px] border text-left"
                               style={{ backgroundColor: '#ebf7f580', borderColor: '#b8dad4' }}
                             >
-                              <div className="flex items-center gap-2 mb-3">
-                                <Sparkles className="w-4 h-4" style={{ color: '#3d6e65' }} />
-                                <span className="text-[11px] font-sans font-bold tracking-widest uppercase" style={{ color: '#3d6e65' }}>
-                                  American Moment
-                                </span>
+                              <div className="flex items-center justify-between mb-3 w-full">
+                                <div className="flex items-center gap-2">
+                                  <Sparkles className="w-4 h-4" style={{ color: '#3d6e65' }} />
+                                  <span className="text-[11px] font-sans font-bold tracking-widest uppercase" style={{ color: '#3d6e65' }}>
+                                    American Moment
+                                  </span>
+                                </div>
+                                {/* Moment play button */}
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    playWelcomeSpeech('moment', 'welcome-moment', welcomeMomentText, './audio/moments/story_welcome_moment.mp3', e);
+                                  }}
+                                  className="w-7 h-7 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer border-[#b8dad4] text-[#3d6e65] hover:bg-white"
+                                >
+                                  {playingMomentId === 'welcome-moment' ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+                                </button>
                               </div>
                               <div className="space-y-3">
                                 <p className="font-sans text-stone-900 text-[15px] sm:text-[16px] leading-relaxed font-medium">
