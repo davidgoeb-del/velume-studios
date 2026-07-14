@@ -2888,11 +2888,16 @@ export default function App() {
                       onClick={isExpanded ? () => toggleExpandStory(story.id) : undefined}
                       className={isExpanded ? 'cursor-pointer hover:opacity-85 active:opacity-75 transition-all duration-200' : ''}
                     >
-                      {/* Top Header Row of Card */}
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2">
-                        </div>
-                        <div className="flex items-center gap-2">
+                      {/* Top Header Row of Card (Title & Story Number aligned horizontally) */}
+                      <div className="flex items-start justify-between gap-4">
+                        <h2 className="font-serif-display text-[1.8rem] sm:text-[2.2rem] font-medium text-stone-900 tracking-tight leading-tight text-left group-hover/card:text-[#7c5e39] transition-colors duration-300">
+                          {story.title}
+                          <span className="block text-stone-400 font-normal text-[0.95rem] sm:text-[1rem] mt-1.5 font-sans not-italic font-medium">
+                            {getStoryTitle(story)}
+                          </span>
+                        </h2>
+                        
+                        <div className="flex items-center gap-2 shrink-0 mt-1">
                           {completedStories.includes(story.id) && (
                             <span className="flex items-center gap-1 text-[11px] font-sans font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200/50">
                               {storyVibes[story.id] && (
@@ -2907,14 +2912,6 @@ export default function App() {
                           <span className="text-stone-700 text-[18px] sm:text-[19px] font-serif font-bold italic">Story #{story.id}</span>
                         </div>
                       </div>
-
-                      {/* Title */}
-                      <h2 className="font-serif-display text-[1.8rem] sm:text-[2.2rem] font-medium text-stone-900 tracking-tight leading-tight text-left group-hover/card:text-[#7c5e39] transition-colors duration-300">
-                        {story.title}
-                        <span className="block text-stone-400 font-normal text-[0.95rem] sm:text-[1rem] mt-1.5 font-sans not-italic font-medium">
-                          {getStoryTitle(story)}
-                        </span>
-                      </h2>
                     </div>
 
                     {/* Teaser Sneak Preview */}
