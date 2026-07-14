@@ -2771,10 +2771,9 @@ export default function App() {
               <div className="max-w-2xl mx-auto mt-6 px-4 sm:px-6">
                 {/* Levels Navigation Tabs */}
                 <div className="flex justify-center mb-6 animate-slide-up-fade">
-                  <div className="flex items-center gap-1 bg-white/70 border border-stone-200/30 p-1.5 rounded-3xl backdrop-blur-md shadow-sm overflow-x-auto max-w-full">
+                  <div className="flex items-center gap-2 bg-[#f6f3ed]/65 border border-stone-200/25 p-2 rounded-full backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.02)] overflow-x-auto max-w-full">
                     {LEVELS_DATA.map(l => {
                       const isActive = l.id === selectedLevel;
-                      const IconComponent = LEVEL_ICONS[l.id] || Sparkles;
                       return (
                         <button
                           key={l.id}
@@ -2787,15 +2786,13 @@ export default function App() {
                             color: isActive ? l.textColor : '#78716c',
                             borderColor: isActive ? l.borderColor : 'transparent'
                           }}
-                          className={`flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-2xl text-[12px] sm:text-xs font-semibold border transition-all duration-300 cursor-pointer shrink-0 ${
+                          className={`flex items-center px-4.5 py-2 rounded-full font-serif italic text-[14.5px] sm:text-[15.5px] font-medium border transition-all duration-300 cursor-pointer shrink-0 ${
                             isActive 
-                              ? 'shadow-sm font-bold scale-105' 
-                              : 'hover:bg-stone-200/50 hover:text-stone-800'
+                              ? 'shadow-[0_2px_8px_rgba(0,0,0,0.04)] font-bold scale-[1.02]' 
+                              : 'hover:text-stone-900 opacity-80 hover:opacity-100'
                           }`}
                         >
-                          <IconComponent className="w-3.5 h-3.5" />
-                          <span className="hidden sm:inline">Level {l.id}</span>
-                          <span className="sm:hidden">L{l.id}</span>
+                          <span>{l.title}</span>
                         </button>
                       );
                     })}
@@ -3258,10 +3255,9 @@ export default function App() {
 
             {/* Bottom Levels Navigation Tabs */}
             <div className="flex justify-center mt-8 mb-12 animate-slide-up-fade">
-              <div className="flex items-center gap-1 bg-white/70 border border-stone-200/30 p-1.5 rounded-3xl backdrop-blur-md shadow-sm overflow-x-auto max-w-full">
+              <div className="flex items-center gap-2 bg-[#f6f3ed]/65 border border-stone-200/25 p-2 rounded-full backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.02)] overflow-x-auto max-w-full">
                 {LEVELS_DATA.map(l => {
                   const isActive = l.id === selectedLevel;
-                  const IconComponent = LEVEL_ICONS[l.id] || Sparkles;
                   return (
                     <button
                       key={l.id}
@@ -3274,15 +3270,13 @@ export default function App() {
                         color: isActive ? l.textColor : '#78716c',
                         borderColor: isActive ? l.borderColor : 'transparent'
                       }}
-                      className={`flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-2xl text-[12px] sm:text-xs font-semibold border transition-all duration-300 cursor-pointer shrink-0 ${
+                      className={`flex items-center px-4.5 py-2 rounded-full font-serif italic text-[14.5px] sm:text-[15.5px] font-medium border transition-all duration-300 cursor-pointer shrink-0 ${
                         isActive 
-                          ? 'shadow-sm font-bold scale-105' 
-                          : 'hover:bg-stone-200/50 hover:text-stone-800'
+                          ? 'shadow-[0_2px_8px_rgba(0,0,0,0.04)] font-bold scale-[1.02]' 
+                          : 'hover:text-stone-900 opacity-80 hover:opacity-100'
                       }`}
                     >
-                      <IconComponent className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">Level {l.id}</span>
-                      <span className="sm:hidden">L{l.id}</span>
+                      <span>{l.title}</span>
                     </button>
                   );
                 })}
