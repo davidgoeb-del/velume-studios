@@ -338,51 +338,9 @@
       opacity: 0.95;
       transform: translateY(0);
     }
-
-    /* Language Selector */
-    .language-selector-container {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      z-index: 50;
-    }
-
-    .language-select {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(124, 94, 57, 0.15);
-      border-radius: 9999px;
-      padding: 0.4rem 0.8rem;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #3c2f1f;
-      outline: none;
-      cursor: pointer;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
-      letter-spacing: 0.05em;
-    }
-
-    .language-select:hover {
-      background: rgba(255, 255, 255, 0.95);
-      border-color: rgba(124, 94, 57, 0.3);
-    }
   </style>
 </head>
 <body>
-
-  <div class="language-selector-container">
-    <select class="language-select" id="lang-select" onchange="changeLanguage(this.value)">
-      <option value="en">🇺🇸 English (EN)</option>
-      <option value="ja">🇯🇵 日本語 (JA)</option>
-      <option value="zh-TW">🇹🇼 繁體中文 (ZH)</option>
-      <option value="ko">🇰🇷 한국어 (KO)</option>
-      <option value="th">🇹🇭 ภาษาไทย (TH)</option>
-      <option value="vi">🇻🇳 Tiếng Việt (VI)</option>
-    </select>
-  </div>
 
   <header>
     <p class="brand-production">
@@ -390,7 +348,7 @@
     </p>
     <h1 class="brand-title">Lumora</h1>
     <p class="brand-subtitle">Calming Journeys in American English & Culture</p>
-    <p class="brand-slogan" id="brand-slogan">
+    <p class="brand-slogan">
       “Vocabulary is only half the language.<br>
       Learn the culture behind the words to truly live it.”
     </p>
@@ -403,7 +361,7 @@
       <a href="/lumora-american-essentials/" class="menu-item card-essentials" target="_blank">
         <h2 class="menu-item-title">American Essentials</h2>
         <span class="menu-item-subtitle">a peaceful, zen-like phrase explorer</span>
-        <p class="menu-item-description" id="desc-essentials">Master the 500 most useful expressions for daily conversation. Immerse yourself naturally through custom chill lo-fi beats and calm, native voices.</p>
+        <p class="menu-item-description">Master the 500 most useful expressions for daily conversation. Immerse yourself naturally through custom chill lo-fi beats and calm, native voices.</p>
         <span class="launch-indicator">Launch Module ↗</span>
       </a>
 
@@ -411,7 +369,7 @@
       <a href="/american-life-moments/" class="menu-item card-moments-v1" target="_blank">
         <h2 class="menu-item-title">American Life Moments</h2>
         <span class="menu-item-subtitle">cadence and audio stories 1–100</span>
-        <p class="menu-item-description" id="desc-moments">Step inside 100 everyday stories of American life, routines, and idioms. Listen and understand the cultural nuances while drifting through relaxing soundscapes.</p>
+        <p class="menu-item-description">Step inside 100 everyday stories of American life, routines, and idioms. Listen and understand the cultural nuances while drifting through relaxing soundscapes.</p>
         <span class="launch-indicator">Launch Module ↗</span>
       </a>
 
@@ -419,7 +377,7 @@
       <a href="/lumora-american-cafe-culture/" class="menu-item card-cafe" target="_blank">
         <h2 class="menu-item-title">American Cafe Culture</h2>
         <span class="menu-item-subtitle">situational language and etiquette</span>
-        <p class="menu-item-description" id="desc-cafe">Navigate coffee house ordering, local habits, and social etiquette. Understand the cultural nuances of life in these settings through real, cozy situational dialogues.</p>
+        <p class="menu-item-description">Navigate coffee house ordering, local habits, and social etiquette. Understand the cultural nuances of life in these settings through real, cozy situational dialogues.</p>
         <span class="launch-indicator">Launch Module ↗</span>
       </a>
 
@@ -440,55 +398,6 @@
   </footer>
 
   <script>
-    const TRANSLATIONS = {
-      en: {
-        slogan: '“Vocabulary is only half the language.<br>Learn the culture behind the words to truly live it.”',
-        essentials: 'Master the 500 most useful expressions for daily conversation. Immerse yourself naturally through custom chill lo-fi beats and calm, native voices.',
-        moments: 'Step inside 100 everyday stories of American life, routines, and idioms. Listen and understand the cultural nuances while drifting through relaxing soundscapes.',
-        cafe: 'Navigate coffee house ordering, local habits, and social etiquette. Understand the cultural nuances of life in these settings through real, cozy situational dialogues.'
-      },
-      ja: {
-        slogan: '“語彙は言語の半分に過ぎません。<br>言葉の背景にある文化を学び、真に生きた表現を身につけましょう。”',
-        essentials: '日常会話で最も役立つ500の表現をマスター。心地よいローファイビートと落ち着いたネイティブ音声を通じて、自然に英語に浸ることができます。',
-        moments: 'アメリカの日常生活、習慣、慣用句を描いた100のストーリー。リラックスできる環境音に浸りながら、文化的なニュアンスを理解しましょう。',
-        cafe: 'カフェでの注文や現地の習慣、社交マナーを体験。リアルで心地よい対話を通じて、日常生活の文化的背景を学びます。'
-      },
-      'zh-TW': {
-        slogan: '“字彙只是語言的一半。<br>學習文字背後的文化，才能真正融入生活。”',
-        essentials: '掌握日常對話中最實用的500個表達。透過特製的低傳真節奏與沉穩的母語發音，自然融入英語環境。',
-        moments: '走進100個關於美國生活、日常與成語的故事。在放鬆的背景聲景中，聆聽並理解文化細節。',
-        cafe: '掌握咖啡館點餐、在地習慣與社交禮儀。透過真實、溫馨的情境對話，理解這些場景中的文化細微差別。'
-      },
-      ko: {
-        slogan: '“어휘는 언어의 절반에 불과합니다.<br>단어 뒤에 숨겨진 문화를 배워 진짜 삶을 경험해 보세요.”',
-        essentials: '일상 대화에서 가장 유용한 500가지 표현을 마스터하세요. 편안한 로파이 비트와 차분한 원어민 음성을 통해 자연스럽게 빠져들 수 있습니다.',
-        moments: '미국인의 일상, 습관, 관용구가 담긴 100가지 이야기 속으로 들어가 보세요. 편안한 사운드스케이프와 함께 문화적 뉘앙스를 이해해 봅니다.',
-        cafe: '카페 주문, 현지 에티켓 및 사교 매너를 익혀 보세요. 현실감 있고 아늑한 상황별 대화를 통해 문화적 차이를 깊이 이해할 수 있습니다.'
-      },
-      th: {
-        slogan: '“คำศัพท์เป็นเพียงครึ่งหนึ่งของภาษา<br>เรียนรู้วัฒนธรรมเบื้องหลังคำศัพท์เพื่อใช้ชีวิตอย่างแท้จริง”',
-        essentials: 'ฝึกฝน 500 สำนวนที่มีประโยชน์ที่สุดสำหรับการสนทนาประจำวัน ซึมซับภาษาอย่างเป็นธรรมชาติผ่านเสียงดนตรีโลไฟและเสียงเจ้าของภาษาที่ผ่อนคลาย',
-        moments: 'ก้าวเข้าสู่ 100 เรื่องราวในชีวิตประจำวันของชาวอเมริกัน ฟังและทำความเข้าใจความละเอียดอ่อนทางวัฒนธรรมไปกับเสียงบรรยากาศที่แสนผ่อนคลาย',
-        cafe: 'เรียนรู้วิธีการสั่งกาแฟ นิสัยท้องถิ่น และมารยาททางสังคม ทำความเข้าใจบริบททางวัฒนธรรมผ่านบทสนทนาสถานการณ์จริงที่อบอุ่น'
-      },
-      vi: {
-        slogan: '“Từ vựng chỉ là một nửa của ngôn ngữ.<br>Hãy học văn hóa đằng sau những từ ngữ để thực sự sống cùng nó.”',
-        essentials: 'Làm chủ 500 mẫu câu hữu ích nhất cho giao tiếp hàng ngày. Đắm mình tự nhiên qua những bản nhạc lofi thư giãn và giọng đọc bản xứ ấm áp.',
-        moments: 'Bước vào 100 câu chuyện đời thường về cuộc sống, thói quen và thành ngữ Mỹ. Lắng nghe và thấu hiểu các khía cạnh văn hóa qua âm thanh nền thư thái.',
-        cafe: 'Tự tin gọi món tại quán cà phê, tìm hiểu thói quen và quy tắc ứng xử xã hội. Thấu hiểu những nét tinh tế trong văn hóa qua các đoạn đối thoại thực tế ấm cúng.'
-      }
-    };
-
-    function changeLanguage(lang) {
-      localStorage.setItem('lumora_locale_key', lang);
-      const trans = TRANSLATIONS[lang] || TRANSLATIONS['en'];
-      
-      document.getElementById('brand-slogan').innerHTML = trans.slogan;
-      document.getElementById('desc-essentials').innerHTML = trans.essentials;
-      document.getElementById('desc-moments').innerHTML = trans.moments;
-      document.getElementById('desc-cafe').innerHTML = trans.cafe;
-    }
-
     function copyEmailToClipboard() {
       const email = 'hello@velumestudios.com';
       navigator.clipboard.writeText(email).then(() => {
@@ -507,11 +416,6 @@
         window.location.href = `mailto:${email}`;
       });
     }
-
-    // Initialize on load
-    const savedLang = localStorage.getItem('lumora_locale_key') || 'en';
-    document.getElementById('lang-select').value = savedLang;
-    changeLanguage(savedLang);
   </script>
 </body>
 </html>
