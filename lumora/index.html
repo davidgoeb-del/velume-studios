@@ -259,14 +259,6 @@
       color: var(--active-accent);
     }
 
-    .menu-item-subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 1.05rem;
-      font-weight: 500;
-      color: var(--active-accent);
-      margin-bottom: 1rem;
-    }
 
     .menu-item-description {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -428,7 +420,6 @@
       <!-- Essentials -->
       <a href="/lumora-american-essentials/" class="menu-item card-essentials" target="_blank">
         <h2 class="menu-item-title">American Essentials</h2>
-        <span class="menu-item-subtitle" id="sub-essentials">a peaceful, zen-like phrase explorer</span>
         <p class="menu-item-description">
           Master the 500 most useful expressions for daily conversation. Immerse yourself naturally through custom chill lo-fi beats and calm, native voices.
           <span class="card-translation" id="trans-essentials"></span>
@@ -439,7 +430,6 @@
       <!-- Moments -->
       <a href="/american-life-moments/" class="menu-item card-moments-v1" target="_blank">
         <h2 class="menu-item-title">American Life Moments</h2>
-        <span class="menu-item-subtitle" id="sub-moments">cadence and audio stories 1–100</span>
         <p class="menu-item-description">
           Step inside 100 everyday stories of American life, routines, and idioms. Listen and understand the cultural nuances while drifting through relaxing soundscapes.
           <span class="card-translation" id="trans-moments"></span>
@@ -450,7 +440,6 @@
       <!-- Cafe Culture -->
       <a href="/lumora-american-cafe-culture/" class="menu-item card-cafe" target="_blank">
         <h2 class="menu-item-title">American Cafe Culture</h2>
-        <span class="menu-item-subtitle" id="sub-cafe">situational language and etiquette</span>
         <p class="menu-item-description">
           Navigate cafe ordering, local habits, and social etiquette. Understand the cultural nuances of life in these settings through real, cozy situational dialogues.
           <span class="card-translation" id="trans-cafe"></span>
@@ -559,10 +548,6 @@
         sloganTrans.style.display = 'none';
       }
 
-      // Card Subtitles
-      document.getElementById('sub-essentials').innerHTML = trans.subEssentials;
-      document.getElementById('sub-moments').innerHTML = trans.subMoments;
-      document.getElementById('sub-cafe').innerHTML = trans.subCafe;
 
       // Card Body Translations
       const essentialsTrans = document.getElementById('trans-essentials');
