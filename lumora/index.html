@@ -363,20 +363,62 @@
       opacity: 0.95;
       transform: translateY(0);
     }
+
+    /* Language Selector */
+    .language-selector-container {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 50;
+    }
+
+    .language-select {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(124, 94, 57, 0.15);
+      border-radius: 9999px;
+      padding: 0.4rem 0.8rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #3c2f1f;
+      outline: none;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      letter-spacing: 0.05em;
+    }
+
+    .language-select:hover {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(124, 94, 57, 0.3);
+    }
   </style>
 </head>
 <body>
+
+  <div class="language-selector-container">
+    <select class="language-select" id="lang-select" onchange="changeLanguage(this.value)">
+      <option value="en">🇺🇸 English (EN)</option>
+      <option value="ja">🇯🇵 日本語 (JA)</option>
+      <option value="zh-TW">🇹🇼 繁體中文 (ZH)</option>
+      <option value="ko">🇰🇷 한국어 (KO)</option>
+      <option value="th">🇹🇭 ภาษาไทย (TH)</option>
+      <option value="vi">🇻🇳 Tiếng Việt (VI)</option>
+    </select>
+  </div>
 
   <header>
     <p class="brand-production">
       A <a href="/" class="prod-link"><span class="shimmer-text">Velume Studios</span></a> Production
     </p>
     <h1 class="brand-title">Lumora</h1>
-    <p class="brand-subtitle">Calming Journeys in American English & Culture</p>
+    <p class="brand-subtitle" id="brand-subtitle">Calming Journeys in American English & Culture</p>
     <p class="brand-slogan">
       “Vocabulary is only half the language.<br>
       Learn the culture behind the words to truly live it.”
-      <span class="translation-text">“語彙は言語の半分に過ぎません。言葉の背景にある文化を学び、真に生きた表現を身につけましょう。”</span>
+      <span class="translation-text" id="trans-slogan"></span>
     </p>
   </header>
 
@@ -386,10 +428,10 @@
       <!-- Essentials -->
       <a href="/lumora-american-essentials/" class="menu-item card-essentials" target="_blank">
         <h2 class="menu-item-title">American Essentials</h2>
-        <span class="menu-item-subtitle">a peaceful, zen-like phrase explorer</span>
+        <span class="menu-item-subtitle" id="sub-essentials">a peaceful, zen-like phrase explorer</span>
         <p class="menu-item-description">
           Master the 500 most useful expressions for daily conversation. Immerse yourself naturally through custom chill lo-fi beats and calm, native voices.
-          <span class="card-translation">日常会話で最も役立つ500の表現をマスター。心地よいローファイビートと落ち着いたネイティブ音声を通じて、自然に英語に浸ることができます。</span>
+          <span class="card-translation" id="trans-essentials"></span>
         </p>
         <span class="launch-indicator">Launch Module ↗</span>
       </a>
@@ -397,10 +439,10 @@
       <!-- Moments -->
       <a href="/american-life-moments/" class="menu-item card-moments-v1" target="_blank">
         <h2 class="menu-item-title">American Life Moments</h2>
-        <span class="menu-item-subtitle">cadence and audio stories 1–100</span>
+        <span class="menu-item-subtitle" id="sub-moments">cadence and audio stories 1–100</span>
         <p class="menu-item-description">
           Step inside 100 everyday stories of American life, routines, and idioms. Listen and understand the cultural nuances while drifting through relaxing soundscapes.
-          <span class="card-translation">アメリカの日常生活、習慣、慣用句を描いた100のストーリー。リラックスできる環境音に浸りながら、文化的なニュアンスを理解しましょう。</span>
+          <span class="card-translation" id="trans-moments"></span>
         </p>
         <span class="launch-indicator">Launch Module ↗</span>
       </a>
@@ -408,10 +450,10 @@
       <!-- Cafe Culture -->
       <a href="/lumora-american-cafe-culture/" class="menu-item card-cafe" target="_blank">
         <h2 class="menu-item-title">American Cafe Culture</h2>
-        <span class="menu-item-subtitle">situational language and etiquette</span>
+        <span class="menu-item-subtitle" id="sub-cafe">situational language and etiquette</span>
         <p class="menu-item-description">
           Navigate cafe ordering, local habits, and social etiquette. Understand the cultural nuances of life in these settings through real, cozy situational dialogues.
-          <span class="card-translation">カフェでの注文や現地の習慣、社交マナーを体験。リアルで心地よい対話を通じて、日常生活の文化的背景を学びます。</span>
+          <span class="card-translation" id="trans-cafe"></span>
         </p>
         <span class="launch-indicator">Launch Module ↗</span>
       </a>
@@ -433,6 +475,115 @@
   </footer>
 
   <script>
+    const TRANSLATIONS = {
+      en: {
+        subtitle: 'Calming Journeys in American English & Culture',
+        slogan: '',
+        subEssentials: 'a peaceful, zen-like phrase explorer',
+        transEssentials: '',
+        subMoments: 'cadence and audio stories 1–100',
+        transMoments: '',
+        subCafe: 'situational language and etiquette',
+        transCafe: ''
+      },
+      ja: {
+        subtitle: 'Calming Journeys in American English & Culture',
+        slogan: '“語彙は言語の半分に過ぎません。言葉の背景にある文化を学び、真に生きた表現を身につけましょう。”',
+        subEssentials: 'a peaceful, zen-like phrase explorer<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">恬靜如禪的片語探索之旅</span>',
+        transEssentials: '日常会話で最も役立つ500の表現をマスター。心地よいローファイビートと落ち着いたネイティブ音声を通じて、自然に英語に浸ることができます。',
+        subMoments: 'cadence and audio stories 1–100<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">語調與有聲故事 1–100</span>',
+        transMoments: 'アメリカの日常生活、習慣、慣用句を描いた100のストーリー。リラックスできる環境音に浸りながら、文化的なニュアンスを理解しましょう。',
+        subCafe: 'situational language and etiquette<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">情境語言與社交禮儀</span>',
+        transCafe: 'カフェでの注文や現地の習慣、社交マナーを体験。リアルで心地よい対話を通じて、日常生活の文化的背景を学びます。'
+      },
+      'zh-TW': {
+        subtitle: '在美式英語與文化中平靜探索',
+        slogan: '「字彙只是語言的一半。學懂文字背後的文化，才能真正活出這門語言。」',
+        subEssentials: 'a peaceful, zen-like phrase explorer<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">恬靜如禪的片語探索之旅</span>',
+        transEssentials: '掌握日常對話中 500 個最實用的表達。透過量身打造的舒緩 Lo-fi 節奏與沉穩的母語發音，讓自己自然而然地沉浸其中。',
+        subMoments: 'cadence and audio stories 1–100<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">語調與有聲故事 1–100</span>',
+        transMoments: '走進 100 個關於美國生活、日常習慣與慣用語的真實故事。在放鬆的音景中聆聽，感受語言背後的文化底蘊。',
+        subCafe: 'situational language and etiquette<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">情境語言與社交禮儀</span>',
+        transCafe: '輕鬆掌握咖啡廳點餐、當地習慣與社交禮儀。透過真實而溫暖的情境對話，深入理解生活中的文化細節。'
+      },
+      ko: {
+        subtitle: '미국 영어와 문화 속의 평온한 여정',
+        slogan: '“어휘는 언어의 절반에 불과합니다. 단어 뒤에 숨은 문화를 배워야 진짜로 그 언어를 살아낼 수 있습니다.”',
+        subEssentials: 'a peaceful, zen-like phrase explorer<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">평화로운, 선 같은 구문 탐험가</span>',
+        transEssentials: '일상 대화에 가장 유용한 500가지 표현을 마스터하세요. 맞춤형 잔잔한 로파이 비트와 차분한 원어민 목소리로 자연스럽게 빠져들어 보세요.',
+        subMoments: 'cadence and audio stories 1–100<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">리듬과 오디오 스토리 1–100</span>',
+        transMoments: '미국 생활, 일상, 관용구에 관한 100가지 일상 이야기 속으로 들어가 보세요. 편안한 사운드스케이프에 빠져들며 문화적 뉘앙스를 듣고 이해하세요.',
+        subCafe: '상황별 언어와 에티켓<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">상황별 언어와 에티켓</span>',
+        transCafe: '카페 주문, 현지 습관, 사회적 예절을 배워보세요. 실제적이고 아늑한 상황별 대화를 통해 이러한 환경 속 삶의 문화적 뉘앙스를 이해하세요.'
+      },
+      th: {
+        subtitle: 'การเดินทางอันสงบในภาษาอังกฤษและวัฒนธรรมอเมริกัน',
+        slogan: '“คำศัพท์เป็นเพียงครึ่งหนึ่งของภาษา เรียนรู้วัฒนธรรมที่อยู่เบื้องหลังคำพูด เพื่อใช้ภาษานั้นได้อย่างแท้จริง”',
+        subEssentials: 'a peaceful, zen-like phrase explorer<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">ผู้สำรวจวลีที่สงบ ราวกับนั่งสมาธิ</span>',
+        transEssentials: 'ฝึกฝน 500 สำนวนที่มีประโยชน์ที่สุดสำหรับการสนทนาในชีวิตประจำวัน ดื่มด่ำไปกับจังหวะลอฟายที่ผ่อนคลายและเสียงเจ้าของภาษาที่อบอุ่น',
+        subMoments: 'cadence and audio stories 1–100<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">จังหวะและเรื่องราวเสียง 1–100</span>',
+        transMoments: 'ก้าวเข้าสู่ 100 เรื่องราวในชีวิตประจำวันของชาวอเมริกัน กิจวัตร และสำนวน idioms ฟังและทำความเข้าใจความแตกต่างทางวัฒนธรรมไปพร้อมกับดนตรีบรรเลงที่ผ่อนคลาย',
+        subCafe: 'ภาษาและมารยาทตามสถานการณ์<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">ภาษาและมารยาทตามสถานการณ์</span>',
+        transCafe: 'เรียนรู้การสั่งกาแฟ มารยาทท้องถิ่น และการเข้าสังคม ทำความเข้าใจความแตกต่างทางวัฒนธรรมผ่านบทสนทนาสถานการณ์จริงที่อบอุ่นและเป็นธรรมชาติ'
+      },
+      vi: {
+        subtitle: 'Hành Trình Bình Yên Trong Tiếng Anh Và Văn Hóa Mỹ',
+        slogan: '“Từ vựng chỉ là một nửa của ngôn ngữ. Hãy học cả văn hóa đằng sau những con chữ để thực sự sống cùng ngôn ngữ đó.”',
+        subEssentials: 'a peaceful, zen-like phrase explorer<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">Một công cụ khám phá cụm từ êm dịu, như thiền</span>',
+        transEssentials: 'Làm chủ 500 cách diễn đạt hữu ích nhất cho giao tiếp hàng ngày. Hòa mình một cách tự nhiên qua những giai điệu lo-fi thư giãn và giọng đọc truyền cảm của người bản xứ.',
+        subMoments: 'cadence and audio stories 1–100<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">Nhịp điệu và những câu chuyện âm thanh 1–100</span>',
+        transMoments: 'Bước vào 100 câu chuyện đời thường về cuộc sống, thói quen và thành ngữ Mỹ. Lắng nghe và thấu hiểu những sắc thái văn hóa qua những bản nhạc nền thư giãn.',
+        subCafe: 'Ngôn ngữ tình huống và phép tắc xã hội<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">Ngôn ngữ tình huống và phép tắc xã hội</span>',
+        transCafe: 'Tìm hiểu cách gọi món ở quán cà phê, thói quen địa phương và phép tắc xã hội. Thấu hiểu những sắc thái văn hóa thông qua các đoạn hội thoại tình huống chân thực và ấm cúng.'
+      }
+    };
+
+    function changeLanguage(lang) {
+      localStorage.setItem('lumora_locale_key', lang);
+      const trans = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+      
+      document.getElementById('brand-subtitle').innerHTML = trans.subtitle;
+
+      // Handle slogan translation display
+      const sloganTrans = document.getElementById('trans-slogan');
+      if (trans.slogan) {
+        sloganTrans.innerHTML = trans.slogan;
+        sloganTrans.style.display = 'block';
+      } else {
+        sloganTrans.style.display = 'none';
+      }
+
+      // Card Subtitles
+      document.getElementById('sub-essentials').innerHTML = trans.subEssentials;
+      document.getElementById('sub-moments').innerHTML = trans.subMoments;
+      document.getElementById('sub-cafe').innerHTML = trans.subCafe;
+
+      // Card Body Translations
+      const essentialsTrans = document.getElementById('trans-essentials');
+      if (trans.transEssentials) {
+        essentialsTrans.innerHTML = trans.transEssentials;
+        essentialsTrans.style.display = 'block';
+      } else {
+        essentialsTrans.style.display = 'none';
+      }
+
+      const momentsTrans = document.getElementById('trans-moments');
+      if (trans.transMoments) {
+        momentsTrans.innerHTML = trans.transMoments;
+        momentsTrans.style.display = 'block';
+      } else {
+        momentsTrans.style.display = 'none';
+      }
+
+      const cafeTrans = document.getElementById('trans-cafe');
+      if (trans.transCafe) {
+        cafeTrans.innerHTML = trans.transCafe;
+        cafeTrans.style.display = 'block';
+      } else {
+        cafeTrans.style.display = 'none';
+      }
+    }
+
     function copyEmailToClipboard() {
       const email = 'hello@velumestudios.com';
       navigator.clipboard.writeText(email).then(() => {
@@ -451,6 +602,11 @@
         window.location.href = `mailto:${email}`;
       });
     }
+
+    // Initialize on load
+    const savedLang = localStorage.getItem('lumora_locale_key') || 'en';
+    document.getElementById('lang-select').value = savedLang;
+    changeLanguage(savedLang);
   </script>
 </body>
 </html>
