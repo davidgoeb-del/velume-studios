@@ -2471,18 +2471,6 @@ export default function App() {
                                 INTRODUCTION
                               </span>
                             </div>
-                            {/* Welcome story audio play button */}
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                const fullStoryText = welcomeBodyText.map(para => para.en).join(' ');
-                                playWelcomeSpeech('story', 'welcome', fullStoryText, './audio/stories/story_welcome.mp3', e);
-                              }}
-                              className="w-9 h-9 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer active:scale-95 border-[#b8dad4] text-[#3d6e65] hover:bg-[#ebf7f5]/40"
-                              title="Listen to introduction story"
-                            >
-                              {playingStoryId === 'welcome' ? <VolumeX className="w-4.5 h-4.5 animate-pulse" /> : <Volume2 className="w-4.5 h-4.5" />}
-                            </button>
                           </div>
                           <h2 className="font-serif-display text-[1.8rem] sm:text-[2.2rem] font-medium text-stone-900 tracking-tight leading-tight text-left group-hover/card:text-[#3d6e65] transition-colors duration-300">
                             Welcome to the Neighborhood
@@ -2507,6 +2495,30 @@ export default function App() {
                           welcomeExpanded ? 'grid-rows-[1fr] opacity-100 mt-6 pt-6 border-t border-dashed border-stone-200' : 'grid-rows-[0fr] opacity-0'
                         }`}>
                           <div className="overflow-hidden space-y-6">
+
+                            {/* Audio Player Block */}
+                            <div 
+                              className="audio-player flex items-center gap-4 bg-stone-50/50 p-4 rounded-2xl border border-stone-100/60"
+                              onClick={(e) => e.stopPropagation()} // Prevent card collapse
+                            >
+                              <button 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  const fullStoryText = welcomeBodyText.map(para => para.en).join(' ');
+                                  playWelcomeSpeech('story', 'welcome', fullStoryText, './audio/stories/story_welcome.mp3', e);
+                                }}
+                                className={`play-btn w-11 h-11 rounded-full flex items-center justify-center text-white text-base transition-colors duration-300 cursor-pointer ${
+                                  playingStoryId === 'welcome' ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-[#3d6e65] hover:opacity-90'
+                                }`}
+                                style={playingStoryId !== 'welcome' ? { backgroundColor: '#3d6e65' } : undefined}
+                              >
+                                {playingStoryId === 'welcome' ? '⏸' : '▶'}
+                              </button>
+                              <div className="text-left">
+                                <div className="audio-label text-sm font-sans font-bold text-stone-800">🎧 Listen to the story</div>
+                                <div className="text-xs text-stone-400 font-sans mt-0.5">English · natural speech</div>
+                              </div>
+                            </div>
 
                             {/* Full welcome text */}
                             <div className="text-left bg-stone-50/40 p-5 rounded-2xl border border-stone-100/40">
