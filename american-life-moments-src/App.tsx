@@ -2466,7 +2466,6 @@ export default function App() {
                         >
                           <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2">
-                              <span className="text-2xl">🏡</span>
                               <span className="text-[12px] sm:text-[13px] font-sans font-bold tracking-wider px-2.5 py-0.5 rounded-full" style={{ backgroundColor: '#ebf7f5', color: '#3d6e65' }}>
                                 INTRODUCTION
                               </span>
@@ -2897,7 +2896,6 @@ export default function App() {
                       {/* Top Header Row of Card */}
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
-                          <span className="text-2xl">{story.emoji}</span>
                           <span 
                             className="text-[12px] sm:text-[13px] font-sans font-bold tracking-wider px-2.5 py-0.5 rounded-full"
                             style={{ backgroundColor: style.pillBg, color: style.pillText }}
