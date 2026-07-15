@@ -2598,7 +2598,7 @@ export default function App() {
                                           onClick={(e) => {
                                             e.stopPropagation();
                                             const expKey = `welcome-exp-${eIdx}`;
-                                            playWelcomeSpeech('expression', expKey, exp.example, `./audio/expressions/story_welcome_expression_${exp.phrase.replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '')}.mp3`, e);
+                                            playWelcomeSpeech('expression', expKey, exp.phrase, `./audio/expressions/story_welcome_expression_${exp.phrase.replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '')}.mp3`, e);
                                           }}
                                           className="w-7 h-7 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer border-[#b8dad4] text-[#3d6e65] hover:bg-white shrink-0 ml-2"
                                         >
