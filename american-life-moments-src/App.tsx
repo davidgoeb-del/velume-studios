@@ -2805,7 +2805,7 @@ export default function App() {
                       className="p-6 sm:p-8 rounded-[28px] border text-left mb-6 shadow-sm animate-slide-up-fade"
                     >
                       <div className="flex items-start justify-between gap-4">
-                        <h2 className="font-serif text-3xl sm:text-[38px] font-semibold text-stone-900 tracking-tight leading-tight pt-1">
+                        <h2 translate="no" className="font-serif text-3xl sm:text-[38px] font-semibold text-stone-900 tracking-tight leading-tight pt-1">
                           {currentLevelData.title}
                           <span className="block text-stone-500 font-normal text-sm sm:text-base mt-2 font-sans">
                             {localeKey === 'zh-TW' ? currentLevelData.title_zh : localeKey === 'ko' ? currentLevelData.title_ko : localeKey === 'th' ? currentLevelData.title_th : localeKey === 'vi' ? currentLevelData.title_vi : currentLevelData.title_ja}
