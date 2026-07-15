@@ -2804,18 +2804,20 @@ export default function App() {
                       style={{ backgroundColor: currentLevelData.bgColor, borderColor: currentLevelData.borderColor }}
                       className="p-6 sm:p-8 rounded-[28px] border text-left mb-6 shadow-sm animate-slide-up-fade"
                     >
-                      <span 
-                        className="text-[11px] font-sans font-bold tracking-[0.15em] px-3.5 py-1.5 rounded-full uppercase shadow-sm inline-block mb-3.5" 
-                        style={{ backgroundColor: currentLevelData.pillBg, color: currentLevelData.pillText }}
-                      >
-                        LEVEL {selectedLevel}
-                      </span>
-                      <h2 className="font-serif text-3xl sm:text-[38px] font-semibold text-stone-900 tracking-tight leading-tight pt-1">
-                        {currentLevelData.title}
-                        <span className="block text-stone-500 font-normal text-sm sm:text-base mt-2 font-sans">
-                          {localeKey === 'zh-TW' ? currentLevelData.title_zh : localeKey === 'ko' ? currentLevelData.title_ko : localeKey === 'th' ? currentLevelData.title_th : localeKey === 'vi' ? currentLevelData.title_vi : currentLevelData.title_ja}
+                      <div className="flex items-start justify-between gap-4">
+                        <h2 className="font-serif text-3xl sm:text-[38px] font-semibold text-stone-900 tracking-tight leading-tight pt-1">
+                          {currentLevelData.title}
+                          <span className="block text-stone-500 font-normal text-sm sm:text-base mt-2 font-sans">
+                            {localeKey === 'zh-TW' ? currentLevelData.title_zh : localeKey === 'ko' ? currentLevelData.title_ko : localeKey === 'th' ? currentLevelData.title_th : localeKey === 'vi' ? currentLevelData.title_vi : currentLevelData.title_ja}
+                          </span>
+                        </h2>
+                        <span 
+                          className="text-[11px] font-sans font-bold tracking-[0.15em] px-3.5 py-1.5 rounded-full uppercase shadow-sm shrink-0 mt-2" 
+                          style={{ backgroundColor: currentLevelData.pillBg, color: currentLevelData.pillText }}
+                        >
+                          LEVEL {selectedLevel}
                         </span>
-                      </h2>
+                      </div>
                       <p className="font-sans text-stone-600 text-sm sm:text-md mt-3 leading-relaxed">
                         {currentLevelData.description}
                       </p>
