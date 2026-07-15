@@ -918,7 +918,7 @@ export default function App() {
     const audioPath = `./audio/stories/story_${story.id}.mp3`;
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
-    audio.playbackRate = 0.80; // Play pre-rendered slower (80% speed) audio track naturally
+    audio.playbackRate = 0.90; // Play pre-rendered slower (90% speed) audio track naturally
     activeAudioRef.current = audio;
 
     audio.onplay = () => {
@@ -1016,7 +1016,7 @@ export default function App() {
 
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
-    audio.playbackRate = 0.80; // Play pre-rendered slower (80% speed) audio track naturally
+    audio.playbackRate = 0.90; // Play pre-rendered slower (90% speed) audio track naturally
     activeAudioRef.current = audio;
 
     audio.onplay = () => {
@@ -1118,7 +1118,7 @@ export default function App() {
 
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
-    audio.playbackRate = 0.80; // 80% natural study speed
+    audio.playbackRate = 0.90; // 90% natural study speed
     activeAudioRef.current = audio;
 
     audio.onplay = () => {
@@ -1201,7 +1201,7 @@ export default function App() {
     const audioPath = `./audio/moments/story_${storyId}_moment.mp3`;
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
-    audio.playbackRate = 0.80; // Play pre-rendered slower (80% speed) audio track naturally
+    audio.playbackRate = 0.90; // Play pre-rendered slower (90% speed) audio track naturally
     activeAudioRef.current = audio;
 
     audio.onplay = () => {
@@ -1295,7 +1295,7 @@ export default function App() {
 
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
-    audio.playbackRate = 0.80; // Play pre-rendered slower (80% speed) audio track naturally
+    audio.playbackRate = 0.90; // Play pre-rendered slower (90% speed) audio track naturally
     activeAudioRef.current = audio;
 
     audio.onplay = () => {
@@ -1444,7 +1444,7 @@ export default function App() {
 
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
-    audio.playbackRate = 0.80; // Play pre-rendered slower (80% speed) audio track naturally
+    audio.playbackRate = 0.90; // Play pre-rendered slower (90% speed) audio track naturally
     activeAudioRef.current = audio;
 
     audio.onplay = () => {
