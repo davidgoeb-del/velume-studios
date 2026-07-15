@@ -2708,34 +2708,21 @@ export default function App() {
                         className="level-card p-8 sm:p-10 border rounded-[32px] cursor-pointer hover:scale-[1.01] hover:shadow-md active:scale-[0.99] transition-all duration-300 flex flex-col justify-between text-left group/level"
                       >
                         <div>
-                          {/* Card Header */}
-                          <div className="flex items-center justify-between mb-6">
-                            {(() => {
-                              const IconComponent = LEVEL_ICONS[level.id] || Sparkles;
-                              return (
-                                <div 
-                                  className="w-14 h-14 rounded-2xl flex items-center justify-center border shadow-[0_4px_12px_rgba(0,0,0,0.03)] group-hover/level:scale-105 transition-transform duration-300 bg-white" 
-                                  style={{ borderColor: level.borderColor }}
-                                >
-                                  <IconComponent className="w-7 h-7" style={{ color: level.textColor }} />
-                                </div>
-                              );
-                            })()}
+                          {/* Card Header (Title & Level Pill aligned horizontally) */}
+                          <div className="flex items-start justify-between gap-4 mb-6">
+                            <h2 className="font-serif text-3xl sm:text-[34px] font-semibold text-stone-900 leading-tight group-hover/level:text-stone-700 transition-colors">
+                              {level.title}
+                              <span className="block text-stone-500 font-normal text-[15px] sm:text-[16px] mt-1.5 font-sans">
+                                {localeKey === 'zh-TW' ? level.title_zh : localeKey === 'ko' ? level.title_ko : localeKey === 'th' ? level.title_th : localeKey === 'vi' ? level.title_vi : level.title_ja}
+                              </span>
+                            </h2>
                             <span 
-                              className="text-[12px] font-sans font-bold tracking-widest px-3.5 py-1.5 rounded-full uppercase shadow-sm"
+                              className="text-[12px] font-sans font-bold tracking-widest px-3.5 py-1.5 rounded-full uppercase shadow-sm shrink-0 mt-1"
                               style={{ backgroundColor: level.pillBg, color: level.pillText }}
                             >
                               LEVEL {level.id}
                             </span>
                           </div>
-
-                          {/* Title */}
-                          <h2 className="font-serif text-3xl sm:text-[34px] font-semibold text-stone-900 leading-tight group-hover/level:text-stone-700 transition-colors">
-                            {level.title}
-                            <span className="block text-stone-500 font-normal text-[15px] sm:text-[16px] mt-1.5 font-sans">
-                              {localeKey === 'zh-TW' ? level.title_zh : localeKey === 'ko' ? level.title_ko : localeKey === 'th' ? level.title_th : localeKey === 'vi' ? level.title_vi : level.title_ja}
-                            </span>
-                          </h2>
 
                           {/* Description */}
                           <p className="font-sans text-stone-600 text-[15px] sm:text-[16px] leading-relaxed mt-3.5 font-normal">
