@@ -619,6 +619,15 @@ export default function App() {
     return story.american_moment_ja || storiesEn[story.id.toString()]?.american_moment_en || '';
   };
 
+  const getLearnCulturePrompt = () => {
+    if (localeKey === 'ja') return '読む前に文化背景を理解しましょう';
+    if (localeKey === 'zh-TW') return '閱讀前先了解文化背景';
+    if (localeKey === 'ko') return '읽기 전에 문화적 배경을 알아봅시다';
+    if (localeKey === 'th') return 'เรียนรู้วัฒนธรรมก่อนอ่าน';
+    if (localeKey === 'vi') return 'Tìm hiểu văn hóa trước khi đọc';
+    return 'Learn the culture before reading';
+  };
+
   const getReflection = (story: StoryItem) => {
     if (localeKey === 'ja') {
       return storiesJa[story.id.toString()]?.reflection_ja || story.reflection_ja || storiesEn[story.id.toString()]?.reflection_en || '';
@@ -2914,6 +2923,69 @@ export default function App() {
                     }`}>
                       <div className="overflow-hidden space-y-6">
                         
+                        {/* American Moment Callout (Moved to top as cultural schema primer) */}
+                        <div 
+                          className="p-5 sm:p-6 rounded-[24px] border text-left" 
+                          style={{ backgroundColor: `${style.bgColor}80`, borderColor: style.borderColor }}
+                        >
+                          <div className="flex items-start justify-between gap-4 mb-4">
+                            <div className="flex flex-col items-start text-left">
+                              <div className="flex items-center gap-2">
+                                <Sparkles className="w-[18px] h-[18px]" style={{ color: style.textColor }} />
+                                <span 
+                                  className="text-[13.5px] font-sans font-bold tracking-widest uppercase"
+                                  style={{ color: style.textColor }}
+                                >
+                                  American Moment
+                                </span>
+                              </div>
+                              <span className="text-[12.5px] font-serif italic text-stone-600 block mt-1">
+                                {getLearnCulturePrompt()}
+                              </span>
+                            </div>
+                            {(() => {
+                              const enStory = storiesEn[story.id.toString()];
+                              const momentEn = enStory?.american_moment_en || "";
+                              if (momentEn) {
+                                return (
+                                  <button
+                                    onClick={(e) => playMomentSpeech(story.id, momentEn, e)}
+                                    className={`w-9 h-9 rounded-full flex items-center justify-center border shadow-sm transition-all duration-300 tactile-btn cursor-pointer ${
+                                      playingMomentId === story.id
+                                        ? 'bg-emerald-50 border-emerald-200 text-emerald-600'
+                                        : 'bg-white hover:bg-stone-50 border-stone-200 text-stone-500'
+                                    }`}
+                                    title="Listen to American Moment explanation"
+                                  >
+                                    {playingMomentId === story.id ? (
+                                      <VolumeX className="w-4 h-4" />
+                                    ) : (
+                                      <Volume2 className="w-4 h-4" />
+                                    )}
+                                  </button>
+                                );
+                              }
+                              return null;
+                            })()}
+                          </div>
+                          {(() => {
+                            const enStory = storiesEn[story.id.toString()];
+                            const momentEn = enStory?.american_moment_en;
+                            return (
+                              <div className="space-y-3">
+                                {momentEn && (
+                                  <p className="font-sans text-stone-900 text-[15px] sm:text-[16px] leading-relaxed font-medium">
+                                    {momentEn}
+                                  </p>
+                                )}
+                                <p className={`font-sans text-stone-500 text-[13.5px] sm:text-[14px] leading-relaxed ${momentEn ? 'border-t border-stone-200/40 pt-2.5 mt-2.5' : ''}`}>
+                                  {getAmericanMoment(story)}
+                                </p>
+                              </div>
+                            );
+                          })()}
+                        </div>
+
                         {/* Audio Player Block */}
                         <div 
                           className="audio-player flex items-center gap-4 bg-stone-50/50 p-4 rounded-2xl border border-stone-100/60"
@@ -3117,63 +3189,6 @@ export default function App() {
 
                         {/* Section 3: Cultural Vibe Check ("American Moment" & Reflection) */}
                       <div className="space-y-6">
-                        {/* American Moment Callout */}
-                        <div 
-                          className="p-5 sm:p-6 rounded-[24px] border text-left" 
-                          style={{ backgroundColor: `${style.bgColor}80`, borderColor: style.borderColor }}
-                        >
-                          <div className="flex items-center justify-between gap-2 mb-3">
-                            <div className="flex items-center gap-2">
-                              <Sparkles className="w-4 h-4" style={{ color: style.textColor }} />
-                              <span 
-                                className="text-[11px] font-sans font-bold tracking-widest uppercase"
-                                style={{ color: style.textColor }}
-                              >
-                                American Moment
-                              </span>
-                            </div>
-                            {(() => {
-                              const enStory = storiesEn[story.id.toString()];
-                              const momentEn = enStory?.american_moment_en || "";
-                              if (momentEn) {
-                                return (
-                                  <button
-                                    onClick={(e) => playMomentSpeech(story.id, momentEn, e)}
-                                    className={`p-1.5 rounded-full hover:bg-white/80 transition-colors duration-200 shadow-sm border border-stone-200/40 ${
-                                      playingMomentId === story.id
-                                        ? 'text-emerald-600 bg-emerald-50/50'
-                                        : 'text-stone-400 hover:text-stone-700 bg-stone-50/50'
-                                    }`}
-                                    title="Listen to American Moment explanation"
-                                  >
-                                    {playingMomentId === story.id ? (
-                                      <VolumeX className="w-3.5 h-3.5" />
-                                    ) : (
-                                      <Volume2 className="w-3.5 h-3.5" />
-                                    )}
-                                  </button>
-                                );
-                              }
-                              return null;
-                            })()}
-                          </div>
-                          {(() => {
-                            const enStory = storiesEn[story.id.toString()];
-                            const momentEn = enStory?.american_moment_en;
-                            return (
-                              <div className="space-y-3">
-                                {momentEn && (
-                                  <p className="font-sans text-stone-900 text-[15px] sm:text-[16px] leading-relaxed font-medium">
-                                    {momentEn}
-                                  </p>
-                                )}
-                                <p className={`font-sans text-stone-500 text-[13.5px] sm:text-[14px] leading-relaxed ${momentEn ? 'border-t border-stone-200/40 pt-2.5 mt-2.5' : ''}`}>
-                                  {getAmericanMoment(story)}
-                                </p>
-                              </div>
-                            );
-                          })()}
-                        </div>
 
                         {/* Reflection Box */}
                         <div className="bg-[#fdfaf5] border border-stone-200/40 p-6 rounded-[24px] text-center shadow-sm">
