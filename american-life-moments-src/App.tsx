@@ -1913,9 +1913,9 @@ export default function App() {
     >
       {/* Symmetrical Fluid Blob Ambient Gradient Layers */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[-10%] left-[-15%] w-[85vw] h-[85vw] sm:w-[65vw] sm:h-[65vw] rounded-full filter blur-[45px] sm:blur-[110px] md:blur-[140px] bg-[#e6a3ab]/[0.45] sm:bg-[#e6a3ab]/[0.35] blob-drift-1" />
-        <div className="absolute bottom-[-15%] right-[-10%] w-[95vw] h-[95vw] sm:w-[75vw] sm:h-[75vw] rounded-full filter blur-[50px] sm:blur-[125px] md:blur-[150px] bg-[#9eb8d9]/[0.55] sm:bg-[#9eb8d9]/[0.45] blob-drift-2" />
-        <div className="absolute top-[35%] right-[-15%] w-[75vw] h-[75vw] sm:w-[55vw] sm:h-[55vw] rounded-full filter blur-[45px] sm:blur-[100px] md:blur-[120px] bg-[#faeed6]/[0.75] sm:bg-[#faeed6]/[0.6] blob-drift-3" />
+        <div className="absolute top-[-10%] left-[-15%] w-[85vw] h-[85vw] sm:w-[65vw] sm:h-[65vw] rounded-full filter blur-[45px] sm:blur-[110px] md:blur-[140px] bg-[#f0a2ad]/[0.55] sm:bg-[#f0a2ad]/[0.45] blob-drift-1" />
+        <div className="absolute bottom-[-15%] right-[-10%] w-[95vw] h-[95vw] sm:w-[75vw] sm:h-[75vw] rounded-full filter blur-[50px] sm:blur-[125px] md:blur-[150px] bg-[#81abee]/[0.65] sm:bg-[#81abee]/[0.55] blob-drift-2" />
+        <div className="absolute top-[35%] right-[-15%] w-[75vw] h-[75vw] sm:w-[55vw] sm:h-[55vw] rounded-full filter blur-[45px] sm:blur-[100px] md:blur-[120px] bg-[#fcdca8]/[0.85] sm:bg-[#fcdca8]/[0.7] blob-drift-3" />
       </div>
 
       {/* Main Container Layout */}
