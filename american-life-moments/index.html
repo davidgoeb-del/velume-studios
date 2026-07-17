@@ -32,8 +32,12 @@
                 const amSpan = spans.find(s => s.textContent.trim() === "American Moment");
                 if (amSpan) {
                   const amBlock = amSpan.closest('.rounded-\\[24px\\]');
-                  if (amBlock && container.firstChild !== amBlock) {
-                     container.insertBefore(amBlock, container.firstChild);
+                  if (amBlock) {
+                     // Use CSS flex order instead of insertBefore to prevent breaking React events
+                     container.style.display = 'flex';
+                     container.style.flexDirection = 'column';
+                     amBlock.style.order = '-1';
+                     amBlock.style.marginBottom = '1.5rem'; // Maintain space-y-6 equivalent
                   }
                 }
               }

@@ -6,13 +6,12 @@ const API_KEY = '403158733d337079b717550d9a8449b3b2a8ab7c857d34687eb23894f4a71a4
 const VOICE_ID = 'nzFihrBIvB34imQBuxub';
 
 const tasks = [
-  { file: 'audio/vocab/story_0_vocab_neighborhood.mp3', text: 'Every neighborhood has its own rhythm.' },
-  { file: 'audio/vocab/story_0_vocab_rhythm.mp3', text: 'Every neighborhood has its own rhythm.' },
-  { file: 'audio/vocab/story_0_vocab_gather.mp3', text: 'Families gather around the dinner table.' },
-  { file: 'audio/vocab/story_0_vocab_connected.mp3', text: 'Feel a little more connected.' },
-  { file: 'audio/vocab/story_0_vocab_confident.mp3', text: 'Feel a little more confident.' },
-  { file: 'audio/vocab/story_0_vocab_at_home.mp3', text: 'Feel a little more at home in English.' },
-  { file: 'audio/moments/story_welcome_moment.mp3', text: "There is no finish line here. Take your time. Read each story more than once. Listen to the audio, notice the expressions, and enjoy the small moments that make everyday life feel real. Learning English isn't about racing from one lesson to the next. It's about gradually becoming familiar with the language, the culture, and the people who speak it. We hope you'll settle in, enjoy the journey, and feel at home here in Lumora." }
+  { file: 'audio/expressions/story_welcome_expression_has_its_own_rhythm.mp3', text: 'has its own rhythm' },
+  { file: 'audio/expressions/story_welcome_expression_anguage_lives_in_these_moments.mp3', text: 'Language lives in these moments.' },
+  { file: 'audio/expressions/story_welcome_expression_slow_down.mp3', text: 'slow down' },
+  { file: 'audio/expressions/story_welcome_expression_take_your_time.mp3', text: 'take your time' },
+  { file: 'audio/expressions/story_welcome_expression_elcome_to_the_neighborhood.mp3', text: 'Welcome to the neighborhood.' },
+  { file: 'audio/expressions/story_welcome_expression_feel_at_home.mp3', text: 'feel at home' }
 ];
 
 async function generateAudio() {
