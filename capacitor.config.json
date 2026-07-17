@@ -1,0 +1,19 @@
+{
+  "appId": "com.velumestudios.lumora",
+  "appName": "Lumora American English",
+  "webDir": "www",
+  "ios": {
+    "scrollEnabled": true,
+    "contentInset": "automatic"
+  },
+  "server": {
+    "url": "https://velumestudios.com/lumora/",
+    "cleartext": false,
+    "allowNavigation": ["velumestudios.com", "*.velumestudios.com"]
+  },
+  "plugins": {
+    "CapacitorPreferences": {
+      "group": "lumora_prefs"
+    }
+  }
+}
