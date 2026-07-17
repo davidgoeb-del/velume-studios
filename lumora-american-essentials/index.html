@@ -18,8 +18,13 @@
   <body>
     <div id="root"></div>
   </body>
-  <!-- Lumora Home Button -->
+  <!-- Lumora Home Button & UX Overrides -->
   <style>
+    /* Hide the "EXAMPLE" pill in vocab cards - card click handles expansion */
+    .vocab-card span.uppercase {
+      display: none !important;
+    }
+
     .lumora-home-btn {
       position: fixed;
       top: max(16px, calc(env(safe-area-inset-top, 20px) + 8px));
