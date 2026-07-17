@@ -136,6 +136,10 @@
       color: var(--active-accent);
       letter-spacing: 0.02em;
       margin-bottom: 1.8rem;
+      max-width: 340px;       /* prevents orphan — keeps '& Culture' on same line as 'English' */
+      text-wrap: balance;     /* modern browsers: distribute lines evenly */
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .brand-slogan {
@@ -195,7 +199,7 @@
       flex-direction: column;
       align-items: center;
       border-radius: 24px;
-      padding: 2.2rem 2.5rem;
+      padding: 2.2rem 3.0rem;  /* wider inner horizontal padding for more breathing room */
       box-shadow: 0 12px 35px rgba(60, 47, 31, 0.05), 0 3px 10px rgba(60, 47, 31, 0.02);
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                   background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
@@ -262,14 +266,14 @@
 
     .menu-item-description {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.92rem;
-      font-weight: 500; /* Increased weight for solid readability */
+      font-size: 1.0rem;      /* bumped up from 0.92rem for easier reading */
+      font-weight: 500;
       letter-spacing: 0.01em;
-      color: #2b2520; /* Darker charcoal-bronze text for supreme contrast */
-      line-height: 1.6;
+      color: #1e1a15;         /* darker — same as title for stronger contrast */
+      line-height: 1.65;
       text-align: center;
       max-width: 440px;
-      opacity: 0.9;
+      opacity: 1;             /* removed opacity fade — always fully readable */
       transition: opacity 0.4s ease;
     }
 
