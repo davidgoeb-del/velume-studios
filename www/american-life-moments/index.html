@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/american-life-moments/assets/index-CCDeZlNV.js"></script>
+    <script type="module" crossorigin src="/american-life-moments/assets/index-CCDeZlNV.js?v=2"></script>
     <link rel="stylesheet" crossorigin href="/american-life-moments/assets/index-BhWJWzsf.css">
   </head>
   <body>
@@ -32,8 +32,12 @@
                 const amSpan = spans.find(s => s.textContent.trim() === "American Moment");
                 if (amSpan) {
                   const amBlock = amSpan.closest('.rounded-\\[24px\\]');
-                  if (amBlock && container.firstChild !== amBlock) {
-                     container.insertBefore(amBlock, container.firstChild);
+                  if (amBlock) {
+                     // Use CSS flex order instead of insertBefore to prevent breaking React events
+                     container.style.display = 'flex';
+                     container.style.flexDirection = 'column';
+                     amBlock.style.order = '-1';
+                     amBlock.style.marginBottom = '1.5rem'; // Maintain space-y-6 equivalent
                   }
                 }
               }

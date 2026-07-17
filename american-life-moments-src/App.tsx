@@ -2640,7 +2640,7 @@ export default function App() {
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    playWelcomeSpeech('moment', 'welcome-moment', welcomeMomentText, './audio/moments/story_welcome_moment.mp3', e);
+                                    playWelcomeSpeech('moment', 'welcome-moment', "There is no finish line here. Take your time. Read each story more than once. Listen to the audio, notice the expressions, and enjoy the small moments that make everyday life feel real. Learning English isn't about racing from one lesson to the next. It's about gradually becoming familiar with the language, the culture, and the people who speak it. We hope you'll settle in, enjoy the journey, and feel at home here in Lumora.", './audio/moments/story_welcome_moment.mp3', e);
                                   }}
                                   className="w-7 h-7 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer border-[#b8dad4] text-[#3d6e65] hover:bg-white"
                                 >
