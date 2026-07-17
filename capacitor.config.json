@@ -7,7 +7,6 @@
     "contentInset": "automatic"
   },
   "server": {
-    "url": "https://velumestudios.com/lumora/",
     "cleartext": false,
     "allowNavigation": ["velumestudios.com", "*.velumestudios.com"]
   },
