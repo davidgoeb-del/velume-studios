@@ -327,32 +327,32 @@ const SOUNDSCAPE_TRACKS = {
   marigold: {
     id: 'marigold',
     name: 'Marigold Lofi',
-    file: './nosnikwah/marigold_lofi.mp3'
+    file: './nosnikwah/marigold_lofi.m4a'
   },
   notmysun: {
     id: 'notmysun',
     name: 'Not My Sun (Smokey Jazz)',
-    file: './nosnikwah/Not My Sun (LowFi Smokey Jazz Mix).mp3'
+    file: './nosnikwah/Not My Sun (LowFi Smokey Jazz Mix).m4a'
   },
   wetpavement: {
     id: 'wetpavement',
     name: 'Wet Pavement Zen',
-    file: './nosnikwah/Wet Pavement Zen.mp3'
+    file: './nosnikwah/Wet Pavement Zen.m4a'
   },
   stonewater: {
     id: 'stonewater',
     name: 'Stonewater Hymn',
-    file: './nosnikwah/Stonewater Hymn.mp3'
+    file: './nosnikwah/Stonewater Hymn.m4a'
   },
   velvet: {
     id: 'velvet',
     name: 'Velvet Pressure',
-    file: './nosnikwah/Velvet Pressure.mp3'
+    file: './nosnikwah/Velvet Pressure.m4a'
   },
   harmonic: {
     id: 'harmonic',
     name: 'Harmonic Safety',
-    file: './nosnikwah/Harmonic Safety.mp3'
+    file: './nosnikwah/Harmonic Safety.m4a'
   }
 };
 

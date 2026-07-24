@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CATEGORY_COLORS } from './data';
+import { Capacitor } from '@capacitor/core';
+import { NativeAudio } from '@capacitor-community/native-audio';
 import { Volume2, Bookmark, BookOpen, Music, Play, Pause, VolumeX, Sparkles, Disc, Waves, ArrowUp, Share2, ChevronLeft, ChevronRight, ChevronUp, CheckCircle2, Sun, Activity, Users, Briefcase, Heart, Leaf, GraduationCap, Home, TrendingUp, Trophy } from 'lucide-react';
 import { PhraseItem, LocaleCatalog } from './types';
 import { STORIES_DATA, StoryItem } from './storiesData';
@@ -127,12 +129,12 @@ const NOTEBOOK_STYLE = {
 };
 
 const TRACKS = [
-  { id: 'marigold', name: 'Marigold', file: 'marigold_lofi.mp3', abbr: 'mgd' },
-  { id: 'not_my_sun', name: 'Not My Sun (Smokey Jazz)', file: 'Not My Sun (LowFi Smokey Jazz Mix).mp3', abbr: 'nms' },
-  { id: 'pavement', name: 'Wet Pavement', file: 'Wet Pavement Zen.mp3', abbr: 'wp' },
-  { id: 'stonewater', name: 'Stonewater Hymn', file: 'Stonewater Hymn.mp3', abbr: 'sh' },
-  { id: 'velvet', name: 'Velvet Pressure', file: 'Velvet Pressure.mp3', abbr: 'vp' },
-  { id: 'harmonic', name: 'Harmonic Safety', file: 'Harmonic Safety.mp3', abbr: 'hs' }
+  { id: 'marigold', name: 'Marigold', file: 'marigold_lofi.m4a', abbr: 'mgd' },
+  { id: 'not_my_sun', name: 'Not My Sun (Smokey Jazz)', file: 'Not My Sun (LowFi Smokey Jazz Mix).m4a', abbr: 'nms' },
+  { id: 'pavement', name: 'Wet Pavement', file: 'Wet Pavement Zen.m4a', abbr: 'wp' },
+  { id: 'stonewater', name: 'Stonewater Hymn', file: 'Stonewater Hymn.m4a', abbr: 'sh' },
+  { id: 'velvet', name: 'Velvet Pressure', file: 'Velvet Pressure.m4a', abbr: 'vp' },
+  { id: 'harmonic', name: 'Harmonic Safety', file: 'Harmonic Safety.m4a', abbr: 'hs' }
 ];
 
 interface LevelItem {
@@ -875,6 +877,25 @@ export default function App() {
   const gainNodeRef = useRef<GainNode | null>(null);
   const activeAudioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Initialize Native Audio Preloading
+  useEffect(() => {
+    if (Capacitor.isNativePlatform()) {
+      TRACKS.forEach(track => {
+        NativeAudio.preload({
+          assetId: track.id,
+          assetPath: track.file,
+          audioChannelNum: 1,
+          isUrl: false
+        }).catch(e => console.warn('NativeAudio preload failed:', e));
+      });
+      return () => {
+        TRACKS.forEach(track => {
+          NativeAudio.unload({ assetId: track.id }).catch(() => {});
+        });
+      };
+    }
+  }, []);
+
   const [speakingPhrase, setSpeakingPhrase] = useState<string | null>(null);
   const [expandedPhrases, setExpandedPhrases] = useState<Record<string, boolean>>({});
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
@@ -924,7 +945,7 @@ export default function App() {
       window.speechSynthesis.cancel();
     }
 
-    const audioPath = `./audio/stories/story_${story.id}.mp3`;
+    const audioPath = `./audio/stories/story_${story.id}.m4a`;
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
     audio.playbackRate = 0.90; // Play pre-rendered slower (90% speed) audio track naturally
@@ -1021,7 +1042,7 @@ export default function App() {
       .replace(/[^a-z0-9\s]/g, '') // remove punctuation
       .trim()
       .replace(/\s+/g, '_');
-    const audioPath = `./audio/vocab/story_${storyId}_vocab_${slug}.mp3`;
+    const audioPath = `./audio/vocab/story_${storyId}_vocab_${slug}.m4a`;
 
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
@@ -1207,7 +1228,7 @@ export default function App() {
       window.speechSynthesis.cancel();
     }
 
-    const audioPath = `./audio/moments/story_${storyId}_moment.mp3`;
+    const audioPath = `./audio/moments/story_${storyId}_moment.m4a`;
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
     audio.playbackRate = 0.90; // Play pre-rendered slower (90% speed) audio track naturally
@@ -1300,7 +1321,7 @@ export default function App() {
       .replace(/[^a-z0-9\s]/g, '') // remove punctuation
       .trim()
       .replace(/\s+/g, '_');
-    const audioPath = `./audio/expressions/story_${storyId}_expression_${slug}.mp3`;
+    const audioPath = `./audio/expressions/story_${storyId}_expression_${slug}.m4a`;
 
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
@@ -1449,7 +1470,7 @@ export default function App() {
       .replace(/[^a-z0-9\s]/g, '') // remove punctuation
       .trim()
       .replace(/\s+/g, '_');
-    const audioPath = `audio/phrases/${slug}.mp3`;
+    const audioPath = `audio/phrases/${slug}.m4a`;
 
     const audio = new Audio(audioPath);
     audio.volume = SPEECH_VOLUME;
@@ -2508,7 +2529,7 @@ export default function App() {
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   const fullStoryText = welcomeBodyText.map(para => para.en).join(' ');
-                                  playWelcomeSpeech('story', 'welcome', fullStoryText, './audio/stories/story_welcome.mp3', e);
+                                  playWelcomeSpeech('story', 'welcome', fullStoryText, './audio/stories/story_welcome.m4a', e);
                                 }}
                                 className={`play-btn w-11 h-11 rounded-full flex items-center justify-center text-white text-base transition-colors duration-300 cursor-pointer ${
                                   playingStoryId === 'welcome' ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-[#3d6e65] hover:opacity-90'
@@ -2563,7 +2584,7 @@ export default function App() {
                                           <button
                                             onClick={(e) => {
                                               e.stopPropagation();
-                                              playWelcomeSpeech('vocab', wKey, item.example, `./audio/vocab/story_welcome_vocab_${item.word}.mp3`, e);
+                                              playWelcomeSpeech('vocab', wKey, item.example, `./audio/vocab/story_welcome_vocab_${item.word}.m4a`, e);
                                             }}
                                             className="w-7 h-7 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer border-[#b8dad4] text-[#3d6e65] hover:bg-white"
                                           >
@@ -2607,7 +2628,7 @@ export default function App() {
                                           onClick={(e) => {
                                             e.stopPropagation();
                                             const expKey = `welcome-exp-${eIdx}`;
-                                            playWelcomeSpeech('expression', expKey, exp.phrase, `./audio/expressions/story_welcome_expression_${exp.phrase.replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '')}.mp3`, e);
+                                            playWelcomeSpeech('expression', expKey, exp.phrase, `./audio/expressions/story_welcome_expression_${exp.phrase.replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '')}.m4a`, e);
                                           }}
                                           className="w-7 h-7 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer border-[#b8dad4] text-[#3d6e65] hover:bg-white shrink-0 ml-2"
                                         >
@@ -2640,7 +2661,7 @@ export default function App() {
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    playWelcomeSpeech('moment', 'welcome-moment', "There is no finish line here. Take your time. Read each story more than once. Listen to the audio, notice the expressions, and enjoy the small moments that make everyday life feel real. Learning English isn't about racing from one lesson to the next. It's about gradually becoming familiar with the language, the culture, and the people who speak it. We hope you'll settle in, enjoy the journey, and feel at home here in Lumora.", './audio/moments/story_welcome_moment.mp3', e);
+                                    playWelcomeSpeech('moment', 'welcome-moment', "There is no finish line here. Take your time. Read each story more than once. Listen to the audio, notice the expressions, and enjoy the small moments that make everyday life feel real. Learning English isn't about racing from one lesson to the next. It's about gradually becoming familiar with the language, the culture, and the people who speak it. We hope you'll settle in, enjoy the journey, and feel at home here in Lumora.", './audio/moments/story_welcome_moment.m4a', e);
                                   }}
                                   className="w-7 h-7 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer border-[#b8dad4] text-[#3d6e65] hover:bg-white"
                                 >
