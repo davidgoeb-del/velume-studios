@@ -1315,35 +1315,7 @@ Ravi laughed. "Very strange. Meeting someone you already know."`,vocab:[{word:"o
 
 His wife noticed he was quieter than usual. When he finally told her, she said something he didn't expect: "Good. Now you can find something that actually excites you." He was too shocked to reply.
 
-Looking back, Daniel agrees with her. "I had been unhappy there for two years. I just didn't have the courage to leave. Losing the job was the push I needed." He now works for a smaller company, earns a little less, and feels, he says, ten years younger.`,vocab:[{word:"eliminated",def_ja:"廃止された",example:"The company eliminated several positions."},{word:"secure",def_ja:"安全な",example:"He felt secure in his job."},{word:"loyalty",def_ja:"忠誠心",example:"She was loyal to the company for over twenty years."},{word:"ashamed",def_ja:"恥ずかしい",example:"He felt ashamed even though the mistake wasn't his fault."}],expressions:[{phrase:"Position had been eliminated",usage_ja:"会社の再編により解雇された",examples:["A: The company eliminated my position, not me."]},{phrase:"Didn't know what else to do",usage_ja:"ショックで普通の行動が無意味に感じられた",examples:["A: When I heard the news, I just sat there. I didn't know what else to do."]},{phrase:"Loyalty meant something",usage_ja:"同じ会社に留まることが報われると信じていた",examples:["A: My parents' generation believed loyalty meant something."]},{phrase:"The push I needed",usage_ja:"必要な変化を強制的に起こした困難な出来事",examples:["A: The breakup was the push I needed to move to a new city."]}],american_moment_ja:"ダニエルは「忠誠心は意味があると思っていた」と言う。これはアメリカ人の共通の嘆きだ。古い社会的契約 — 一つの会社に何十年も勤め、金時計をもらう — は消え去った。",reflection_ja:"あなたを大切に扱う会社にもっと忠誠を尽くしますか？"},{id:61,title:"Tea Time",emoji:"☕",category:"Culture",teaser:"Fiona offers Kenji a cup of builder's tea. He's confused. Milk in tea? In Japan, that's strange.",story:`Fiona was boiling water when Kenji walked into the kitchen.
-
-"Kenji, would you like a cup of tea?" she asked.
-
-Kenji nodded. "I'd love one. What kind do you have?"
-
-Fiona held up a box of teabags. "Builder's tea, mostly. Strong, with milk."
-
-Kenji paused. "Milk in tea? That surprises me every time."
-
-Fiona laughed. "Really? In Japan you drink it differently, right?"
-
-"Very differently," Kenji said. "Green tea, no milk, no sugar. We drink it from a small cup, slowly."
-
-Fiona leaned against the counter. "Tea in Japan is almost ceremonial, isn't it?"
-
-Kenji nodded. "The tea ceremony, yes. But daily tea is more casual. Still, we take it seriously."
-
-Fiona poured the hot water. "In the UK, tea is everything. When something goes wrong, you make tea. When someone visits, you make tea."
-
-Kenji smiled. "What does tea actually do? It's just hot water and leaves."
-
-Fiona handed him the cup. "It's not about the drink. It's about stopping. Sitting down. Paying attention to someone."
-
-Kenji took the cup. "That's not so different from Japan then."
-
-Fiona sat down. "Maybe tea is universal."
-
-Kenji raised his cup. "Maybe the need to pause and connect is universal. Tea is just the excuse."`,vocab:[{word:"builder's tea",def_ja:"ミルク入りの強い紅茶",example:"After a long morning, he sat down with a builder's tea."},{word:"ceremonial",def_ja:"儀式的な",example:"The tea ceremony in Japan is a ceremonial practice with a long history."},{word:"casual",def_ja:"カジュアルな",example:"It was a casual lunch — no dress code, just friends."},{word:"universal",def_ja:"普遍的な",example:"Music seems to be a universal language."}],expressions:[{phrase:"Surprises me every time",usage_ja:"毎回驚く",examples:["A: How early it gets dark in winter surprises me every time."]},{phrase:"Take it seriously",usage_ja:"真剣に受け止める",examples:["A: In Japan, they take tea seriously."]},{phrase:"Tea is everything",usage_ja:"お茶が全てだ",examples:["A: In this house, coffee is everything."]},{phrase:"Not about the drink",usage_ja:"飲み物自体が目的じゃない",examples:["A: Going to church is not about the building."]},{phrase:"The need to pause and connect is universal",usage_ja:"立ち止まって繋がる必要性は普遍的だ",examples:["A: Every culture has a ritual for slowing down. The need to pause and connect is universal."]}],title_ja:"お茶の時間",teaser_ja:"フィオナはケンジに紅茶を勧める。彼は困惑する。紅茶にミルク？日本ではそれは変だ。",american_moment_ja:"フィオナはお茶は「飲み物自体が目的じゃない。立ち止まること。座ること。誰かに注意を向けること」だと言う。これは非常にイギリス的な感情だが、アメリカ人もそれに共感する。「立ち止まって繋がる必要性は普遍的だ」というフレーズが鍵だ。アメリカ人もコーヒーを同じように飲む：誰かと座る口実として。飲み物自体はほとんど重要ではない。大切なのは立ち止まること。繋がること。「お茶はただの口実だ」。アメリカ人はコーヒーやビール、またはブロックの周りの散歩について同じことを言うかもしれない。",reflection_ja:"誰かと立ち止まって繋がりたい時に、何を飲みますか？"},{id:62,title:"Waiting Room",emoji:"🏥",category:"Health",teaser:"Mia sat in the hospital waiting room for two hours. A stranger sat next to her. They didn't exchange names.",story:`Every person in the hospital waiting room had a different story. There was an old man reading a newspaper, turning each page slowly. A young mother with a toddler on her lap, trying to keep him quiet with a biscuit. Two teenage boys, one with his arm in a sling, both looking at their phones.
+Looking back, Daniel agrees with her. "I had been unhappy there for two years. I just didn't have the courage to leave. Losing the job was the push I needed." He now works for a smaller company, earns a little less, and feels, he says, ten years younger.`,vocab:[{word:"eliminated",def_ja:"廃止された",example:"The company eliminated several positions."},{word:"secure",def_ja:"安全な",example:"He felt secure in his job."},{word:"loyalty",def_ja:"忠誠心",example:"She was loyal to the company for over twenty years."},{word:"ashamed",def_ja:"恥ずかしい",example:"He felt ashamed even though the mistake wasn't his fault."}],expressions:[{phrase:"Position had been eliminated",usage_ja:"会社の再編により解雇された",examples:["A: The company eliminated my position, not me."]},{phrase:"Didn't know what else to do",usage_ja:"ショックで普通の行動が無意味に感じられた",examples:["A: When I heard the news, I just sat there. I didn't know what else to do."]},{phrase:"Loyalty meant something",usage_ja:"同じ会社に留まることが報われると信じていた",examples:["A: My parents' generation believed loyalty meant something."]},{phrase:"The push I needed",usage_ja:"必要な変化を強制的に起こした困難な出来事",examples:["A: The breakup was the push I needed to move to a new city."]}],american_moment_ja:"ダニエルは「忠誠心は意味があると思っていた」と言う。これはアメリカ人の共通の嘆きだ。古い社会的契約 — 一つの会社に何十年も勤め、金時計をもらう — は消え去った。",reflection_ja:"あなたを大切に扱う会社にもっと忠誠を尽くしますか？"},{id:62,title:"Waiting Room",emoji:"🏥",category:"Health",teaser:"Mia sat in the hospital waiting room for two hours. A stranger sat next to her. They didn't exchange names.",story:`Every person in the hospital waiting room had a different story. There was an old man reading a newspaper, turning each page slowly. A young mother with a toddler on her lap, trying to keep him quiet with a biscuit. Two teenage boys, one with his arm in a sling, both looking at their phones.
 
 Mia sat in the corner and watched them all. She had been there for two hours, waiting for news about her father. She noticed how people in waiting rooms avoid eye contact. Everyone is inside their own fear.
 
