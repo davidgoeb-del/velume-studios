@@ -1,0 +1,653 @@
+/* ==========================================================================
+   VELUME STUDIOS - CORE ATMOSPHERIC SYSTEM
+   ========================================================================== */
+
+:root {
+  --bg-color: #030008;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --primary-accent: #a78bfa;
+  --active-accent: #10b981;
+  --glass-blur: blur(20px);
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   CINEMATIC VIEWPORT RESET
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+  background-color: var(--bg-color);
+  color: var(--color-text-primary);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  position: relative;
+}
+
+/* Fullscreen Background Canvas */
+#aurora-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 0;
+  touch-action: none;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   PINNED TOP BRAND CONTAINER
+   ========================================================================== */
+
+.brand-container {
+  position: absolute;
+  top: 5.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+  pointer-events: auto;
+}
+
+/* Magical Shimmer Text Effect (Matches other apps in ecosystem) */
+.shimmer-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.8rem, 5vw, 3.4rem);
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    95deg,
+    #f8fafc 0%,
+    #f8fafc 30%,
+    #ab6bff 48%,
+    #c38cff 52%,
+    #ab6bff 56%,
+    #f8fafc 70%,
+    #f8fafc 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmer 4.5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  display: inline-block;
+  transition: var(--transition);
+}
+
+.shimmer-text:hover {
+  filter: drop-shadow(0 0 12px rgba(171, 107, 255, 0.4));
+  transform: scale(1.01);
+}
+
+/* ==========================================================================
+   ANIMATIONS & MOTION
+   ========================================================================== */
+
+@keyframes textShimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .shimmer-text {
+    background: none;
+    -webkit-text-fill-color: #f8fafc;
+    text-fill-color: #f8fafc;
+  }
+}
+
+/* ==========================================================================
+   ISOLATED FLOATING CORNER WIDGETS
+   ========================================================================== */
+
+/* --- Soundscape Widget (Bottom Left) --- */
+.soundscape-widget-wrapper {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  pointer-events: none; /* Let canvas ripples pass through empty areas */
+}
+
+.soundscape-toggle-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(10, 5, 20, 0.45);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto; /* Enable clicks */
+  touch-action: manipulation;
+}
+
+.soundscape-toggle-btn:hover {
+  color: #fff;
+  background: rgba(12, 6, 24, 0.6);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.08);
+}
+
+.soundscape-toggle-btn:active {
+  transform: scale(0.96);
+}
+
+/* Music active closed state */
+.soundscape-toggle-btn.playing {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
+  color: var(--active-accent);
+}
+
+.soundscape-toggle-btn.playing svg {
+  animation: pulse-slow 2s infinite ease-in-out;
+}
+
+/* Expanded state for wrapper */
+.soundscape-widget-wrapper.expanded .soundscape-toggle-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.soundscape-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(10, 5, 20, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 25px;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 6px;
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  pointer-events: none;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.soundscape-widget-wrapper.expanded .soundscape-menu {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.soundscape-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto; /* Enable clicks */
+  touch-action: manipulation;
+}
+
+.soundscape-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.soundscape-btn.active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.soundscape-btn.active.playing {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
+  color: var(--active-accent);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
+}
+
+.track-abbr {
+  font-family: inherit;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.soundscape-btn:hover .track-abbr {
+  transform: scale(1.08);
+}
+
+.soundscape-btn.active.playing .track-abbr {
+  animation: spin-slow 6s linear infinite;
+  color: var(--active-accent);
+  display: inline-block;
+}
+
+.soundscape-btn.error {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+
+/* Radar ping active dot styling */
+.soundscape-btn-dot {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 6px;
+  height: 6px;
+  display: flex;
+}
+
+.soundscape-btn-dot .ping-wave {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #34d399;
+  opacity: 0.75;
+  animation: dot-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.soundscape-btn-dot .core-dot {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #10b981;
+}
+
+/* Tooltip overlay styling */
+.soundscape-btn .tooltip,
+.soundscape-toggle-btn .tooltip {
+  visibility: hidden;
+  background-color: rgba(10, 5, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1000;
+  left: 48px;
+  top: 50%;
+  transform: translateY(-50%) scale(0.9);
+  opacity: 0;
+  font-family: inherit;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.soundscape-btn:hover .tooltip,
+.soundscape-toggle-btn:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+
+/* --- Projects Widget (Bottom Right) --- */
+.project-widget-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  width: 280px;
+  pointer-events: none; /* Let canvas ripples pass through empty areas */
+}
+
+.project-toggle-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto; /* Enable clicks */
+  touch-action: manipulation;
+}
+
+.project-toggle-btn:hover {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.project-toggle-btn:active {
+  transform: scale(0.98);
+}
+
+.project-widget-wrapper.expanded .project-toggle-btn {
+  color: #fff;
+  text-shadow: 0 0 12px rgba(167, 139, 250, 0.45);
+}
+
+.project-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 8px 12px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(15px);
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-widget-wrapper.expanded .project-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.project-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.project-item-title {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 6px 0;
+  width: 100%;
+  text-align: right;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.project-item-title:hover {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.project-item.expanded .project-item-title {
+  color: #fff;
+  text-shadow: 0 0 12px rgba(167, 139, 250, 0.45);
+}
+
+/* Accordion Drawer CSS Grid transition */
+.project-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  overflow: hidden;
+  width: 100%;
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s ease;
+}
+
+.project-item.expanded .project-detail {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.project-detail-inner {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: 8px;
+  padding-bottom: 2px;
+}
+
+.project-description {
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+  text-align: right;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.project-launch-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--primary-accent);
+  text-decoration: none;
+  padding: 4px 0;
+  transition: all 0.2s ease;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.project-launch-link:hover {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.project-launch-link:active {
+  transform: scale(0.97);
+}
+
+
+/* --- Shared Animations --- */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.75;
+  }
+}
+
+@keyframes dot-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+
+/* --- Contact Widget (Under Pinned Title) --- */
+.contact-widget-wrapper {
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  pointer-events: none;
+}
+
+.contact-link-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 6px 12px;
+  opacity: 0.55;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              text-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.contact-link-btn:hover {
+  color: #fff;
+  opacity: 0.9;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.contact-toast {
+  position: absolute;
+  bottom: 28px; /* Appears directly above the button text inside brand-container */
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--active-accent); /* emerald green */
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+  white-space: nowrap;
+}
+
+.contact-toast.show {
+  opacity: 0.95;
+  transform: translateY(0);
+}
+
+
+/* --- Responsive Layout (Mobile overrides) --- */
+@media (max-width: 600px) {
+  .soundscape-widget-wrapper {
+    bottom: 28px;
+    left: 20px;
+    gap: 12px;
+  }
+
+  .soundscape-toggle-btn {
+    width: 46px;
+    height: 46px;
+  }
+
+  .soundscape-btn {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .project-widget-wrapper {
+    bottom: 28px;
+    right: 20px;
+    width: 240px;
+    gap: 12px;
+  }
+
+  .project-toggle-btn {
+    height: 46px;
+    font-size: 0.78rem;
+  }
+
+  .project-menu {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .project-item-title {
+    font-size: 0.82rem;
+    padding: 8px 0;
+  }
+
+  .project-description {
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  .project-launch-link {
+    font-size: 0.72rem;
+    padding: 6px 0;
+  }
+
+  .contact-widget-wrapper {
+    margin-top: 0.8rem;
+  }
+
+  .contact-link-btn {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    padding: 6px 0;
+  }
+
+  .contact-toast {
+    bottom: 24px;
+    font-size: 0.58rem;
+  }
+}
+
