@@ -776,11 +776,13 @@
       }
 
       const cafeTrans = document.getElementById('trans-cafe');
-      if (trans.transCafe) {
-        cafeTrans.innerHTML = trans.transCafe;
-        cafeTrans.style.display = 'block';
-      } else {
-        cafeTrans.style.display = 'none';
+      if (cafeTrans) {
+        if (trans.transCafe) {
+          cafeTrans.innerHTML = trans.transCafe;
+          cafeTrans.style.display = 'block';
+        } else {
+          cafeTrans.style.display = 'none';
+        }
       }
     }
 
@@ -809,5 +811,6 @@
     document.getElementById('lang-select').value = savedLang;
     changeLanguage(savedLang);
   </script>
+  <script src="script.js"></script>
 </body>
 </html>

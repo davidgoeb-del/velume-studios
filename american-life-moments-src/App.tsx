@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { CATEGORY_COLORS } from './data';
 import { Capacitor } from '@capacitor/core';
 import { NativeAudio } from '@capacitor-community/native-audio';
-import { Volume2, Bookmark, BookOpen, Music, Play, Pause, VolumeX, Sparkles, Disc, Waves, ArrowUp, Share2, ChevronLeft, ChevronRight, ChevronUp, CheckCircle2, Sun, Activity, Users, Briefcase, Heart, Leaf, GraduationCap, Home, TrendingUp, Trophy } from 'lucide-react';
+import { Volume2, Bookmark, BookOpen, Music, Play, Pause, VolumeX, Sparkles, Disc, Waves, ArrowUp, Share2, ChevronLeft, ChevronRight, ChevronUp, CheckCircle2, Sun, Activity, Users, Briefcase, Heart, Leaf, GraduationCap, Home, TrendingUp, Trophy, Lock, X } from 'lucide-react';
 import { PhraseItem, LocaleCatalog } from './types';
 import { STORIES_DATA, StoryItem } from './storiesData';
 import storiesEnData from './stories_en.json';
+import { PurchasesService } from './purchases';
 
 const storiesEn = storiesEnData as Record<string, { american_moment_en: string; reflection_en: string }>;
 
@@ -651,6 +652,9 @@ export default function App() {
 
 
   const [activeTab, setActiveTab] = useState<string>('All');
+  const [isPremium, setIsPremium] = useState<boolean>(false);
+  const [showPaywall, setShowPaywall] = useState<boolean>(false);
+  const [isUnlocking, setIsUnlocking] = useState<boolean>(false);
   const [filterMode, setFilterMode] = useState<'all' | 'unread'>('all');
   const [completedStories, setCompletedStories] = useState<number[]>(() => {
     if (typeof window !== 'undefined') {
@@ -690,6 +694,16 @@ export default function App() {
       localStorage.removeItem('david_goeb_selected_level');
     }
   }, [selectedLevel]);
+
+  // Initialize RevenueCat and check premium status on app launch
+  useEffect(() => {
+    const initPurchases = async () => {
+      await PurchasesService.initialize();
+      const premium = await PurchasesService.checkPremiumStatus();
+      setIsPremium(premium);
+    };
+    initPurchases();
+  }, []);
 
   const toggleStoryCompleted = (storyId: number, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
@@ -867,6 +881,7 @@ export default function App() {
 
   const [selectedTrack, setSelectedTrack] = useState(TRACKS[0]);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+  const [musicRepeatMode, setMusicRepeatMode] = useState<'playlist' | 'single'>('playlist');
   const musicVolume = 0.30; // Cozy default background volume (30%)
   const SPEECH_VOLUME = 1.0; // Clear, consistent maximum volume for speech
   const [isMusicOpen, setIsMusicOpen] = useState(false);
@@ -1534,12 +1549,15 @@ export default function App() {
     window.speechSynthesis.speak(utterance);
   };
 
+  const musicRepeatModeRef = useRef(musicRepeatMode);
+  useEffect(() => { musicRepeatModeRef.current = musicRepeatMode; }, [musicRepeatMode]);
+
   // Safe background audio element management with Web Audio API for soft volume adjustments
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const audio = new Audio(selectedTrack.file);
-    audio.loop = true;
+    audio.loop = musicRepeatModeRef.current === 'single';
     audio.volume = musicVolume;
     musicRef.current = audio;
 
@@ -1577,9 +1595,20 @@ export default function App() {
       setIsAudioLoading(true);
     };
 
+    const handleEnded = () => {
+      if (musicRepeatModeRef.current === 'playlist') {
+        setSelectedTrack(prev => {
+          const currentIndex = TRACKS.findIndex(t => t.id === prev.id);
+          const nextIndex = (currentIndex + 1) % TRACKS.length;
+          return TRACKS[nextIndex];
+        });
+      }
+    };
+
     audio.addEventListener('canplay', handleCanPlay);
     audio.addEventListener('error', handleAudioError);
     audio.addEventListener('loadstart', handleLoadStart);
+    audio.addEventListener('ended', handleEnded);
 
     if (isPlayingMusic) {
       setIsAudioLoading(true);
@@ -1599,6 +1628,7 @@ export default function App() {
       audio.removeEventListener('canplay', handleCanPlay);
       audio.removeEventListener('error', handleAudioError);
       audio.removeEventListener('loadstart', handleLoadStart);
+      audio.removeEventListener('ended', handleEnded);
     };
   }, [selectedTrack]);
 
@@ -1606,6 +1636,7 @@ export default function App() {
   useEffect(() => {
     if (musicRef.current) {
       musicRef.current.volume = musicVolume;
+      musicRef.current.loop = musicRepeatMode === 'single';
     }
     if (gainNodeRef.current && audioContextRef.current) {
       try {
@@ -1614,7 +1645,7 @@ export default function App() {
         gainNodeRef.current.gain.value = musicVolume;
       }
     }
-  }, [musicVolume]);
+  }, [musicVolume, musicRepeatMode]);
 
   const toggleMusicPlay = async () => {
     if (musicRef.current) {
@@ -1648,11 +1679,21 @@ export default function App() {
 
   const handleTrackSelect = (track: typeof TRACKS[0]) => {
     if (selectedTrack.id === track.id) {
-      // Toggle play state if already active
-      toggleMusicPlay();
+      if (!isPlayingMusic) {
+        setMusicRepeatMode('playlist');
+        toggleMusicPlay();
+      } else if (musicRepeatMode === 'playlist') {
+        setMusicRepeatMode('single');
+      } else {
+        setMusicRepeatMode('playlist');
+        toggleMusicPlay();
+      }
     } else {
       setSelectedTrack(track);
-      setIsPlayingMusic(true);
+      setMusicRepeatMode('playlist');
+      if (!isPlayingMusic) {
+        setIsPlayingMusic(true);
+      }
     }
   };
 
@@ -2891,11 +2932,19 @@ export default function App() {
                   <article
                     key={story.id}
                     id={`story-${story.id}`}
-                    onClick={!isExpanded ? () => toggleExpandStory(story.id) : undefined}
+                    onClick={!isExpanded ? () => {
+                      if (!isPremium && story.id > 1) {
+                        setShowPaywall(true);
+                        return;
+                      }
+                      toggleExpandStory(story.id);
+                    } : undefined}
                     className={`relative bg-white rounded-[28px] p-5 sm:p-6 md:p-8 shadow-[0_8px_28px_rgba(0,0,0,0.04)] border transition-all duration-300 select-none group/card ${
                       !isExpanded ? 'cursor-pointer hover:scale-[1.01] active:scale-[0.99]' : ''
                     } ${
                       !isExpanded && completedStories.includes(story.id) ? 'opacity-[0.82] hover:opacity-100' : ''
+                    } ${
+                      !isPremium && story.id > 1 ? 'opacity-90' : ''
                     }`}
                     style={{ 
                       borderColor: isExpanded ? style.borderColor : (completedStories.includes(story.id) ? '#eedfe3' : '#EDE9FF'), 
@@ -2917,7 +2966,13 @@ export default function App() {
                         </h2>
                         
                         <div className="flex items-center gap-2 shrink-0 mt-1">
-                          {completedStories.includes(story.id) && (
+                          {!isPremium && story.id > 1 && (
+                            <span className="flex items-center gap-1 text-[11px] font-sans font-bold text-stone-400 bg-stone-50 px-2.5 py-1 rounded-full border border-stone-200">
+                              <Lock className="w-3 h-3" />
+                              Premium
+                            </span>
+                          )}
+                          {isPremium && completedStories.includes(story.id) && (
                             <span className="flex items-center gap-1 text-[11px] font-sans font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200/50">
                               {storyVibes[story.id] && (
                                 <span className="text-[13px] mr-0.5 animate-scale-up" title="Story Vibe Stamp">
@@ -3368,7 +3423,7 @@ export default function App() {
                   {isCurrentLoading ? (
                     <span className="w-[18px] h-[18px] border-2 border-emerald-700 border-t-transparent rounded-full animate-spin" />
                   ) : (
-                    <span className={`text-[10px] font-sans font-bold tracking-tighter uppercase transition-transform duration-300 ${
+                    <span className={`relative text-[10px] font-sans font-bold tracking-tighter uppercase transition-transform duration-300 ${
                       isActive 
                         ? isCurrentPlaying
                           ? 'text-emerald-700 font-extrabold animate-[spin_6s_linear_infinite]'
@@ -3376,6 +3431,9 @@ export default function App() {
                         : 'text-stone-400 group-hover/btn:text-stone-600 group-hover/btn:scale-110'
                     }`}>
                       {track.abbr}
+                      {isActive && isCurrentPlaying && musicRepeatMode === 'single' && (
+                        <span className="absolute -top-1 -right-2 text-[8px] bg-emerald-600 text-white rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold shadow-sm" style={{ animation: 'none', transform: 'rotate(0deg)' }}>1</span>
+                      )}
                     </span>
                   )}
                   
@@ -3453,6 +3511,167 @@ export default function App() {
           )}
         </div>
       </button>
+
+            {/* ── Freemium Glassmorphism Paywall Modal ── */}
+      {showPaywall && (() => {
+        const pw: Record<string, {title: string; subtitle: string; feature1: string; feature2: string; feature3: string; cta: string; processing: string; footer: string; restore: string}> = {
+          'ja': {
+            title: 'Lumoraを解放しよう',
+            subtitle: 'ここまで来たあなたへ。本当の英語の旅は、ここから始まります。',
+            feature1: '25の実生活カテゴリーに完全アクセス',
+            feature2: '100のアメリカンライフストーリーと表現',
+            feature3: 'すべてのロー・ファイBGMを解放',
+            cta: '一生アクセスを手に入れる',
+            processing: '処理中…',
+            footer: '一度の購入で、ずっとあなたのもの。',
+            restore: '以前の購入を復元する',
+          },
+          'zh-TW': {
+            title: '解鎖 Lumora 完整體驗',
+            subtitle: '你已走了這麼遠。接下來的旅程，值得你全力以赴。',
+            feature1: '25個真實生活情境全面開放',
+            feature2: '100個美式生活故事與道地表達',
+            feature3: '解鎖全部輕音樂背景配樂',
+            cta: '一次購買，終身擁有',
+            processing: '處理中…',
+            footer: '一次付費，永久使用。',
+            restore: '恢復之前的購買',
+          },
+          'zh-CN': {
+            title: '解锁 Lumora 完整体验',
+            subtitle: '你已经走了这么远。接下来的旅程，值得你全力以赴。',
+            feature1: '25个真实生活情境全面开放',
+            feature2: '100个美式生活故事与地道表达',
+            feature3: '解锁全部轻音乐背景配乐',
+            cta: '一次购买，终身拥有',
+            processing: '处理中…',
+            footer: '一次付费，永久使用。',
+            restore: '恢复之前的购买',
+          },
+          'ko': {
+            title: 'Lumora를 완전히 열어보세요',
+            subtitle: '여기까지 온 당신은 이미 대단합니다. 나머지 여정을 함께 완성해봐요.',
+            feature1: '25개 실생활 카테고리 전체 이용',
+            feature2: '100편의 미국 생활 이야기와 표현',
+            feature3: '모든 로파이 배경음악 해금',
+            cta: '평생 이용권 구매하기',
+            processing: '처리 중…',
+            footer: '한 번의 결제로 평생 이용하세요.',
+            restore: '이전 구매 복원하기',
+          },
+          'th': {
+            title: 'ปลดล็อก Lumora ทั้งหมด',
+            subtitle: 'คุณมาไกลมากแล้ว ส่วนที่เหลือของการเดินทางรอคุณอยู่',
+            feature1: 'เข้าถึง 25 หมวดชีวิตจริงได้อย่างสมบูรณ์',
+            feature2: '100 เรื่องราวชีวิตอเมริกันและสำนวนจริง',
+            feature3: 'ปลดล็อกเพลง Lo-Fi ทั้งหมด',
+            cta: 'รับสิทธิ์ตลอดชีวิต',
+            processing: 'กำลังดำเนินการ…',
+            footer: 'ซื้อครั้งเดียว ใช้ได้ตลอดไป',
+            restore: 'กู้คืนการซื้อก่อนหน้า',
+          },
+          'vi': {
+            title: 'Mở khóa Lumora trọn vẹn',
+            subtitle: 'Bạn đã đi được một chặng đường dài. Phần còn lại của hành trình đang chờ bạn.',
+            feature1: 'Toàn quyền truy cập 25 chủ đề đời thực',
+            feature2: '100 câu chuyện cuộc sống Mỹ & thành ngữ',
+            feature3: 'Mở khóa toàn bộ nhạc nền Lo-Fi',
+            cta: 'Mua quyền truy cập trọn đời',
+            processing: 'Đang xử lý…',
+            footer: 'Mua một lần, dùng mãi mãi.',
+            restore: 'Khôi phục giao dịch cũ',
+          },
+        };
+        const t = pw[localeKey] ?? {
+          title: 'Unlock Lumora',
+          subtitle: 'Come this far already? The rest of the journey is waiting.',
+          feature1: 'Full access to 25 Real-World Categories',
+          feature2: '100 Real American Stories & Idioms',
+          feature3: 'Unlock all Ambient Lo-Fi Background Beats',
+          cta: 'Unlock Lifetime Access',
+          processing: 'Processing...',
+          footer: 'One-time purchase. Yours forever.',
+          restore: 'Restore Previous Purchase',
+        };
+        return (
+          <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center animate-fade-in p-0 sm:p-6 pb-0 sm:pb-6">
+            <div
+              className="absolute inset-0 bg-stone-900/40 backdrop-blur-md transition-opacity duration-300"
+              onClick={() => setShowPaywall(false)}
+            />
+            <div className="relative w-full max-w-[440px] bg-gradient-to-b from-[#fdfaf5] to-[#f4eee6] rounded-t-[32px] sm:rounded-[32px] shadow-[0_20px_60px_-10px_rgba(40,36,32,0.25)] overflow-hidden animate-slide-up-fade border border-white/60 pt-8 pb-10 px-6 sm:px-8 text-center mt-auto sm:mt-0">
+              <button
+                onClick={() => setShowPaywall(false)}
+                className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-stone-200/50 text-stone-500 hover:text-stone-800 hover:bg-stone-200 transition-colors cursor-pointer z-10"
+              >
+                <X className="w-4 h-4" />
+              </button>
+              <div className="w-16 h-16 rounded-full bg-[#fdfaf5] border border-[#e2d5bd] flex items-center justify-center mx-auto mb-6 shadow-sm">
+                <Sparkles className="w-7 h-7 text-[#7c5e39]" />
+              </div>
+              <h2 className="font-serif text-3xl sm:text-[34px] font-bold text-stone-900 leading-tight tracking-tight mb-3">
+                {t.title}
+              </h2>
+              <p className="font-sans text-[15px] text-stone-500 leading-relaxed mb-8 px-2 text-balance">
+                {t.subtitle}
+              </p>
+              <div className="bg-white/60 backdrop-blur-sm rounded-[20px] p-4 sm:p-5 border border-white mb-8 text-left space-y-4 shadow-sm">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#fefaec] border border-[#ecd29b] flex items-center justify-center shrink-0">
+                    <Bookmark className="w-4 h-4 text-[#8c6820] fill-current" />
+                  </div>
+                  <span className="font-sans text-[14.5px] text-stone-700 font-medium tracking-tight">{t.feature1}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#ebf7f5] border border-[#b8dad4] flex items-center justify-center shrink-0">
+                    <BookOpen className="w-4 h-4 text-[#3d6e65] fill-current" />
+                  </div>
+                  <span className="font-sans text-[14.5px] text-stone-700 font-medium tracking-tight">{t.feature2}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#f6effa] border border-[#d9c9e0] flex items-center justify-center shrink-0">
+                    <Music className="w-4 h-4 text-[#7b5083] fill-current" />
+                  </div>
+                  <span className="font-sans text-[14.5px] text-stone-700 font-medium tracking-tight">{t.feature3}</span>
+                </div>
+              </div>
+              <button
+                disabled={isUnlocking}
+                onClick={async () => {
+                  setIsUnlocking(true);
+                  const success = await PurchasesService.purchaseLifetimeUnlock();
+                  if (success) {
+                    setIsPremium(true);
+                    setShowPaywall(false);
+                  }
+                  setIsUnlocking(false);
+                }}
+                className="w-full h-[58px] rounded-full bg-stone-900 text-white font-sans font-bold text-[16px] tracking-wide hover:scale-[1.02] active:scale-[0.98] hover:bg-stone-800 transition-all shadow-[0_8px_20px_-4px_rgba(40,36,32,0.3)] cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 disabled:scale-100 disabled:cursor-not-allowed"
+              >
+                <Lock className="w-4 h-4 opacity-70" />
+                {isUnlocking ? t.processing : t.cta}
+              </button>
+              <p className="font-sans text-[13px] text-stone-400 mt-5 tracking-wide">
+                {t.footer}
+              </p>
+              <button
+                onClick={async () => {
+                  setIsUnlocking(true);
+                  const restored = await PurchasesService.restorePurchases();
+                  if (restored) {
+                    setIsPremium(true);
+                    setShowPaywall(false);
+                  }
+                  setIsUnlocking(false);
+                }}
+                className="font-sans text-[13px] text-stone-400 mt-2 underline cursor-pointer hover:text-stone-600 transition-colors"
+              >
+                {t.restore}
+              </button>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }
