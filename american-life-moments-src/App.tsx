@@ -2776,8 +2776,14 @@ export default function App() {
                           window.scrollTo(0, 0);
                         }}
                         style={{ backgroundColor: level.bgColor, borderColor: level.borderColor }}
-                        className="level-card p-8 sm:p-10 border rounded-[32px] cursor-pointer hover:scale-[1.01] hover:shadow-md active:scale-[0.99] transition-all duration-300 flex flex-col justify-between text-left group/level"
+                        className="level-card p-8 sm:p-10 border rounded-[32px] cursor-pointer hover:scale-[1.01] hover:shadow-md active:scale-[0.99] transition-all duration-300 flex flex-col justify-between text-left group/level relative"
                       >
+                        <span 
+                          className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[11px] sm:text-[12px] font-sans font-bold tracking-widest px-5 py-1.5 rounded-full uppercase shadow-sm border-[1.5px] border-white z-10"
+                          style={{ backgroundColor: level.textColor, color: '#ffffff' }}
+                        >
+                          LEVEL {level.id}
+                        </span>
                         <div>
                           {/* Card Header (Title & Level Pill aligned horizontally) */}
                           <div className="flex items-start justify-between gap-4 mb-6">
@@ -2787,12 +2793,6 @@ export default function App() {
                                 {localeKey === 'zh-TW' ? level.title_zh : localeKey === 'ko' ? level.title_ko : localeKey === 'th' ? level.title_th : localeKey === 'vi' ? level.title_vi : level.title_ja}
                               </span>
                             </h2>
-                            <span 
-                              className="text-[12px] font-sans font-bold tracking-widest px-3.5 py-1.5 rounded-full uppercase shadow-sm shrink-0 mt-1"
-                              style={{ backgroundColor: level.pillBg, color: level.pillText }}
-                            >
-                              LEVEL {level.id}
-                            </span>
                           </div>
 
                           {/* Description */}
@@ -2864,8 +2864,14 @@ export default function App() {
                   return (
                     <div 
                       style={{ backgroundColor: currentLevelData.bgColor, borderColor: currentLevelData.borderColor }}
-                      className="p-6 sm:p-8 rounded-[28px] border text-left mb-6 shadow-sm animate-slide-up-fade"
+                      className="p-6 sm:p-8 rounded-[28px] border text-left mb-6 shadow-sm animate-slide-up-fade relative mt-6"
                     >
+                      <span 
+                        className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[11px] sm:text-[12px] font-sans font-bold tracking-widest px-5 py-1.5 rounded-full uppercase shadow-sm border-[1.5px] border-white z-10"
+                        style={{ backgroundColor: currentLevelData.textColor, color: '#ffffff' }}
+                      >
+                        LEVEL {selectedLevel}
+                      </span>
                       <div className="flex items-start justify-between gap-4">
                         <h2 translate="no" className="font-serif text-3xl sm:text-[38px] font-semibold text-stone-900 tracking-tight leading-tight pt-1">
                           {currentLevelData.title}
@@ -2873,12 +2879,6 @@ export default function App() {
                             {localeKey === 'zh-TW' ? currentLevelData.title_zh : localeKey === 'ko' ? currentLevelData.title_ko : localeKey === 'th' ? currentLevelData.title_th : localeKey === 'vi' ? currentLevelData.title_vi : currentLevelData.title_ja}
                           </span>
                         </h2>
-                        <span 
-                          className="text-[11px] font-sans font-bold tracking-[0.15em] px-3.5 py-1.5 rounded-full uppercase shadow-sm shrink-0 mt-2" 
-                          style={{ backgroundColor: currentLevelData.pillBg, color: currentLevelData.pillText }}
-                        >
-                          LEVEL {selectedLevel}
-                        </span>
                       </div>
                       <p className="font-sans text-stone-600 text-sm sm:text-md mt-3 leading-relaxed">
                         {currentLevelData.description}
