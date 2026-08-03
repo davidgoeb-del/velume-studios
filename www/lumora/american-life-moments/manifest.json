@@ -1,0 +1,22 @@
+{
+  "short_name": "Lumora",
+  "name": "Lumora • Ambient Language Learning",
+  "description": "Quiet, beautiful, and focused tools for language learners and soundscape explorers by Velume Studios.",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#fcf5e7",
+  "theme_color": "#7c5e39",
+  "display": "standalone",
+  "orientation": "portrait"
+}
