@@ -374,9 +374,153 @@
       background: rgba(255, 255, 255, 0.95);
       border-color: rgba(124, 94, 57, 0.3);
     }
+
+    /* Music Player Widget - exact match to sub-apps */
+    .music-widget {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 0.75rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 6px;
+      background: rgba(253, 250, 245, 0.90);
+      border: 1px solid rgba(231, 225, 215, 0.6);
+      box-shadow: 0 8px 30px rgba(40, 36, 32, 0.065);
+      padding: 6px;
+      border-radius: 9999px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+    .music-widget:hover {
+      background: rgba(253, 250, 245, 0.95);
+    }
+
+    /* Main music note toggle button */
+    .music-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      background: transparent;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .music-btn.is-closed {
+      background: #f5f4f2;
+      border-color: #e7e2da;
+      color: #78716c;
+    }
+    .music-btn.is-closed:hover {
+      color: #1c1917;
+    }
+    .music-btn.is-playing {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      color: #15803d;
+    }
+    .music-btn.is-open {
+      background: #e7e5e0;
+      border-color: #d6d3d0;
+      color: #1c1917;
+    }
+    /* Music note SVG icon */
+    .music-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+    }
+
+    /* Track selector buttons (expanded, stacking upward) */
+    .music-tracks {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding-bottom: 2px;
+    }
+    .music-tracks.is-open {
+      display: flex;
+    }
+    .track-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: transparent;
+      color: #a8a29e;
+      font-size: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      position: relative;
+    }
+    .track-btn:hover {
+      color: #57534e;
+      background: #f5f4f2;
+    }
+    .track-btn.is-active-stopped {
+      background: #f5f4f2;
+      border-color: #d6d3d0;
+      color: #1c1917;
+    }
+    .track-btn.is-active-playing {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      color: #15803d;
+    }
+    /* Green dot indicator when playing */
+    .track-btn .playing-dot {
+      display: none;
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+    .track-btn.is-active-playing .playing-dot {
+      display: block;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Music Player Widget (exact match to sub-apps) -->
+  <div class="music-widget" id="musicWidget" onclick="event.stopPropagation()" ontouchstart="event.stopPropagation()">
+
+    <!-- Main music note toggle button (at the bottom of the pill) -->
+    <button class="music-btn is-closed" id="musicToggleBtn" title="Choose Background Music" aria-label="Choose Background Music">
+      <!-- Lucide Music icon - exact match to sub-apps -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 18V5l12-2v13"/>
+        <circle cx="6" cy="18" r="3"/>
+        <circle cx="18" cy="16" r="3"/>
+      </svg>
+    </button>
+
+    <!-- Track buttons (expand upward) -->
+    <div class="music-tracks" id="musicTracks">
+      <!-- populated by JS -->
+    </div>
+
+  </div>
 
   <div class="language-selector-container">
     <select class="language-select" id="lang-select" onchange="changeLanguage(this.value)">
@@ -395,10 +539,10 @@
     </p>
     <h1 class="brand-title">Lumora</h1>
     <p class="brand-subtitle">Calming Journeys in American English & Culture</p>
-    <p class="brand-slogan" style="font-weight: 500; font-size: 1.25rem; opacity: 0.9;">
-      <strong>“Vocabulary is only half of language.<br>
-      Culture is where language comes alive.”</strong>
-      <span class="translation-text" id="trans-slogan" style="font-weight: 400; font-size: 1rem; opacity: 0.8; display: block; margin-top: 8px;"></span>
+    <p class="brand-slogan">
+      “Vocabulary is only half the language.<br>
+      Learn the culture behind the words to truly live it.”
+      <span class="translation-text" id="trans-slogan"></span>
     </p>
   </header>
 
@@ -406,7 +550,7 @@
     <div class="menu-container">
       
       <!-- Essentials -->
-      <a href="../lumora-american-essentials/index.html" class="menu-item card-essentials">
+      <a href="lumora-american-essentials/index.html" class="menu-item card-essentials">
         <h2 class="menu-item-title">American Essentials</h2>
         <p class="menu-item-description">
           Master the 500 most useful expressions for daily conversation. Immerse yourself naturally through custom chill lo-fi beats and calm, native voices.
@@ -415,7 +559,7 @@
       </a>
 
       <!-- Moments -->
-      <a href="../american-life-moments/index.html" class="menu-item card-moments-v1">
+      <a href="american-life-moments/index.html" class="menu-item card-moments-v1">
         <h2 class="menu-item-title">American Life Moments</h2>
         <p class="menu-item-description">
           Step inside 100 everyday stories of American life, routines, and idioms. Listen and understand the cultural nuances while drifting through relaxing soundscapes.
@@ -424,10 +568,10 @@
       </a>
 
       <!-- Cafe Culture -->
-      <a href="../lumora-american-cafe-culture/index.html" class="menu-item card-cafe">
+      <a href="lumora-american-cafe-culture/index.html" class="menu-item card-cafe" id="cafe-culture-card">
         <h2 class="menu-item-title">American Cafe Culture</h2>
         <p class="menu-item-description">
-          Navigate cafe ordering, local habits, and social etiquette. Understand the cultural nuances of life in these settings through real, cozy situational dialogues.
+          Over 50 immersive audio stories exploring the cultural nuances of American cafes, ordering, and social etiquette. The perfect environment to build your confidence.
           <span class="card-translation" id="trans-cafe"></span>
         </p>
       </a>
@@ -440,8 +584,91 @@
     </p>
   </footer>
 
-
   <script>
+    // ── Music Player Widget ─────────────────────────────────────────────
+    const TRACKS = [
+      { id: 'marigold',   name: 'Marigold',              abbr: 'mgd', file: 'marigold_lofi.m4a' },
+      { id: 'not_my_sun', name: 'Not My Sun (Smokey Jazz)', abbr: 'nms', file: 'Not My Sun (LowFi Smokey Jazz Mix).m4a' },
+      { id: 'pavement',   name: 'Wet Pavement',           abbr: 'wp',  file: 'Wet Pavement Zen.m4a' },
+      { id: 'stonewater', name: 'Stonewater Hymn',        abbr: 'sh',  file: 'Stonewater Hymn.m4a' },
+      { id: 'velvet',     name: 'Velvet Pressure',        abbr: 'vp',  file: 'Velvet Pressure.m4a' },
+      { id: 'harmonic',   name: 'Harmonic Safety',        abbr: 'hs',  file: 'Harmonic Safety.m4a' },
+    ];
+
+    let currentTrack = null;   // currently selected TRACKS entry
+    let isPlaying    = false;
+    let isOpen       = false;
+    let audioEl      = null;   // current HTMLAudioElement
+
+    const musicWidget    = document.getElementById('musicWidget');
+    const musicToggleBtn = document.getElementById('musicToggleBtn');
+    const musicTracks    = document.getElementById('musicTracks');
+
+    // Build track buttons once
+    TRACKS.forEach(track => {
+      const btn = document.createElement('button');
+      btn.className = 'track-btn';
+      btn.id = 'track-' + track.id;
+      btn.title = track.name;
+      btn.setAttribute('aria-label', track.name);
+      btn.innerHTML = `<span class="abbr-label">${track.abbr}</span><span class="playing-dot"></span>`;
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        handleTrackSelect(track);
+      });
+      musicTracks.appendChild(btn);
+    });
+
+    function updateUI() {
+      // Main button state
+      musicToggleBtn.className = 'music-btn ' + (isOpen ? 'is-open' : isPlaying ? 'is-playing' : 'is-closed');
+
+      // Track buttons
+      TRACKS.forEach(track => {
+        const btn = document.getElementById('track-' + track.id);
+        if (!btn) return;
+        const isActive = currentTrack && currentTrack.id === track.id;
+        const isActivePlaying = isActive && isPlaying;
+        btn.className = 'track-btn' +
+          (isActivePlaying ? ' is-active-playing' : isActive ? ' is-active-stopped' : '');
+      });
+
+      // Show / hide track list
+      musicTracks.className = 'music-tracks' + (isOpen ? ' is-open' : '');
+    }
+
+    function handleTrackSelect(track) {
+      if (currentTrack && currentTrack.id === track.id) {
+        // Same track — toggle play/pause
+        if (isPlaying) {
+          audioEl.pause();
+          isPlaying = false;
+        } else {
+          audioEl.play().then(() => { isPlaying = true; updateUI(); }).catch(() => {});
+        }
+      } else {
+        // New track — swap
+        if (audioEl) { audioEl.pause(); }
+        currentTrack = track;
+        audioEl = new Audio(track.file);
+        audioEl.loop   = true;
+        audioEl.volume = 0.30;
+        audioEl.play().then(() => { isPlaying = true; updateUI(); }).catch(() => {});
+      }
+      updateUI();
+    }
+
+    // Toggle open/close the track list
+    musicToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      isOpen = !isOpen;
+      updateUI();
+    });
+
+    // Initialise UI
+    updateUI();
+    // ── End Music Player Widget ─────────────────────────────────────────
+
     const TRANSLATIONS = {
       en: {
         subtitle: '',
@@ -548,11 +775,13 @@
       }
 
       const cafeTrans = document.getElementById('trans-cafe');
-      if (trans.transCafe) {
-        cafeTrans.innerHTML = trans.transCafe;
-        cafeTrans.style.display = 'block';
-      } else {
-        cafeTrans.style.display = 'none';
+      if (cafeTrans) {
+        if (trans.transCafe) {
+          cafeTrans.innerHTML = trans.transCafe;
+          cafeTrans.style.display = 'block';
+        } else {
+          cafeTrans.style.display = 'none';
+        }
       }
     }
 
@@ -581,5 +810,6 @@
     document.getElementById('lang-select').value = savedLang;
     changeLanguage(savedLang);
   </script>
+  <script src="script.js"></script>
 </body>
 </html>
