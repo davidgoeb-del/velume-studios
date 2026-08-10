@@ -145,10 +145,10 @@
     .brand-slogan {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-weight: 500;
-      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+      font-weight: 600;
+      font-size: clamp(1.15rem, 3.8vw, 1.4rem);
       color: #1e293b; /* Deep slate charcoal for higher contrast and anchor */
-      opacity: 0.9;
+      opacity: 1;
       line-height: 1.5;
       max-width: 520px;
       margin: 0 auto 4rem auto;
@@ -159,10 +159,10 @@
       display: block;
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-weight: 400;
-      font-size: 0.95rem;
-      color: #8c7f70; /* Muted bronze-stone color matching the screenshot theme */
-      opacity: 0.8;
+      font-weight: 500;
+      font-size: 1.0rem;
+      color: #4a3d3c;
+      opacity: 0.95;
       margin-top: 0.8rem;
       line-height: 1.5;
     }
@@ -170,12 +170,12 @@
     .card-translation {
       display: block;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 400;
-      color: #8c7f70; /* Muted bronze-stone color */
-      opacity: 0.8;
-      margin-top: 0.6rem;
-      line-height: 1.5;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #4a3d3c;
+      opacity: 0.95;
+      margin-top: 0.75rem;
+      line-height: 1.55;
       text-align: center;
       max-width: 440px;
     }
@@ -184,7 +184,7 @@
     .menu-container {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.6rem;
       margin-bottom: 4rem;
       width: 100%;
       max-width: 520px;
@@ -199,7 +199,7 @@
       flex-direction: column;
       align-items: center;
       border-radius: 24px;
-      padding: 2.2rem 3.0rem;  /* wider inner horizontal padding for more breathing room */
+      padding: 2.2rem 2.5rem;  /* wider inner horizontal padding for more breathing room */
       box-shadow: 0 12px 35px rgba(60, 47, 31, 0.05), 0 3px 10px rgba(60, 47, 31, 0.02);
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                   background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
@@ -250,26 +250,39 @@
 
     .menu-item-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.65rem;
-      font-weight: 600;
+      font-size: clamp(1.85rem, 5vw, 2.25rem);
+      font-weight: 700;
       letter-spacing: 0.01em;
       text-transform: none;
-      color: #1e1a15; /* Deeper contrast color */
-      margin-bottom: 0.3rem;
-      transition: color 0.4s ease;
+      color: #1e1a15;
+      width: 100%;
+      text-align: center;
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.0rem;
+      border-bottom: 1.5px solid rgba(124, 94, 57, 0.2);
+      transition: color 0.4s ease, border-color 0.4s ease;
+    }
+
+    .card-essentials .menu-item-title {
+      border-bottom-color: rgba(235, 208, 155, 0.7);
+    }
+    .card-moments-v1 .menu-item-title {
+      border-bottom-color: rgba(229, 191, 186, 0.7);
+    }
+    .card-cafe .menu-item-title {
+      border-bottom-color: rgba(199, 235, 215, 0.7);
     }
 
     .menu-item:hover .menu-item-title {
       color: var(--active-accent);
     }
 
-
     .menu-item-description {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.0rem;      /* bumped up from 0.92rem for easier reading */
-      font-weight: 500;
+      font-weight: 600;       /* Bolder font weight for crisp readability */
       letter-spacing: 0.01em;
-      color: #1e1a15;         /* darker — same as title for stronger contrast */
+      color: #1a1612;         /* darker for stronger contrast */
       line-height: 1.65;
       text-align: center;
       max-width: 440px;
