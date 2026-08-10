@@ -199,7 +199,7 @@
       flex-direction: column;
       align-items: center;
       border-radius: 24px;
-      padding: 2.2rem 2.5rem;  /* wider inner horizontal padding for more breathing room */
+      padding: 2.0rem 1.2rem;  /* optimized inner padding so large titles fit on 1 line */
       box-shadow: 0 12px 35px rgba(60, 47, 31, 0.05), 0 3px 10px rgba(60, 47, 31, 0.02);
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                   background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
@@ -250,16 +250,13 @@
 
     .menu-item-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.25rem, 4.4vw, 1.75rem);
+      font-size: clamp(1.65rem, 5.2vw, 2.15rem);
       font-weight: 700;
-      letter-spacing: 0.01em;
+      letter-spacing: -0.025em;
       text-transform: none;
       color: #1e1a15;
       width: 100%;
       text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
       padding-bottom: 0.75rem;
       margin-bottom: 1.0rem;
       border-bottom: 1.5px solid rgba(124, 94, 57, 0.2);
