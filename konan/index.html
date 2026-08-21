@@ -70,8 +70,7 @@
       <nav class="hidden md:flex items-center space-x-6 text-xs font-semibold text-slate-600 uppercase tracking-wider">
         <a href="#profile" class="hover:text-amber-800 transition">Profile</a>
         <a href="#studio" class="hover:text-amber-800 transition">EdTech Studio</a>
-        <a href="#philosophy" class="hover:text-amber-800 transition">Philosophy</a>
-        <a href="#dossier" class="hover:text-amber-800 transition">Dossier Hub</a>
+        <a href="#dossier" class="hover:text-amber-800 transition">Application Dossier</a>
         <a href="karen-journey.html" target="_blank" class="px-3.5 py-1.5 rounded-full bg-amber-400 text-slate-950 hover:bg-amber-300 transition flex items-center gap-1.5 border border-amber-500 shadow-sm font-extrabold">
           <span>✨</span> Lesson Portal (CEFR B1) ↗
         </a>
@@ -87,8 +86,8 @@
   <!-- =========================================================================
        Section 1: Hero & Candidate Profile
        ========================================================================= -->
-  <main>
-    <section id="profile" class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-6 space-y-6">
+  <main class="space-y-12">
+    <section id="profile" class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 space-y-6">
       <!-- Japanese Motif badge -->
       <div class="flex items-center gap-2">
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-900 text-amber-200 shadow-sm">
@@ -200,330 +199,309 @@
     </section>
 
     <!-- =========================================================================
-         Section 2: Educational Philosophy Spotlight
+         Section 2: Official Faculty Application Dossier (Executive 4-Tier Hierarchy)
          ========================================================================= -->
-    <section id="philosophy" class="max-w-6xl mx-auto px-4 sm:px-6 py-6">
-      <div class="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#e2dcd5] pb-3">
+    <section id="dossier" class="max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
+      <div class="border-b border-[#e2dcd5] pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
         <div>
-          <span class="text-xs font-bold uppercase tracking-widest text-amber-800">Educational Vision & Alignment</span>
-          <h2 class="text-2xl font-bold text-slate-900 mt-1">Core Pillars of Teaching & Research</h2>
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-800">Faculty Hiring Committee Materials</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1 font-display">Application Dossier & Official Credentials</h2>
         </div>
-        <span class="text-xs text-slate-500">Executive highlights from submitted application essays</span>
+        <p class="text-xs text-slate-500">Click &ldquo;Preview Summary&rdquo; for executive briefs or download verified PDFs</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <!-- Pillar 1: Essay 1 -->
-        <div class="washi-card p-6 rounded-xl washi-border-t space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-amber-800 uppercase tracking-wider">Essay 1 Synthesis</span>
-            <span class="text-xs px-2 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-200">Agency & Identity</span>
-          </div>
-          <h3 class="font-bold text-slate-900 text-base">Views on University English Education in Japan</h3>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Transitioning classrooms from passive grammar receptivity to active speaker investment. By establishing psychological safety and task-based inquiry, Japanese university learners discover authentic personal reasons to communicate.
-          </p>
-          <div class="pt-2 text-xs font-semibold text-amber-800">
-            &ldquo;English becomes a vehicle for self-expression and global connection, not just a testing milestone.&rdquo;
-          </div>
+      <!-- TIER 1: Primary Application & Verified Qualifications -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full bg-amber-800 text-amber-100 text-xs font-bold flex items-center justify-center">1</span>
+          <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Primary Application & Verified Qualifications</h3>
+          <span class="text-xs text-slate-400">· Baseline Eligibility & Degrees</span>
         </div>
 
-        <!-- Pillar 2: Essay 2 / Hirao Philosophy -->
-        <div class="washi-card p-6 rounded-xl washi-border-indigo space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-indigo-800 uppercase tracking-wider">Essay 2 Synthesis</span>
-            <span class="text-xs px-2 py-0.5 rounded bg-indigo-50 text-indigo-900 border border-indigo-200">Hirao Philosophy</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Doc 01: CV -->
+          <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 border-2 border-amber-800/40 hover:border-amber-700 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Doc 01</span>
+                <span class="text-xs text-amber-800 font-semibold">Primary CV</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm">Curriculum Vitae (履歴書)</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Designated university form detailing higher education teaching history in Japan and the US, MSEd in TESOL credentials, and institutional service.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="cv">
+                🔍 Brief
+              </button>
+              <a href="docs/DavidGoeb_KonanCV.docx.pdf" target="_blank" download class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
+                <span>📥</span> PDF
+              </a>
+            </div>
           </div>
-          <h3 class="font-bold text-slate-900 text-base">Alignment with Founder Hachisaburo Hirao</h3>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Directly harmonizing with Hirao's core triangle: Tokuiku (徳育 / Character Education), respecting each student's individuality, and cultivating practical skills with real societal utility in an interconnected world.
-          </p>
-          <div class="pt-2 text-xs font-semibold text-indigo-800">
-            &ldquo;Whole-person character development precedes and elevates communicative fluency.&rdquo;
+
+          <!-- Doc 02: Master's Diploma -->
+          <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Doc 02</span>
+                <span class="text-xs text-slate-500">Master's Degree</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm">MSEd in TESOL Diploma</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Official Master of Science in Education in Teaching English to Speakers of Other Languages diploma (Univ. of Southern Maine).
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="msed">
+                🔍 Brief
+              </button>
+              <a href="docs/David_Masters_Diploma.pdf" target="_blank" download class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
+                <span>📥</span> PDF
+              </a>
+            </div>
+          </div>
+
+          <!-- Doc 03: Bachelor's Diploma -->
+          <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Doc 03</span>
+                <span class="text-xs text-slate-500">Bachelor's Degree</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm">Bachelor of Science Diploma</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Official Bachelor of Science degree diploma conferred by the University of Wisconsin–La Crosse, confirming educational foundations.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="ba">
+                🔍 Brief
+              </button>
+              <a href="docs/bachelor_diploma_lacrosse.pdf" target="_blank" download class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
+                <span>📥</span> PDF
+              </a>
+            </div>
+          </div>
+
+          <!-- Doc 04: Teaching License -->
+          <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Doc 04</span>
+                <span class="text-xs text-slate-500">State License</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm">Wisconsin Educator License</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Professional educator teaching license issued by the State of Wisconsin Department of Public Instruction.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="license">
+                🔍 Brief
+              </button>
+              <a href="docs/USA_Teaching%20License.pdf" target="_blank" download class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
+                <span>📥</span> PDF
+              </a>
+            </div>
           </div>
         </div>
-
-        <!-- Pillar 3: Research & Relational Pedagogy -->
-        <div class="washi-card p-6 rounded-xl washi-border-amber space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-amber-800 uppercase tracking-wider">Academic Research</span>
-            <span class="text-xs px-2 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-200">Wellspring Publication</span>
-          </div>
-          <h3 class="font-bold text-slate-900 text-base">Teacher-Student Rapport & Willingness to Communicate</h3>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Investigating socio-affective dynamics in Japanese classrooms. Demonstrates how accessible teacher presence, intentional affirmation, and collaborative group norms dramatically increase students' Willingness to Communicate (WTC).
-          </p>
-          <div class="pt-2 text-xs font-semibold text-amber-800">
-            &ldquo;Strong relational bonds dismantle foreign-language anxiety and foster resilient participation.&rdquo;
-          </div>
-        </div>
-
       </div>
+
+      <!-- TIER 2: Pedagogical Demonstration & Classroom Teaching -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full bg-indigo-900 text-amber-300 text-xs font-bold flex items-center justify-center">2</span>
+          <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Pedagogical Demonstration & Classroom Readiness</h3>
+          <span class="text-xs text-slate-400">· Model Lesson Plan & Visual Slide Materials</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Doc 05: Lesson Plan -->
+          <div class="washi-card p-6 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-100 text-indigo-900">Doc 05</span>
+                <span class="text-xs text-slate-500">90-Minute Model Plan</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-base">90-Minute Model Lesson Plan (指導案)</h4>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Complete procedural plan: &ldquo;What Would You Do? Karen Refugee Integration in America&rdquo; featuring structured 5-stage task cycle (Engage, Explore, Simulate, Evaluate, Reflect) and formative assessment rubrics.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="lesson">
+                🔍 Preview Executive Brief
+              </button>
+              <a href="docs/David_Lesson%20Plan_Konan_Karen.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
+                <span>📥</span> Download Full Plan
+              </a>
+            </div>
+          </div>
+
+          <!-- Doc 06: Slide Deck -->
+          <div class="washi-card p-6 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-100 text-indigo-900">Doc 06</span>
+                <span class="text-xs text-slate-500">Classroom Visual Deck</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-base">Classroom Presentation Slide Deck (スライド)</h4>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Visual presentation slides featuring high-resolution historical maps, photographic archives of Mae La camp and Milwaukee resettlement, vocabulary anchor charts, and step-by-step activity scaffolding.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="slides">
+                🔍 Preview Executive Brief
+              </button>
+              <a href="docs/David%20Goeb_SlideDeck_Lesson_Karen_Konan.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
+                <span>📥</span> Download Slide Deck
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 3: Research Output & Institutional Philosophy Essays -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full bg-amber-900 text-amber-100 text-xs font-bold flex items-center justify-center">3</span>
+          <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Research Publication & Institutional Alignment Essays</h3>
+          <span class="text-xs text-slate-400">· Academic Research & Educational Philosophy</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Doc 07: Publication -->
+          <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Doc 07</span>
+                <span class="text-xs text-slate-500">Peer-Reviewed Paper</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm">Academic Publication (Wellspring)</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Empirical paper on Teacher-Student Rapport and socio-affective dynamics impacting Japanese university learners' Willingness to Communicate (WTC).
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="pub">
+                🔍 Brief
+              </button>
+              <a href="docs/Publication_Goeb_Teacher_Student_Relationships.pdf" target="_blank" download class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
+                <span>📥</span> PDF
+              </a>
+            </div>
+          </div>
+
+          <!-- Doc 08: Essay 1 -->
+          <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Doc 08</span>
+                <span class="text-xs text-slate-500">Required Essay</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm">Essay 1: English Education in Japan</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Pedagogical vision statement on shifting from passive grammar receptivity to learner agency, identity investment, and psychological safety.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="essay1">
+                🔍 Brief
+              </button>
+              <a href="docs/Konan%20Essay%201%20-%20Views%20on%20University%20English%20Education%20in%20Japan.pdf" target="_blank" download class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
+                <span>📥</span> PDF
+              </a>
+            </div>
+          </div>
+
+          <!-- Doc 09: Essay 2 -->
+          <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Doc 09</span>
+                <span class="text-xs text-slate-500">Required Essay</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm">Essay 2: Hirao Philosophy Alignment</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Direct alignment with Founder Hachisaburo Hirao's core triangle: Tokuiku (徳育 / Character Education), individuality, and real societal utility.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="essay2">
+                🔍 Brief
+              </button>
+              <a href="docs/Konan%20Essay%202%20-%20Alignment%20with%20Founder%20Hachisaburo%20Hirao's%20Educational%20Philosophy.pdf" target="_blank" download class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
+                <span>📥</span> PDF
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 4: Professional Letters of Recommendation -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full bg-emerald-800 text-emerald-100 text-xs font-bold flex items-center justify-center">4</span>
+          <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-900">Professional Letters of Recommendation</h3>
+          <span class="text-xs text-slate-400">· Institutional Endorsements</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Doc 10: Ref 1 -->
+          <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 text-emerald-900">Doc 10</span>
+                <span class="text-xs text-slate-500">Recommendation</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm">Reference: Chika Hashimoto</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Letter of recommendation from Vice Principal Chika Hashimoto (Kyoto University of Advanced Science High School) commending teaching innovation and student rapport.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="ref1">
+                🔍 Brief
+              </button>
+              <a href="docs/Reference%20Letter%20-%20David%20Goeb%20-%20Chika%20Hashimoto.pdf" target="_blank" download class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
+                <span>📥</span> PDF
+              </a>
+            </div>
+          </div>
+
+          <!-- Doc 11: Ref 2 -->
+          <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 text-emerald-900">Doc 11</span>
+                <span class="text-xs text-slate-500">Recommendation</span>
+              </div>
+              <h4 class="font-bold text-slate-900 text-sm">Reference: M. Christianson</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Formal letter of recommendation from ELS Academic Director M. Christianson (Kindai University) validating professional standard and curriculum acumen.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="ref2">
+                🔍 Brief
+              </button>
+              <a href="docs/Reference%20Letter%20-%20David%20Goeb%20-%20MChristianson.pdf" target="_blank" download class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
+                <span>📥</span> PDF
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- =========================================================================
-         Section 3: Official Faculty Dossier (Hierarchical Screening Order)
+         Section 3: The Grand Finale — Interactive Digital Lesson Showcase (Full Width)
          ========================================================================= -->
-    <section id="dossier" class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
-      <div class="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#e2dcd5] pb-3">
-        <div>
-          <span class="text-xs font-bold uppercase tracking-widest text-amber-800">Official Submission Materials</span>
-          <h2 class="text-2xl font-bold text-slate-900 mt-1">Application Dossier Hub & Verified Credentials</h2>
-        </div>
-        <p class="text-xs text-slate-500">Click &ldquo;Preview Summary&rdquo; for executive briefs or download full PDFs</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        
-        <!-- Doc 01: CV (First screening document) -->
-        <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 border-2 border-amber-800/40 hover:border-amber-700 transition">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Document 01</span>
-              <span class="text-xs text-amber-800 font-semibold">Primary CV Form</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base">Curriculum Vitae (履歴書)</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Designated university form detailing higher education teaching history in Japan and the US, MSEd in TESOL qualifications, publication records, and institutional service.
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-            <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="cv">
-              🔍 Preview Summary
-            </button>
-            <a href="docs/DavidGoeb_KonanCV.docx.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
-              <span>📥</span> Download
-            </a>
-          </div>
-        </div>
-
-        <!-- Doc 02: Essay 1 -->
-        <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Document 02</span>
-              <span class="text-xs text-slate-500">Required Essay</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base">Essay 1: English Education in Japan</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Academic vision statement on transitioning from passive compliance to learner agency, communicative competence, and positive speaker identities.
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-            <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="essay1">
-              🔍 Preview Summary
-            </button>
-            <a href="docs/Konan%20Essay%201%20-%20Views%20on%20University%20English%20Education%20in%20Japan.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
-              <span>📥</span> Download
-            </a>
-          </div>
-        </div>
-
-        <!-- Doc 03: Essay 2 -->
-        <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Document 03</span>
-              <span class="text-xs text-slate-500">Required Essay</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base">Essay 2: Hirao Philosophy Alignment</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Institutional alignment with Founder Hachisaburo Hirao’s whole-person character education (Tokuiku), individuality, and real societal utility.
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-            <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="essay2">
-              🔍 Preview Summary
-            </button>
-            <a href="docs/Konan%20Essay%202%20-%20Alignment%20with%20Founder%20Hachisaburo%20Hirao's%20Educational%20Philosophy.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
-              <span>📥</span> Download
-            </a>
-          </div>
-        </div>
-
-        <!-- Doc 04: Lesson Plan -->
-        <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-100 text-indigo-900">Document 04</span>
-              <span class="text-xs text-slate-500">90-Min Model Plan</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base">90-Minute Model Lesson Plan</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Complete procedural plan: &ldquo;What Would You Do? Karen Refugee Integration in America&rdquo; featuring scaffolded communicative tasks.
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-            <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="lesson">
-              🔍 Preview Summary
-            </button>
-            <a href="docs/David_Lesson%20Plan_Konan_Karen.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
-              <span>📥</span> Download
-            </a>
-          </div>
-        </div>
-
-        <!-- Doc 05: Slide Deck -->
-        <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-100 text-indigo-900">Document 05</span>
-              <span class="text-xs text-slate-500">Visual Slides</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base">Classroom Slide Deck</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Classroom presentation slides featuring visual migration pathways, high-contrast text, graphic organizers, and discussion scaffolding.
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-            <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="slides">
-              🔍 Preview Summary
-            </button>
-            <a href="docs/David%20Goeb_SlideDeck_Lesson_Karen_Konan.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
-              <span>📥</span> Download
-            </a>
-          </div>
-        </div>
-
-        <!-- Doc 06: Publication -->
-        <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Document 06</span>
-              <span class="text-xs text-slate-500">Peer-Reviewed Paper</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base">Academic Publication (Wellspring)</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Peer-reviewed research paper investigating the impact of Teacher-Student Relationships and affective climate on Japanese EFL willingness to communicate.
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-            <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="pub">
-              🔍 Preview Summary
-            </button>
-            <a href="docs/Publication_Goeb_Teacher_Student_Relationships.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
-              <span>📥</span> Download
-            </a>
-          </div>
-        </div>
-
-        <!-- Doc 07: Master's Degree Diploma -->
-        <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Document 07</span>
-              <span class="text-xs text-slate-500">Graduate Degree</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base">MSEd in TESOL Diploma</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Official Master of Science in Education in Teaching English to Speakers of Other Languages (TESOL) diploma from the University of Southern Maine.
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-            <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="msed">
-              🔍 Preview Summary
-            </button>
-            <a href="docs/David_Masters_Diploma.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
-              <span>📥</span> Download
-            </a>
-          </div>
-        </div>
-
-        <!-- Doc 08: Bachelor's Degree Diploma -->
-        <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Document 08</span>
-              <span class="text-xs text-slate-500">Undergraduate Degree</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base">Bachelor of Science Diploma</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Official Bachelor of Science degree diploma conferred by the University of Wisconsin–La Crosse, confirming foundational educational training.
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-            <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="ba">
-              🔍 Preview Summary
-            </button>
-            <a href="docs/bachelor_diploma_lacrosse.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
-              <span>📥</span> Download
-            </a>
-          </div>
-        </div>
-
-        <!-- Doc 09: Teaching License -->
-        <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">Document 09</span>
-              <span class="text-xs text-slate-500">Professional License</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base">State of Wisconsin Educator License</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Professional educator teaching credential issued by the State of Wisconsin Department of Public Instruction.
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-            <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="license">
-              🔍 Preview Summary
-            </button>
-            <a href="docs/USA_Teaching%20License.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
-              <span>📥</span> Download
-            </a>
-          </div>
-        </div>
-
-        <!-- Doc 10: Reference Letter 1 -->
-        <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 text-emerald-900">Document 10</span>
-              <span class="text-xs text-slate-500">Recommendation</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base">Reference: Chika Hashimoto</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Recommendation from Vice Principal Chika Hashimoto (Kyoto University of Advanced Science High School).
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-            <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="ref1">
-              🔍 Preview Summary
-            </button>
-            <a href="docs/Reference%20Letter%20-%20David%20Goeb%20-%20Chika%20Hashimoto.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
-              <span>📥</span> Download
-            </a>
-          </div>
-        </div>
-
-        <!-- Doc 11: Reference Letter 2 -->
-        <div class="washi-card p-5 rounded-xl flex flex-col justify-between space-y-4 hover:border-amber-700 transition">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 text-emerald-900">Document 11</span>
-              <span class="text-xs text-slate-500">Recommendation</span>
-            </div>
-            <h3 class="font-bold text-slate-900 text-base">Reference: M. Christianson</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Recommendation from Academic Director M. Christianson (Kindai University ELS Language Program).
-            </p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-            <button class="doc-preview-trigger text-xs font-semibold text-indigo-800 hover:text-amber-800 transition" data-doc="ref2">
-              🔍 Preview Summary
-            </button>
-            <a href="docs/Reference%20Letter%20-%20David%20Goeb%20-%20MChristianson.pdf" target="_blank" download class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-800 hover:text-white transition flex items-center gap-1">
-              <span>📥</span> Download
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         Section 4: The Grand Finale — Interactive Digital Lesson Showcase (Full Width)
-         ========================================================================= -->
-    <section class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
       <div class="bg-[#0B0F19] text-white rounded-3xl p-8 sm:p-12 border-2 border-amber-400 shadow-2xl relative overflow-hidden">
         <!-- Ambient Glow Background -->
         <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -622,7 +600,7 @@
   <!-- =========================================================================
        Footer: Signature Brand Bar
        ========================================================================= -->
-  <footer class="mt-16 border-t border-[#e2dcd5] bg-white/70 py-10">
+  <footer class="border-t border-[#e2dcd5] bg-white/70 py-10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600">
       <div>
         <span class="font-bold text-slate-900">David J. Goeb</span> • Faculty Application Portfolio (Konan University, 2027)
