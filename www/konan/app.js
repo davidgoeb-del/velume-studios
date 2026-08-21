@@ -17,7 +17,7 @@ const DOSSIER_DOCS = {
     file: 'docs/David_Masters_Diploma.pdf',
     type: 'Graduate Degree',
     date: 'University of Southern Maine',
-    summary: 'Official Master of Science in Education in Teaching English to Speakers of Other Languages (TESOL) diploma conferred by the University of Southern Maine.',
+    summary: 'Master of Science in Education in TESOL diploma conferred by the University of Southern Maine.',
     highlights: [
       'Degree: Master of Science in Education (MSEd)',
       'Specialization: TESOL (Teaching English to Speakers of Other Languages)',
@@ -29,7 +29,7 @@ const DOSSIER_DOCS = {
     file: 'docs/bachelor_diploma_lacrosse.pdf',
     type: 'Undergraduate Degree',
     date: 'University of Wisconsin–La Crosse',
-    summary: 'Official Bachelor of Science degree diploma conferred by the University of Wisconsin–La Crosse.',
+    summary: 'Bachelor of Science diploma conferred by the University of Wisconsin–La Crosse.',
     highlights: [
       'Degree: Bachelor of Science (BS)',
       'Institution: University of Wisconsin–La Crosse',
@@ -41,7 +41,7 @@ const DOSSIER_DOCS = {
     file: 'docs/USA_Teaching License.pdf',
     type: 'Professional Teaching License',
     date: 'State of Wisconsin DPI',
-    summary: 'Official State of Wisconsin Department of Public Instruction Educator License authorizing professional classroom instruction.',
+    summary: 'State of Wisconsin Department of Public Instruction Educator License authorizing professional classroom instruction.',
     highlights: [
       'State of Wisconsin Department of Public Instruction',
       'Valid Professional Educator Certification',
@@ -53,7 +53,7 @@ const DOSSIER_DOCS = {
     file: 'docs/DavidGoeb_KonanCV.docx.pdf',
     type: 'Official University Form',
     date: '2026 / 2027 Academic Year',
-    summary: 'Comprehensive academic and professional CV detailing higher education experience in Japan and the US, MSEd in TESOL credentials, State of Wisconsin Educator License, publication record, and institutional service history.',
+    summary: 'Official Konan University curriculum vitae detailing higher education teaching history in Japan, educational credentials, research publications, and service history.',
     highlights: [
       'MSEd in TESOL (University of Southern Maine) & BS (UW-La Crosse)',
       'Extensive university, high school, and adult EFL instruction in Kansai',
