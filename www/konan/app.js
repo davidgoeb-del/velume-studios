@@ -121,10 +121,10 @@ const DOSSIER_DOCS = {
     ]
   },
   'ref1': {
-    title: 'Reference Letter — Chika Hashimoto (KUAS Vice Principal)',
+    title: 'Reference Letter — Chika Hashimoto',
     file: 'docs/Reference Letter - David Goeb - Chika Hashimoto.pdf',
     type: 'Official Recommendation',
-    date: 'Kyoto University of Advanced Science',
+    date: 'KUAS Jr. & Sr. High School / Kyoto Gakuen',
     summary: 'Commendation from Vice Principal Chika Hashimoto highlighting David’s classroom innovation, deep student rapport, cross-departmental collaboration, and curriculum leadership.',
     highlights: [
       'Exemplary pedagogical dedication and student trust',
@@ -133,10 +133,10 @@ const DOSSIER_DOCS = {
     ]
   },
   'ref2': {
-    title: 'Reference Letter — M. Christianson (Kindai University ELS Director)',
+    title: 'Reference Letter — M. Christianson',
     file: 'docs/Reference Letter - David Goeb - MChristianson.pdf',
     type: 'Official Recommendation',
-    date: 'Kindai University',
+    date: 'Kindai University ELS Language Program',
     summary: 'Formal letter of recommendation from ELS Academic Director M. Christianson validating professional teaching competence, curriculum design acumen, and proactive collegiate engagement.',
     highlights: [
       'High standard of academic English instruction and grading integrity',
