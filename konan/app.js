@@ -89,11 +89,11 @@ const DOSSIER_DOCS = {
     file: 'docs/David_Lesson Plan_Konan_Karen.pdf',
     type: 'Procedural Lesson Plan',
     date: 'Target Level: CEFR A2+ to B1',
-    summary: 'A step-by-step 90-minute task-based lesson plan engaging students with Karen refugee history, ethical decision-making, narrative listening, and collaborative dialogue creation.',
+    summary: 'A 90-minute task-based communicative lesson plan on Karen refugee resettlement in America, supported by a dedicated online student companion portal.',
     highlights: [
       'Structured 5-stage lesson cycle: Engage, Explore, Simulate, Evaluate, Reflect',
-      'Multi-modal scaffolding: visual pathways, leveled audio, and collaborative tasks',
-      'Concrete formative assessment rubric'
+      'Integrated online student companion portal with native audio narration',
+      'Designed for 1st-year Japanese university students preparing for study abroad'
     ]
   },
   'slides': {
