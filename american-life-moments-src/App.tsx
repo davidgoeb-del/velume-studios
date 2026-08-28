@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { CATEGORY_COLORS } from './data';
 import { Capacitor } from '@capacitor/core';
 import { NativeAudio } from '@capacitor-community/native-audio';
-import { Volume2, Bookmark, BookOpen, Music, Play, Pause, VolumeX, Sparkles, Disc, Waves, ArrowUp, Share2, ChevronLeft, ChevronRight, ChevronUp, CheckCircle2, Sun, Activity, Users, Briefcase, Heart, Leaf, GraduationCap, Home, TrendingUp, Trophy, Lock, X } from 'lucide-react';
+import { Volume2, Bookmark, BookOpen, Music, Play, Pause, VolumeX, Sparkles, Disc, Waves, ArrowUp, Share2, ChevronLeft, ChevronRight, ChevronUp, CheckCircle2, Sun, Activity, Users, Briefcase, Heart, Leaf, GraduationCap, Home, TrendingUp, Trophy, Lock, X, Headphones } from 'lucide-react';
 import { PhraseItem, LocaleCatalog } from './types';
 import { STORIES_DATA, StoryItem } from './storiesData';
 import storiesEnData from './stories_en.json';
@@ -130,12 +130,12 @@ const NOTEBOOK_STYLE = {
 };
 
 const TRACKS = [
-  { id: 'marigold', name: 'Marigold', file: 'marigold_lofi.m4a', abbr: 'mgd' },
-  { id: 'not_my_sun', name: 'Not My Sun (Smokey Jazz)', file: 'Not My Sun (LowFi Smokey Jazz Mix).m4a', abbr: 'nms' },
-  { id: 'pavement', name: 'Wet Pavement', file: 'Wet Pavement Zen.m4a', abbr: 'wp' },
-  { id: 'stonewater', name: 'Stonewater Hymn', file: 'Stonewater Hymn.m4a', abbr: 'sh' },
-  { id: 'velvet', name: 'Velvet Pressure', file: 'Velvet Pressure.m4a', abbr: 'vp' },
-  { id: 'harmonic', name: 'Harmonic Safety', file: 'Harmonic Safety.m4a', abbr: 'hs' }
+  { id: 'marigold', name: 'Marigold', file: 'marigold_lofi.mp3', abbr: 'mgd' },
+  { id: 'not_my_sun', name: 'Not My Sun (Smokey Jazz)', file: 'Not My Sun (LowFi Smokey Jazz Mix).mp3', abbr: 'nms' },
+  { id: 'pavement', name: 'Wet Pavement', file: 'Wet Pavement Zen.mp3', abbr: 'wp' },
+  { id: 'stonewater', name: 'Stonewater Hymn', file: 'Stonewater Hymn.mp3', abbr: 'sh' },
+  { id: 'velvet', name: 'Velvet Pressure', file: 'Velvet Pressure.mp3', abbr: 'vp' },
+  { id: 'harmonic', name: 'Harmonic Safety', file: 'Harmonic Safety.mp3', abbr: 'hs' }
 ];
 
 interface LevelItem {
@@ -382,15 +382,15 @@ const LEVEL_ICONS: Record<number, React.ComponentType<any>> = {
 };
 
 export default function App() {
-  const [localeKey, setLocaleKey] = useState<'ja' | 'zh-TW' | 'ko' | 'th' | 'vi'>(() => {
+  const [localeKey, setLocaleKey] = useState<'ja' | 'zh-TW' | 'zh-CN' | 'ko' | 'th' | 'vi'>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('lumora_locale_key');
-      return (saved === 'zh-TW' || saved === 'ja' || saved === 'ko' || saved === 'th' || saved === 'vi') ? saved : 'ja';
+      return (saved === 'zh-TW' || saved === 'zh-CN' || saved === 'ja' || saved === 'ko' || saved === 'th' || saved === 'vi') ? (saved as any) : 'ja';
     }
     return 'ja';
   });
 
-  const currentLocale = localeKey === 'zh-TW' ? (zhTWLocale as LocaleCatalog) : localeKey === 'ko' ? (koLocale as LocaleCatalog) : localeKey === 'th' ? (thLocale as LocaleCatalog) : localeKey === 'vi' ? (viLocale as LocaleCatalog) : (jaLocale as LocaleCatalog);
+  const currentLocale = (localeKey === 'zh-TW' || localeKey === 'zh-CN') ? (zhTWLocale as LocaleCatalog) : localeKey === 'ko' ? (koLocale as LocaleCatalog) : localeKey === 'th' ? (thLocale as LocaleCatalog) : localeKey === 'vi' ? (viLocale as LocaleCatalog) : (jaLocale as LocaleCatalog);
   const phrasesData = currentLocale.phrases;
 
   const getStoryTitle = (story: StoryItem) => {
@@ -655,6 +655,7 @@ export default function App() {
   const [isPremium, setIsPremium] = useState<boolean>(false);
   const [showPaywall, setShowPaywall] = useState<boolean>(false);
   const [isUnlocking, setIsUnlocking] = useState<boolean>(false);
+  const [packages, setPackages] = useState<any[]>([]);
   const [filterMode, setFilterMode] = useState<'all' | 'unread'>('all');
   const [completedStories, setCompletedStories] = useState<number[]>(() => {
     if (typeof window !== 'undefined') {
@@ -701,6 +702,10 @@ export default function App() {
       await PurchasesService.initialize();
       const premium = await PurchasesService.checkPremiumStatus();
       setIsPremium(premium);
+      const offerings = await PurchasesService.getOfferings();
+      if (offerings && offerings.current && offerings.current.availablePackages) {
+        setPackages(offerings.current.availablePackages);
+      }
     };
     initPurchases();
   }, []);
@@ -928,6 +933,143 @@ export default function App() {
   const [playingVocabKey, setPlayingVocabKey] = useState<string | null>(null);
   const [playingMomentId, setPlayingMomentId] = useState<number | string | null>(null);
   const [playingExpressionKey, setPlayingExpressionKey] = useState<string | null>(null);
+
+  // Relax & Listen to All Stories state
+  const [isListenToAllActive, setIsListenToAllActive] = useState(false);
+  const isListenToAllActiveRef = useRef(false);
+  const [listenToAllIndex, setListenToAllIndex] = useState(0);
+  const [isLoopingAll, setIsLoopingAll] = useState(false);
+  const [isListenToAllPaused, setIsListenToAllPaused] = useState(false);
+  const listenTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const stopActiveSpeechAudio = () => {
+    if (activeAudioRef.current) {
+      activeAudioRef.current.onplay = null;
+      activeAudioRef.current.onended = null;
+      activeAudioRef.current.onerror = null;
+      try {
+        activeAudioRef.current.pause();
+        activeAudioRef.current.src = '';
+      } catch (e) {}
+      activeAudioRef.current = null;
+    }
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+  };
+
+  const stopListenToAll = () => {
+    isListenToAllActiveRef.current = false;
+    setIsListenToAllActive(false);
+    setIsListenToAllPaused(false);
+    setListenToAllIndex(0);
+    setPlayingStoryId(null);
+    if (listenTimerRef.current) {
+      clearTimeout(listenTimerRef.current);
+      listenTimerRef.current = null;
+    }
+    stopActiveSpeechAudio();
+  };
+
+  const playListenToAllItem = (stories: StoryItem[], index: number, loopMode: boolean) => {
+    if (!isListenToAllActiveRef.current) return;
+    if (index >= stories.length) {
+      if (loopMode) {
+        setListenToAllIndex(0);
+        playListenToAllItem(stories, 0, loopMode);
+      } else {
+        stopListenToAll();
+      }
+      return;
+    }
+
+    setListenToAllIndex(index);
+    const story = stories[index];
+
+    // Enforce paywall for Listen to All
+    const globalStoryIndex = STORIES_DATA.findIndex(s => s.id === story.id);
+    if (!isPremium && globalStoryIndex > 0) {
+      setShowPaywall(true);
+      stopListenToAll();
+      return;
+    }
+
+    setPlayingStoryId(story.id);
+    stopActiveSpeechAudio();
+
+    const onStoryFinishWith5sPause = () => {
+      if (!isListenToAllActiveRef.current) return;
+      setPlayingStoryId(null);
+      activeAudioRef.current = null;
+      listenTimerRef.current = setTimeout(() => {
+        if (isListenToAllActiveRef.current) {
+          playListenToAllItem(stories, index + 1, loopMode);
+        }
+      }, 5000);
+    };
+
+    let handledFallback = false;
+
+    const tryPlayItemPath = (path: string, fallbackPath: string | null) => {
+      if (!isListenToAllActiveRef.current) return;
+      const audio = new Audio(path);
+      audio.volume = 1.0;
+      audio.playbackRate = 0.88;
+      activeAudioRef.current = audio;
+
+      let hasStarted = false;
+      let failed = false;
+
+      audio.onplay = () => {
+        hasStarted = true;
+        setPlayingStoryId(story.id);
+      };
+
+      audio.onended = onStoryFinishWith5sPause;
+
+      const handleFail = () => {
+        if (failed || hasStarted || handledFallback || !isListenToAllActiveRef.current) {
+          if (!failed && !hasStarted && isListenToAllActiveRef.current) onStoryFinishWith5sPause();
+          return;
+        }
+        failed = true;
+
+        if (fallbackPath) {
+          tryPlayItemPath(fallbackPath, null);
+        } else {
+          handledFallback = true;
+          if (typeof window === 'undefined' || !window.speechSynthesis) {
+            return onStoryFinishWith5sPause();
+          }
+          const textToRead = story.story.replace(/[A-Za-z]+:/g, '').replace(/"/g, '');
+          const utterance = new SpeechSynthesisUtterance(textToRead);
+          utterance.lang = 'en-US';
+          utterance.rate = 0.80;
+          utterance.onend = onStoryFinishWith5sPause;
+          utterance.onerror = onStoryFinishWith5sPause;
+          window.speechSynthesis.speak(utterance);
+        }
+      };
+
+      audio.onerror = handleFail;
+      audio.play().catch(handleFail);
+    };
+
+    tryPlayItemPath(`./audio/stories/story_${story.id}.mp3`, `./audio/stories/story_${story.id}.m4a`);
+  };
+
+  const startListenToAll = async (stories: StoryItem[]) => {
+    if (stories.length === 0) return;
+    if (isListenToAllActiveRef.current) {
+      stopListenToAll();
+    } else {
+      isListenToAllActiveRef.current = true;
+      setIsListenToAllActive(true);
+      setIsListenToAllPaused(false);
+      setListenToAllIndex(0);
+      playListenToAllItem(stories, 0, isLoopingAll);
+    }
+  };
 
   const toggleExpandVocab = (wordKey: string) => {
     setExpandedVocab(prev => ({
@@ -1552,7 +1694,7 @@ export default function App() {
   const musicRepeatModeRef = useRef(musicRepeatMode);
   useEffect(() => { musicRepeatModeRef.current = musicRepeatMode; }, [musicRepeatMode]);
 
-  // Safe background audio element management with Web Audio API for soft volume adjustments
+  // Pure HTML5 Audio background music player (No AudioContext / No Web Audio API)
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -1560,25 +1702,6 @@ export default function App() {
     audio.loop = musicRepeatModeRef.current === 'single';
     audio.volume = musicVolume;
     musicRef.current = audio;
-
-    // Setting up Web Audio API to prevent pop clicks and configure dynamic gains
-    try {
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-      if (AudioCtx) {
-        if (!audioContextRef.current) {
-          audioContextRef.current = new AudioCtx();
-        }
-        const ctx = audioContextRef.current;
-        const source = ctx.createMediaElementSource(audio);
-        const gainNode = ctx.createGain();
-        gainNode.gain.setValueAtTime(musicVolume, ctx.currentTime);
-        source.connect(gainNode);
-        gainNode.connect(ctx.destination);
-        gainNodeRef.current = gainNode;
-      }
-    } catch (e) {
-      console.warn("Web Audio API setup failed or context blocked until interaction:", e);
-    }
 
     const handleCanPlay = () => {
       setAudioError(false);
@@ -1612,9 +1735,6 @@ export default function App() {
 
     if (isPlayingMusic) {
       setIsAudioLoading(true);
-      if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
-        audioContextRef.current.resume().catch(() => {});
-      }
       audio.play().catch(e => {
         console.warn("Audio play failed on switch:", e);
         setAudioError(true);
@@ -1632,31 +1752,16 @@ export default function App() {
     };
   }, [selectedTrack]);
 
-  // Adjust volume gains gracefully using gainNode
+  // Direct volume & repeat mode sync
   useEffect(() => {
     if (musicRef.current) {
       musicRef.current.volume = musicVolume;
       musicRef.current.loop = musicRepeatMode === 'single';
     }
-    if (gainNodeRef.current && audioContextRef.current) {
-      try {
-        gainNodeRef.current.gain.setValueAtTime(musicVolume, audioContextRef.current.currentTime);
-      } catch (e) {
-        gainNodeRef.current.gain.value = musicVolume;
-      }
-    }
   }, [musicVolume, musicRepeatMode]);
 
   const toggleMusicPlay = async () => {
     if (musicRef.current) {
-      if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
-        try {
-          await audioContextRef.current.resume();
-        } catch (e) {
-          console.warn("Failed to resume AudioContext:", e);
-        }
-      }
-
       if (isPlayingMusic) {
         musicRef.current.pause();
         setIsPlayingMusic(false);
@@ -1668,7 +1773,7 @@ export default function App() {
           setIsPlayingMusic(true);
           setIsAudioLoading(false);
         } catch (e) {
-          console.warn("Audio play failed, likely file not present yet:", e);
+          console.warn("Audio play failed:", e);
           setAudioError(true);
           setIsPlayingMusic(false);
           setIsAudioLoading(false);
@@ -1678,6 +1783,10 @@ export default function App() {
   };
 
   const handleTrackSelect = (track: typeof TRACKS[0]) => {
+    if (!isPremium && track.id !== 'marigold') {
+      setShowPaywall(true);
+      return;
+    }
     if (selectedTrack.id === track.id) {
       if (!isPlayingMusic) {
         setMusicRepeatMode('playlist');
@@ -1989,6 +2098,18 @@ export default function App() {
         <div className="absolute top-[35%] right-[-15%] w-[75vw] h-[75vw] sm:w-[55vw] sm:h-[55vw] rounded-full filter blur-[45px] sm:blur-[100px] md:blur-[120px] bg-[#fcdca8]/[0.85] sm:bg-[#fcdca8]/[0.7] blob-drift-3" />
       </div>
 
+      {/* Home Button (Top Left) */}
+      <a 
+        href="../index.html" 
+        className="fixed top-4 left-4 sm:left-6 z-[9999] flex items-center justify-center w-[40px] h-[40px] bg-white/80 backdrop-blur-md hover:bg-white border border-stone-200/80 rounded-full text-stone-600 transition-all duration-300 shadow-[0_4px_20px_-4px_rgba(40,36,32,0.12)]"
+        title="Back to Lumora Main Hub"
+        aria-label="Back to Lumora Home"
+      >
+        <svg className="w-4 h-4 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+      </a>
+
       {/* Main Container Layout */}
       <div className="relative z-10 w-full max-w-4xl mx-auto pt-6 sm:pt-16 px-4 sm:px-6">
         {/* Language Selector */}
@@ -1996,17 +2117,18 @@ export default function App() {
           <select
             value={localeKey}
             onChange={(e) => {
-              const val = e.target.value as 'ja' | 'zh-TW' | 'ko' | 'th' | 'vi';
+              const val = e.target.value as 'ja' | 'zh-TW' | 'zh-CN' | 'ko' | 'th' | 'vi';
               setLocaleKey(val);
               localStorage.setItem('lumora_locale_key', val);
             }}
             className="bg-white/70 backdrop-blur-md hover:bg-white border border-stone-200/50 rounded-full px-3.5 py-1.5 text-[11px] sm:text-xs font-semibold text-stone-600 focus:outline-none transition-all duration-300 cursor-pointer shadow-sm font-sans tracking-wide"
           >
-            <option value="ja">🇯🇵 日本語 (JA)</option>
-            <option value="zh-TW">🇹🇼 繁體中文 (ZH)</option>
-            <option value="ko">🇰🇷 한국어 (KO)</option>
-            <option value="th">🇹🇭 ภาษาไทย (TH)</option>
-            <option value="vi">🇻🇳 Tiếng Việt (VI)</option>
+            <option value="ja">日本語</option>
+            <option value="zh-TW">繁體中文</option>
+            <option value="zh-CN">简体中文</option>
+            <option value="ko">한국어</option>
+            <option value="th">ภาษาไทย</option>
+            <option value="vi">Tiếng Việt</option>
           </select>
         </div>
         {activeTab === 'Notebook' ? (
@@ -2197,9 +2319,7 @@ export default function App() {
                               >
                                 <Bookmark className="w-4 h-4 fill-amber-700 text-amber-700" />
                               </button>
-                            </div>
-                            
-                            <div>
+                            </div>                            <div>
                               <div className="flex flex-wrap items-baseline gap-2">
                                 <strong className="font-bold text-stone-900 font-sans text-[18px] tracking-tight">{item.phrase}</strong>
                                 <span className="text-stone-600 text-xs font-serif italic">({getExpressionUsage(story.id, item.phrase, item.usage_ja)})</span>
@@ -2298,217 +2418,6 @@ export default function App() {
 
                   {/* ── Welcome to the Neighborhood Card ── */}
                   {(() => {
-                    const welcomeVocab: { word: string; def: string; example: string;
-                      def_ja: string; def_zh: string; def_ko: string; def_th: string; def_vi: string;
-                      ex_ja: string; ex_zh: string; ex_ko: string; ex_th: string; ex_vi: string;
-                    }[] = [
-                      {
-                        word: 'neighborhood',
-                        def: 'the area around your home; the community you live in',
-                        example: 'Every neighborhood has its own rhythm.',
-                        def_ja: 'ご近所', def_zh: '社區', def_ko: '동네', def_th: 'ย่าน', def_vi: 'khu phố',
-                        ex_ja: 'どの街にも独特のリズムがある。', ex_zh: '每個社區都有自己的節奏。',
-                        ex_ko: '모든 동네에는 고유한 리듬이 있다.', ex_th: 'ทุกย่านมีจังหวะของตัวเอง', ex_vi: 'Mỗi khu phố đều có nhịp điệu riêng.',
-                      },
-                      {
-                        word: 'rhythm',
-                        def: 'a regular pattern or flow; the natural pace of something',
-                        example: 'Every neighborhood has its own rhythm.',
-                        def_ja: 'リズム', def_zh: '節奏', def_ko: '리듬', def_th: 'จังหวะ', def_vi: 'nhịp điệu',
-                        ex_ja: 'どの街にも独特のリズムがある。', ex_zh: '每個社區都有自己的節奏。',
-                        ex_ko: '모든 동네에는 고유한 리듬이 있다.', ex_th: 'ทุกย่านมีจังหวะของตัวเอง', ex_vi: 'Mỗi khu phố đều có nhịp điệu riêng.',
-                      },
-                      {
-                        word: 'gather',
-                        def: 'to come together in one place',
-                        example: 'Families gather around the dinner table.',
-                        def_ja: '集まる', def_zh: '聚集', def_ko: '모이다', def_th: 'มารวมกัน', def_vi: 'tụ tập',
-                        ex_ja: '家族が夕食のテーブルに集まる。', ex_zh: '家人聚集在餐桌旁。',
-                        ex_ko: '가족들이 저녁 식탁에 모인다.', ex_th: 'ครอบครัวมารวมกันรอบโต๊ะอาหารเย็น', ex_vi: 'Gia đình tụ tập quanh bàn ăn tối.',
-                      },
-                      {
-                        word: 'connected',
-                        def: 'feeling linked to others; part of a community',
-                        example: 'Feel a little more connected.',
-                        def_ja: '繋がっている', def_zh: '有連結的', def_ko: '연결된', def_th: 'เชื่อมต่อ', def_vi: 'kết nối',
-                        ex_ja: 'もう少し繋がっていると感じる。', ex_zh: '感覺更有連結。',
-                        ex_ko: '조금 더 연결되어 있다고 느끼다.', ex_th: 'รู้สึกเชื่อมต่อมากขึ้น', ex_vi: 'Cảm thấy kết nối hơn một chút.',
-                      },
-                      {
-                        word: 'confident',
-                        def: 'feeling sure of yourself; comfortable and capable',
-                        example: 'Feel a little more confident.',
-                        def_ja: '自信がある', def_zh: '有自信的', def_ko: '자신감 있는', def_th: 'มั่นใจ', def_vi: 'tự tin',
-                        ex_ja: 'もう少し自信が持てるようになる。', ex_zh: '感覺更有自信。',
-                        ex_ko: '조금 더 자신감을 느끼다.', ex_th: 'รู้สึกมั่นใจมากขึ้น', ex_vi: 'Cảm thấy tự tin hơn một chút.',
-                      },
-                      {
-                        word: 'at home',
-                        def: 'feeling comfortable and relaxed, as if in your own home',
-                        example: 'Feel a little more at home in English.',
-                        def_ja: '家にいるように', def_zh: '像在家一樣', def_ko: '집에 있는 것처럼', def_th: 'เหมือนอยู่บ้าน', def_vi: 'như ở nhà',
-                        ex_ja: '英語で少し家にいるように感じる。', ex_zh: '感覺更像在家一樣。',
-                        ex_ko: '영어로 집에 있는 것처럼 느끼다.', ex_th: 'รู้สึกเหมือนอยู่บ้านมากขึ้น', ex_vi: 'Cảm thấy như ở nhà hơn một chút.',
-                      },
-                    ];
-
-                    const welcomeExpressions: { phrase: string; example: string;
-                      phrase_ja: string; phrase_zh: string; phrase_ko: string; phrase_th: string; phrase_vi: string;
-                      ex_ja: string; ex_zh: string; ex_ko: string; ex_th: string; ex_vi: string;
-                    }[] = [
-                      {
-                        phrase: 'has its own rhythm',
-                        example: 'Every neighborhood has its own rhythm.',
-                        phrase_ja: '独特のリズムがある', phrase_zh: '有自己的節奏', phrase_ko: '고유한 리듬이 있다', phrase_th: 'มีจังหวะของตัวเอง', phrase_vi: 'có nhịp điệu riêng',
-                        ex_ja: 'どの街にも独特のリズムがある。', ex_zh: '每個社區都有自己的節奏。',
-                        ex_ko: '모든 동네에는 고유한 리듬이 있다.', ex_th: 'ทุกย่านมีจังหวะของตัวเอง', ex_vi: 'Mỗi khu phố đều có nhịp điệu riêng.',
-                      },
-                      {
-                        phrase: 'Language lives in these moments.',
-                        example: 'Language lives in these moments.',
-                        phrase_ja: '言葉はこうした瞬間に生きている', phrase_zh: '語言活在這些時刻裡', phrase_ko: '언어는 이런 순간에 살아 있다', phrase_th: 'ภาษาอยู่ในช่วงเวลาเหล่านี้', phrase_vi: 'Ngôn ngữ sống trong những khoảnh khắc này.',
-                        ex_ja: '言葉はこうした瞬間に生きている。単なる単語や文法ではない。', ex_zh: '語言活在這些時刻裡。不只是單字或文法。',
-                        ex_ko: '언어는 이런 순간에 살아 있다. 단순한 단어나 문법이 아니다.', ex_th: 'ภาษาอยู่ในช่วงเวลาเหล่านี้ ไม่ใช่แค่คำศัพท์หรือไวยากรณ์', ex_vi: 'Ngôn ngữ sống trong những khoảnh khắc này. Không chỉ là từ vựng hay ngữ pháp.',
-                      },
-                      {
-                        phrase: 'slow down',
-                        example: 'We invite you to slow down and experience English.',
-                        phrase_ja: 'ゆっくりする', phrase_zh: '慢下來', phrase_ko: '천천히 하다', phrase_th: 'ช้าลง', phrase_vi: 'chậm lại',
-                        ex_ja: 'ゆっくりして、日常の瞬間から英語を体験してください。', ex_zh: '慢下來，從日常時刻中體驗英語。',
-                        ex_ko: '천천히 하면서 일상의 순간을 통해 영어를 경험하세요.', ex_th: 'ช้าลงและสัมผัสภาษาอังกฤษผ่านช่วงเวลาในชีวิตประจำวัน', ex_vi: 'Hãy chậm lại và trải nghiệm tiếng Anh qua những khoảnh khắc đời thường.',
-                      },
-                      {
-                        phrase: 'take your time',
-                        example: 'Take your time. Listen to the stories.',
-                        phrase_ja: '急がないで', phrase_zh: '慢慢來', phrase_ko: '서두르지 마세요', phrase_th: 'ใช้เวลาของคุณ', phrase_vi: 'hãy thoải mái',
-                        ex_ja: '急がないで。物語を聴き、表現を探求し、自分がそこにいると想像してください。', ex_zh: '慢慢來。聽故事，探索表達，想像自己就在那裡。',
-                        ex_ko: '서두르지 마세요. 이야기를 듣고 표현을 탐구하며 그곳에 있다고 상상해 보세요.', ex_th: 'ใช้เวลาของคุณ ฟังเรื่องราว สำรวจสำนวน และจินตนาการว่าคุณอยู่ที่นั่น', ex_vi: 'Hãy thoải mái. Lắng nghe những câu chuyện, khám phá các cách diễn đạt, và tưởng tượng bạn đang ở đó.',
-                      },
-                      {
-                        phrase: 'Welcome to the neighborhood.',
-                        example: 'Welcome to the neighborhood. We\'re glad you\'re here.',
-                        phrase_ja: 'ご近所さん、ようこそ', phrase_zh: '歡迎來到這個社區', phrase_ko: '동네에 오신 걸 환영합니다', phrase_th: 'ยินดีต้อนรับสู่ย่านนี้', phrase_vi: 'Chào mừng bạn đến với khu phố này.',
-                        ex_ja: 'ご近所さん、ようこそ。あなたがここにいることを嬉しく思います。', ex_zh: '歡迎來到這個社區。很高興你在這裡。',
-                        ex_ko: '동네에 오신 걸 환영합니다. 여기 계셔서 기쁩니다.', ex_th: 'ยินดีต้อนรับสู่ย่านนี้ เราดีใจที่คุณอยู่ที่นี่', ex_vi: 'Chào mừng bạn đến với khu phố này. Chúng tôi rất vui vì bạn ở đây.',
-                      },
-                      {
-                        phrase: 'feel at home',
-                        example: 'We hope you feel at home in English.',
-                        phrase_ja: '家にいるように感じる', phrase_zh: '感覺像在家一樣', phrase_ko: '집에 있는 것처럼 느끼다', phrase_th: 'รู้สึกเหมือนอยู่บ้าน', phrase_vi: 'cảm thấy như ở nhà',
-                        ex_ja: '英語で少し家にいるように感じられることを願っています。', ex_zh: '希望每次造訪都能讓你感覺更像在家一樣。',
-                        ex_ko: '매 방문마다 영어로 집에 있는 것처럼 느껴지길 바랍니다.', ex_th: 'หวังว่าทุกครั้งที่มาเยือนจะช่วยให้คุณรู้สึกเหมือนอยู่บ้านมากขึ้น', ex_vi: 'Hy vọng mỗi lần ghé thăm đều giúp bạn cảm thấy như ở nhà hơn một chút.',
-                      },
-                    ];
-
-                    const welcomeBodyText: { en: string; ja: string; zh: string; ko: string; th: string; vi: string; }[] = [
-                      {
-                        en: 'Every neighborhood has its own rhythm.',
-                        ja: 'どの街にも独特のリズムがある。',
-                        zh: '每個社區都有自己的節奏。',
-                        ko: '모든 동네에는 고유한 리듬이 있다.',
-                        th: 'ทุกย่านมีจังหวะของตัวเอง',
-                        vi: 'Mỗi khu phố đều có nhịp điệu riêng.',
-                      },
-                      {
-                        en: 'In the morning, someone is walking their dog. A barista is making coffee. Neighbors wave as they pass each other on the sidewalk. Friends make plans for the weekend. Families gather around the dinner table.',
-                        ja: '朝、誰かが犬の散歩をしている。バリスタがコーヒーを淹れている。隣人同士が歩道ですれ違いざまに手を振る。友達が週末の計画を立てる。家族が夕食のテーブルに集まる。',
-                        zh: '早晨，有人在遛狗。咖啡師在煮咖啡。鄰居在行人道上擦肩而過時互相揮手。朋友們計畫著週末。家人聚集在餐桌旁。',
-                        ko: '아침에는 누군가 개를 산책시키고 있다. 바리스타는 커피를 내리고 있다. 이웃들은 인도에서 지나칠 때 서로 손을 흔든다. 친구들은 주말 계획을 세운다. 가족들은 저녁 식탁에 모인다.',
-                        th: 'ตอนเช้า มีคนกำลังพาสุนัขเดินเล่น บาริสต้ากำลังชงกาแฟ เพื่อนบ้านโบกมือให้กันเมื่อเดินผ่านกันบนทางเท้า เพื่อนๆ วางแผนสำหรับวันหยุดสุดสัปดาห์ ครอบครัวมารวมกันรอบโต๊ะอาหารเย็น',
-                        vi: 'Vào buổi sáng, ai đó đang dắt chó đi dạo. Barista đang pha cà phê. Hàng xóm vẫy tay chào nhau khi họ đi ngang qua trên vỉa hè. Bạn bè lên kế hoạch cho cuối tuần. Gia đình tụ tập quanh bàn ăn tối.',
-                      },
-                      {
-                        en: 'Language lives in these moments.',
-                        ja: '言葉はこうした瞬間に生きている。',
-                        zh: '語言活在這些時刻裡。',
-                        ko: '언어는 이런 순간에 살아 있다.',
-                        th: 'ภาษาอยู่ในช่วงเวลาเหล่านี้',
-                        vi: 'Ngôn ngữ sống trong những khoảnh khắc này.',
-                      },
-                      {
-                        en: 'Learning English isn\'t just about vocabulary or grammar. It\'s about understanding people, sharing experiences, and noticing the little things that make a culture feel familiar.',
-                        ja: '英語を学ぶことは、単語や文法だけではない。人を理解し、経験を共有し、文化を身近に感じさせる小さなことに気づくことだ。',
-                        zh: '學習英文不只是單字或文法。它是關於理解人、分享經驗，以及注意那些讓文化感覺熟悉的小細節。',
-                        ko: '영어를 배우는 것은 단순한 단어나 문법이 아니다. 그것은 사람을 이해하고, 경험을 공유하며, 문화를 친숙하게 느끼게 하는 작은 것들을 알아차리는 것이다.',
-                        th: 'การเรียนรู้ภาษาอังกฤษไม่ใช่แค่คำศัพท์หรือไวยากรณ์ มันคือการเข้าใจผู้คน การแบ่งปันประสบการณ์ และการสังเกตสิ่งเล็กๆ น้อยๆ ที่ทำให้วัฒนธรรมรู้สึกคุ้นเคย',
-                        vi: 'Học tiếng Anh không chỉ là từ vựng hay ngữ pháp. Nó là về việc hiểu con người, chia sẻ trải nghiệm, và nhận ra những điều nhỏ nhặt làm cho một nền văn hóa trở nên quen thuộc.',
-                      },
-                      {
-                        en: 'That\'s why Lumora is different.',
-                        ja: 'それが、Lumoraが違う理由だ。',
-                        zh: '這就是 Lumora 與眾不同的原因。',
-                        ko: '그것이 Lumora가 다른 이유다.',
-                        th: 'นั่นคือเหตุผลที่ Lumora แตกต่าง',
-                        vi: 'Đó là lý do Lumora khác biệt.',
-                      },
-                      {
-                        en: 'Instead of rushing through flashcards or memorizing isolated phrases, we invite you to slow down and experience English through real moments from everyday American life. Each story, conversation, and cultural note is designed to help you understand not only what people say, but why they say it.',
-                        ja: 'フラッシュカードを急いでめくったり、バラバラのフレーズを暗記したりする代わりに、日常の瞬間を通して英語を体験してみてほしい。それぞれのストーリーや会話、文化ノートは、人々が何を言うかだけでなく、なぜ言うのかを理解する手助けとなるようにデザインされている。',
-                        zh: '與其匆忙地翻閱單字卡或背誦孤立的片語，我們邀請你放慢腳步，透過美國日常生活中的真實時刻來體驗英文。每個故事、對話和文化註解，都是為了幫助你理解人們說了些什麼，以及他們為什麼這麼說。',
-                        ko: '플래시카드를 급하게 넘기거나 고립된 구절을 암기하는 대신, 우리는 당신이 일상적인 미국 생활의 실제 순간을 통해 영어를 경험하도록 초대한다. 각 스토리, 대화, 문화 노트는 사람들이 무엇을 말하는지뿐만 아니라 왜 말하는지 이해하도록 돕기 위해 디자인되었다.',
-                        th: 'แทนที่จะเร่งเรียนบัตรคำศัพท์หรือท่องจำวลีที่แยกออกจากกัน เราขอเชิญคุณให้ช้าลงและสัมผัสภาษาอังกฤษผ่านช่วงเวลาจริงจากชีวิตประจำวันแบบอเมริกัน แต่ละเรื่องราว บทสนทนา และโน้ตวัฒนธรรมถูกออกแบบมาเพื่อช่วยให้คุณเข้าใจไม่เพียงแค่สิ่งที่คนพูด แต่ทำไมพวกเขาถึงพูด',
-                        vi: 'Thay vì vội vã lướt qua thẻ từ vựng hay ghi nhớ những cụm từ rời rạc, chúng tôi mời bạn hãy chậm lại và trải nghiệm tiếng Anh qua những khoảnh khắc thực tế từ cuộc sống hàng ngày của người Mỹ. Mỗi câu chuyện, cuộc trò chuyện và ghi chú văn hóa được thiết kế để giúp bạn hiểu không chỉ những gì người ta nói, mà còn tại sao họ nói như vậy.',
-                      },
-                      {
-                        en: 'Take your time.',
-                        ja: '急がないで。',
-                        zh: '慢慢來。',
-                        ko: '서두르지 마세요.',
-                        th: 'ใช้เวลาของคุณ',
-                        vi: 'Hãy thoải mái.',
-                      },
-                      {
-                        en: 'Listen to the stories. Explore the expressions. Imagine yourself there.',
-                        ja: '物語を聴き、表現を探求し、自分がそこにいると想像してみてほしい。',
-                        zh: '聽聽故事。探索表達方式。想像你就在那裡。',
-                        ko: '이야기를 듣고, 표현을 탐구하고, 당신이 그곳에 있다고 상상해 보세요.',
-                        th: 'ฟังเรื่องราว สำรวจสำนวน และจินตนาการว่าคุณอยู่ที่นั่น',
-                        vi: 'Lắng nghe những câu chuyện. Khám phá các cách diễn đạt. Tưởng tượng bạn đang ở đó.',
-                      },
-                      {
-                        en: 'We hope that every visit helps you feel a little more confident, a little more connected, and a little more at home in English.',
-                        ja: 'どの訪問でも、少し自信が持てるようになり、少し繋がっていると感じられ、英語で少し家にいるように感じられることを願っている。',
-                        zh: '我們希望每次造訪都能讓你感覺更有自信、更有連結，也更能像在家一樣自在使用英文。',
-                        ko: '매 방문마다 영어로 조금 더 자신감을 느끼고, 조금 더 연결되어 있다고 느끼고, 조금 더 집에 있는 것처럼 느껴지길 바랍니다.',
-                        th: 'เราหวังว่าทุกครั้งที่มาเยือนจะช่วยให้คุณรู้สึกมั่นใจมากขึ้น เชื่อมต่อมากขึ้น และรู้สึกเหมือนอยู่บ้านมากขึ้นในภาษาอังกฤษ',
-                        vi: 'Chúng tôi hy vọng mỗi lần ghé thăm đều giúp bạn cảm thấy tự tin hơn một chút, kết nối hơn một chút, và cảm thấy như ở nhà hơn một chút khi sử dụng tiếng Anh.',
-                      },
-                      {
-                        en: 'Welcome to the neighborhood.',
-                        ja: 'ご近所さん、ようこそ。',
-                        zh: '歡迎來到這個社區。',
-                        ko: '동네에 오신 걸 환영합니다.',
-                        th: 'ยินดีต้อนรับสู่ย่านนี้',
-                        vi: 'Chào mừng bạn đến với khu phố này.',
-                      },
-                      {
-                        en: 'We\'re glad you\'re here.',
-                        ja: 'あなたがここにいることを嬉しく思う。',
-                        zh: '很高興你在這裡。',
-                        ko: '여기 계셔서 기쁩니다.',
-                        th: 'เราดีใจที่คุณอยู่ที่นี่',
-                        vi: 'Chúng tôi rất vui vì bạn ở đây.',
-                      },
-                    ];
-
-                    const vocabWords = welcomeVocab.map(v => v.word);
-                    const exprPhrases = welcomeExpressions.map(e => e.phrase);
-
-                    const highlightWelcomeText = (text: string) => {
-                      const allTerms = [...vocabWords, ...exprPhrases].sort((a, b) => b.length - a.length);
-                      const escaped = allTerms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-                      const regex = new RegExp(`(${escaped.join('|')})`, 'gi');
-                      const parts = text.split(regex);
-                      return parts.map((part, i) => {
-                        const lower = part.toLowerCase();
-                        const isVocab = vocabWords.some(w => w.toLowerCase() === lower);
-                        const isExpr = exprPhrases.some(p => p.toLowerCase() === lower);
-                        if (isVocab) return <mark key={i} style={{ backgroundColor: '#ebf7f5', color: '#3d6e65', borderRadius: '4px', padding: '0 3px', fontWeight: 600 }}>{part}</mark>;
-                        if (isExpr) return <mark key={i} style={{ backgroundColor: '#fefaec', color: '#8c6820', borderRadius: '4px', padding: '0 3px', fontStyle: 'italic' }}>{part}</mark>;
-                        return <span key={i}>{part}</span>;
-                      });
-                    };
-
                     const getLang = (item: { en: string; ja: string; zh: string; ko: string; th: string; vi: string }) =>
                       localeKey === 'zh-TW' ? item.zh : localeKey === 'ko' ? item.ko : localeKey === 'th' ? item.th : localeKey === 'vi' ? item.vi : item.ja;
 
@@ -2560,131 +2469,6 @@ export default function App() {
                           welcomeExpanded ? 'grid-rows-[1fr] opacity-100 mt-6 pt-6 border-t border-dashed border-stone-200' : 'grid-rows-[0fr] opacity-0'
                         }`}>
                           <div className="overflow-hidden space-y-6">
-
-                            {/* Audio Player Block */}
-                            <div 
-                              className="audio-player flex items-center gap-4 bg-stone-50/50 p-4 rounded-2xl border border-stone-100/60"
-                              onClick={(e) => e.stopPropagation()} // Prevent card collapse
-                            >
-                              <button 
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  const fullStoryText = welcomeBodyText.map(para => para.en).join(' ');
-                                  playWelcomeSpeech('story', 'welcome', fullStoryText, './audio/stories/story_welcome.m4a', e);
-                                }}
-                                className={`play-btn w-11 h-11 rounded-full flex items-center justify-center text-white text-base transition-colors duration-300 cursor-pointer ${
-                                  playingStoryId === 'welcome' ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-[#3d6e65] hover:opacity-90'
-                                }`}
-                                style={playingStoryId !== 'welcome' ? { backgroundColor: '#3d6e65' } : undefined}
-                              >
-                                {playingStoryId === 'welcome' ? '⏸' : '▶'}
-                              </button>
-                              <div className="text-left">
-                                <div className="audio-label text-sm font-sans font-bold text-stone-800">🎧 Listen to the story</div>
-                                <div className="text-xs text-stone-400 font-sans mt-0.5">English · natural speech</div>
-                              </div>
-                            </div>
-
-                            {/* Full welcome text */}
-                            <div className="text-left bg-stone-50/40 p-5 rounded-2xl border border-stone-100/40">
-                              <h3 className="font-serif-display font-medium text-stone-800 text-lg mb-3" style={{ color: '#3d6e65' }}>Introduction</h3>
-                              <div className="font-sans space-y-4 text-[17.5px] sm:text-[19.5px] leading-relaxed text-stone-950">
-                                {welcomeBodyText.map((para, idx) => (
-                                  <p key={idx} className="text-stone-950 font-sans font-medium text-[17.5px] sm:text-[19.5px] leading-relaxed py-1 text-left">
-                                    <span className="block mt-1">{highlightWelcomeText(para.en)}</span>
-                                  </p>
-                                ))}
-                              </div>
-                            </div>
-
-                            <hr className="border-none border-t-2 border-stone-100" />
-
-                            {/* Vocabulary Bank */}
-                            <div className="space-y-4 text-left">
-                              <h3 className="font-serif-display font-medium text-lg border-b border-stone-100 pb-1.5" style={{ color: '#3d6e65' }}>Vocabulary Bank</h3>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                {welcomeVocab.map((item, vIdx) => {
-                                  const wKey = `welcome-${item.word}`;
-                                  const isVExp = !!expandedVocab[wKey];
-                                  const def = localeKey === 'zh-TW' ? item.def_zh : localeKey === 'ko' ? item.def_ko : localeKey === 'th' ? item.def_th : localeKey === 'vi' ? item.def_vi : item.def_ja;
-                                  const ex  = localeKey === 'zh-TW' ? item.ex_zh  : localeKey === 'ko' ? item.ex_ko  : localeKey === 'th' ? item.ex_th  : localeKey === 'vi' ? item.ex_vi  : item.ex_ja;
-                                  return (
-                                    <div
-                                      key={vIdx}
-                                      onClick={(e) => { e.stopPropagation(); toggleExpandVocab(wKey); }}
-                                      style={{ backgroundColor: '#ebf7f5', borderColor: '#b8dad4' }}
-                                      className="vocab-card p-4 border cursor-pointer flex flex-col justify-between rounded-2xl hover:scale-[1.01] hover:shadow-md transition-all duration-200"
-                                    >
-                                      <div className="flex justify-between items-center w-full gap-2">
-                                        <div className="flex flex-col text-left">
-                                          <strong className="vocab-word font-bold text-stone-900 font-sans text-[18px] tracking-tight">{item.word}</strong>
-                                          <span className="vocab-def text-stone-600 font-serif italic text-[14.5px] mt-0.5">{def}</span>
-                                        </div>
-                                        <div className="flex items-center gap-1.5 shrink-0">
-                                          {/* Vocab voice play button */}
-                                          <button
-                                            onClick={(e) => {
-                                              e.stopPropagation();
-                                              playWelcomeSpeech('vocab', wKey, item.example, `./audio/vocab/story_welcome_vocab_${item.word}.m4a`, e);
-                                            }}
-                                            className="w-7 h-7 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer border-[#b8dad4] text-[#3d6e65] hover:bg-white"
-                                          >
-                                            {playingVocabKey === wKey ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-                                          </button>
-                                          <span className="text-[10.5px] uppercase font-sans tracking-wider font-semibold text-stone-700 bg-white/70 border border-stone-200/40 px-2.5 py-0.5 rounded-full select-none shadow-sm">
-                                            {isVExp ? 'Hide' : 'Example'}
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div className={`vocab-example text-stone-800 text-[14.5px] font-sans mt-2 border-t border-stone-200/30 pt-2 ${isVExp ? 'show' : ''}`}>
-                                        <span className="italic">💬 {item.example}</span>
-                                        {ex && <span className="block mt-1 text-stone-500 text-[13px] italic font-serif">{ex}</span>}
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-
-                            {/* Key Expressions */}
-                            <div className="space-y-4 text-left">
-                              <h3 className="font-serif-display font-medium text-lg border-b border-stone-100 pb-1.5" style={{ color: '#3d6e65' }}>Key Expressions</h3>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                {welcomeExpressions.map((exp, eIdx) => {
-                                  const transPhrase = localeKey === 'zh-TW' ? exp.phrase_zh : localeKey === 'ko' ? exp.phrase_ko : localeKey === 'th' ? exp.phrase_th : localeKey === 'vi' ? exp.phrase_vi : exp.phrase_ja;
-                                  const transEx    = localeKey === 'zh-TW' ? exp.ex_zh    : localeKey === 'ko' ? exp.ex_ko    : localeKey === 'th' ? exp.ex_th    : localeKey === 'vi' ? exp.ex_vi    : exp.ex_ja;
-                                  return (
-                                    <div
-                                      key={eIdx}
-                                      style={{ backgroundColor: '#ebf7f570', borderColor: '#b8dad4' }}
-                                      className="p-4 border rounded-2xl flex flex-col justify-between shadow-sm"
-                                    >
-                                      <div className="flex justify-between items-start">
-                                        <div className="text-left">
-                                          <strong className="font-bold text-stone-900 font-sans text-[18px] tracking-tight block">{exp.phrase}</strong>
-                                          <span className="text-stone-600 text-[14.5px] font-serif italic block mt-0.5">({transPhrase})</span>
-                                        </div>
-                                        {/* Expressions play button */}
-                                        <button
-                                          onClick={(e) => {
-                                            e.stopPropagation();
-                                            const expKey = `welcome-exp-${eIdx}`;
-                                            playWelcomeSpeech('expression', expKey, exp.phrase, `./audio/expressions/story_welcome_expression_${exp.phrase.replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '')}.m4a`, e);
-                                          }}
-                                          className="w-7 h-7 rounded-full flex items-center justify-center border bg-white/90 shadow-sm transition-all duration-300 tactile-btn cursor-pointer border-[#b8dad4] text-[#3d6e65] hover:bg-white shrink-0 ml-2"
-                                        >
-                                          {playingExpressionKey === `welcome-exp-${eIdx}` ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-                                        </button>
-                                      </div>
-                                      <div className="mt-3 rounded-2xl px-4 py-3 text-[14.5px] sm:text-[16px] font-sans leading-relaxed border shadow-sm bg-white border-stone-200 text-stone-900">
-                                        <div className="text-stone-800 font-bold">{exp.example}</div>
-                                        {transEx && <div className="text-[13px] sm:text-[14.5px] text-stone-500 italic mt-0.5 font-serif">{transEx}</div>}
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
 
                             {/* American Moment */}
                             <div
@@ -2889,6 +2673,31 @@ export default function App() {
                     </div>
                   );
                 })()}
+
+                {/* Relax & Listen to All Stories Banner */}
+                <div className="mb-6">
+                  <button
+                    onClick={() => {
+                      const levelStories = selectedLevel !== null
+                        ? STORIES_DATA.filter(s => s.id >= (selectedLevel - 1) * 10 + 1 && s.id <= selectedLevel * 10)
+                        : STORIES_DATA;
+                      startListenToAll(levelStories);
+                    }}
+                    className="w-full py-3 px-4 rounded-2xl bg-amber-50/95 hover:bg-amber-100/90 border border-amber-200/80 shadow-sm flex items-center justify-between text-amber-950 transition-all group cursor-pointer active:scale-[0.99]"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-amber-200/70 flex items-center justify-center text-amber-900 shadow-inner shrink-0">
+                        <Headphones className="w-4 h-4" />
+                      </div>
+                      <h4 className="font-serif font-semibold text-stone-900 text-sm sm:text-base leading-tight">
+                        Relax & Listen to All Stories
+                      </h4>
+                    </div>
+                    <span className="px-3.5 py-1 rounded-full bg-stone-900 text-amber-100 text-xs font-sans font-medium group-hover:bg-stone-800 transition-colors shadow-sm shrink-0 ml-2">
+                      {isListenToAllActive ? "Playing..." : "Play All"}
+                    </span>
+                  </button>
+                </div>
 
                 {/* Simple Toggle Pills */}
                 <div className="text-center font-sans select-none mb-6">
@@ -3512,161 +3321,358 @@ export default function App() {
         </div>
       </button>
 
-            {/* ── Freemium Glassmorphism Paywall Modal ── */}
+      {/* ── Freemium Glassmorphism Paywall Modal ── */}
       {showPaywall && (() => {
-        const pw: Record<string, {title: string; subtitle: string; feature1: string; feature2: string; feature3: string; cta: string; processing: string; footer: string; restore: string}> = {
+        const pw: Record<string, {
+          title: string;
+          subtitle: string;
+          feature1: string;
+          feature2: string;
+          feature3: string;
+          annualBtn: string;
+          monthlyBtn: string;
+          annualSuffix: string;
+          monthlySuffix: string;
+          cta: string;
+          processing: string;
+          footer: string;
+          restore: string;
+          disclaimer: string;
+        }> = {
           'ja': {
             title: 'Lumoraを解放しよう',
-            subtitle: 'ここまで来たあなたへ。本当の英語の旅は、ここから始まります。',
-            feature1: '25の実生活カテゴリーに完全アクセス',
-            feature2: '100のアメリカンライフストーリーと表現',
-            feature3: 'すべてのロー・ファイBGMを解放',
-            cta: '一生アクセスを手に入れる',
-            processing: '処理中…',
-            footer: '一度の購入で、ずっとあなたのもの。',
-            restore: '以前の購入を復元する',
+            subtitle: '本当の英語の旅は、ここから始まります。',
+            feature1: '150以上のネイティブ音声ストーリー',
+            feature2: '500以上の日常英会話フレーズ',
+            feature3: 'すべての音楽と文化解説',
+            annualBtn: 'Lumora 年間プラン',
+            monthlyBtn: 'Lumora 月額プラン',
+            annualSuffix: ' / 年',
+            monthlySuffix: ' / 月',
+            cta: 'プレミアムをアンロック',
+            processing: '処理中...',
+            footer: 'いつでもキャンセル可能。追加料金なし。',
+            restore: '購入を復元する',
+            disclaimer: '購入の確認時にお使いのApple IDアカウントに請求されます。現在の期間が終了する24時間前までにキャンセルされない限り、サブスクリプションは自動的に更新されます。App Storeのアカウント設定からいつでも管理および解約できます。'
           },
           'zh-TW': {
-            title: '解鎖 Lumora 完整體驗',
-            subtitle: '你已走了這麼遠。接下來的旅程，值得你全力以赴。',
-            feature1: '25個真實生活情境全面開放',
-            feature2: '100個美式生活故事與道地表達',
-            feature3: '解鎖全部輕音樂背景配樂',
-            cta: '一次購買，終身擁有',
-            processing: '處理中…',
-            footer: '一次付費，永久使用。',
-            restore: '恢復之前的購買',
+            title: '解鎖 Lumora',
+            subtitle: '真正的英語之旅從這裡開始。',
+            feature1: '150多個母語語音故事',
+            feature2: '500多個日常英語會話短語',
+            feature3: '所有的音樂和文化解說',
+            annualBtn: 'Lumora 年度方案',
+            monthlyBtn: 'Lumora 月度方案',
+            annualSuffix: ' / 年',
+            monthlySuffix: ' / 月',
+            cta: '解鎖高級版',
+            processing: '處理中...',
+            footer: '隨時取消。無隱藏費用。',
+            restore: '恢復購買',
+            disclaimer: '確認購買時將向您的 Apple ID 帳戶收取費用。除非在當前訂閱期結束前至少 24 小時取消，否則訂閱將自動續訂。您可以隨時在 App Store 帳戶設定中管理或取消訂閱。'
           },
           'zh-CN': {
-            title: '解锁 Lumora 完整体验',
-            subtitle: '你已经走了这么远。接下来的旅程，值得你全力以赴。',
-            feature1: '25个真实生活情境全面开放',
-            feature2: '100个美式生活故事与地道表达',
-            feature3: '解锁全部轻音乐背景配乐',
-            cta: '一次购买，终身拥有',
-            processing: '处理中…',
-            footer: '一次付费，永久使用。',
-            restore: '恢复之前的购买',
+            title: '解锁 Lumora',
+            subtitle: '真正的英语之旅从这里开始。',
+            feature1: '150多个母语语音故事',
+            feature2: '500多个日常英语会话短语',
+            feature3: '所有的音乐和文化解说',
+            annualBtn: 'Lumora 年度方案',
+            monthlyBtn: 'Lumora 月度方案',
+            annualSuffix: ' / 年',
+            monthlySuffix: ' / 月',
+            cta: '解锁高级版',
+            processing: '处理中...',
+            footer: '随时取消。无隐藏费用。',
+            restore: '恢复购买',
+            disclaimer: '确认购买时将向您的 Apple ID 账户收取费用。除非在当前订阅期结束前至少 24 小时取消，否则订阅将自动续订。您可以随时在 App Store 账户设置中管理或取消订阅。'
           },
           'ko': {
-            title: 'Lumora를 완전히 열어보세요',
-            subtitle: '여기까지 온 당신은 이미 대단합니다. 나머지 여정을 함께 완성해봐요.',
-            feature1: '25개 실생활 카테고리 전체 이용',
-            feature2: '100편의 미국 생활 이야기와 표현',
-            feature3: '모든 로파이 배경음악 해금',
-            cta: '평생 이용권 구매하기',
-            processing: '처리 중…',
-            footer: '한 번의 결제로 평생 이용하세요.',
-            restore: '이전 구매 복원하기',
+            title: 'Lumora 잠금 해제',
+            subtitle: '진정한 영어 여행이 여기서 시작됩니다.',
+            feature1: '150개 이상의 원어민 음성 스토리',
+            feature2: '500개 이상의 일상 영어 회화',
+            feature3: '모든 음악과 문화 설명',
+            annualBtn: 'Lumora 연간 플랜',
+            monthlyBtn: 'Lumora 월간 플랜',
+            annualSuffix: ' / 년',
+            monthlySuffix: ' / 월',
+            cta: '프리미엄 잠금 해제',
+            processing: '처리 중...',
+            footer: '언제든 취소 가능. 추가 비용 없음.',
+            restore: '구매 복원',
+            disclaimer: '구매 확인 시 Apple ID 계정으로 결제됩니다. 현재 구독 기간이 끝나기 최소 24시간 전에 취소하지 않으면 구독이 자동으로 갱신됩니다. App Store 계정 설정에서 언제든지 구독을 관리하거나 취소할 수 있습니다.'
           },
           'th': {
-            title: 'ปลดล็อก Lumora ทั้งหมด',
-            subtitle: 'คุณมาไกลมากแล้ว ส่วนที่เหลือของการเดินทางรอคุณอยู่',
-            feature1: 'เข้าถึง 25 หมวดชีวิตจริงได้อย่างสมบูรณ์',
-            feature2: '100 เรื่องราวชีวิตอเมริกันและสำนวนจริง',
-            feature3: 'ปลดล็อกเพลง Lo-Fi ทั้งหมด',
-            cta: 'รับสิทธิ์ตลอดชีวิต',
-            processing: 'กำลังดำเนินการ…',
-            footer: 'ซื้อครั้งเดียว ใช้ได้ตลอดไป',
-            restore: 'กู้คืนการซื้อก่อนหน้า',
+            title: 'ปลดล็อก Lumora',
+            subtitle: 'การเดินทางภาษาอังกฤษที่แท้จริงเริ่มขึ้นที่นี่',
+            feature1: 'เรื่องราวเสียงเจ้าของภาษามากกว่า 150 เรื่อง',
+            feature2: 'วลีภาษาอังกฤษในชีวิตประจำวันกว่า 500 วลี',
+            feature3: 'เพลงและคำอธิบายวัฒนธรรมทั้งหมด',
+            annualBtn: 'Lumora รายปี',
+            monthlyBtn: 'Lumora รายเดือน',
+            annualSuffix: ' / ปี',
+            monthlySuffix: ' / เดือน',
+            cta: 'ปลดล็อกพรีเมียม',
+            processing: 'กำลังประมวลผล...',
+            footer: 'ยกเลิกได้ตลอดเวลา ไม่มีค่าใช้จ่ายแอบแฝง',
+            restore: 'กู้คืนการซื้อ',
+            disclaimer: 'การชำระเงินจะถูกเรียกเก็บจากบัญชี Apple ID ของคุณเมื่อยืนยันการสั่งซื้อ การสมัครสมาชิกจะต่ออายุโดยอัตโนมัติเว้นแต่จะยกเลิกอย่างน้อย 24 ชั่วโมงก่อนสิ้นสุดระยะเวลาปัจจุบัน คุณสามารถจัดการหรือยกเลิกการสมัครสมาชิกได้ตลอดเวลาในการตั้งค่าบัญชี App Store'
           },
           'vi': {
-            title: 'Mở khóa Lumora trọn vẹn',
-            subtitle: 'Bạn đã đi được một chặng đường dài. Phần còn lại của hành trình đang chờ bạn.',
-            feature1: 'Toàn quyền truy cập 25 chủ đề đời thực',
-            feature2: '100 câu chuyện cuộc sống Mỹ & thành ngữ',
-            feature3: 'Mở khóa toàn bộ nhạc nền Lo-Fi',
-            cta: 'Mua quyền truy cập trọn đời',
-            processing: 'Đang xử lý…',
-            footer: 'Mua một lần, dùng mãi mãi.',
-            restore: 'Khôi phục giao dịch cũ',
+            title: 'Mở khóa Lumora',
+            subtitle: 'Hành trình tiếng Anh thực sự bắt đầu từ đây.',
+            feature1: 'Hơn 150 câu chuyện âm thanh bản ngữ',
+            feature2: 'Hơn 500 cụm từ tiếng Anh giao tiếp hàng ngày',
+            feature3: 'Tất cả âm nhạc và giải thích văn hóa',
+            annualBtn: 'Lumora Gói Năm',
+            monthlyBtn: 'Lumora Gói Tháng',
+            annualSuffix: ' / năm',
+            monthlySuffix: ' / tháng',
+            cta: 'Mở khóa Premium',
+            processing: 'Đang xử lý...',
+            footer: 'Hủy bất cứ lúc nào. Không có phí ẩn.',
+            restore: 'Khôi phục mua hàng',
+            disclaimer: 'Thanh toán sẽ được tính vào tài khoản Apple ID của bạn khi xác nhận mua hàng. Đăng ký tự động gia hạn trừ khi bị hủy ít nhất 24 giờ trước khi kết thúc giai đoạn hiện tại. Bạn có thể quản lý hoặc hủy đăng ký bất kỳ lúc nào trong Cài đặt tài khoản App Store.'
           },
+          'en': {
+            title: 'Unlock Lumora',
+            subtitle: 'The authentic English journey starts here.',
+            feature1: '150+ Native Audio Stories',
+            feature2: '500+ Daily English Phrases',
+            feature3: 'All Ambient Music & Cultural Insights',
+            annualBtn: 'Lumora Annual',
+            monthlyBtn: 'Lumora Monthly',
+            annualSuffix: ' / year',
+            monthlySuffix: ' / month',
+            cta: 'Unlock Premium',
+            processing: 'Processing...',
+            footer: 'Cancel anytime. No hidden fees.',
+            restore: 'Restore Purchases',
+            disclaimer: 'Payment will be charged to your Apple ID account at confirmation of purchase. Subscriptions automatically renew unless canceled at least 24 hours before the end of the current period. You can manage or cancel your subscription in your App Store Account Settings.'
+          }
         };
-        const t = pw[localeKey] ?? {
-          title: 'Unlock Lumora',
-          subtitle: 'Come this far already? The rest of the journey is waiting.',
-          feature1: 'Full access to 25 Real-World Categories',
-          feature2: '100 Real American Stories & Idioms',
-          feature3: 'Unlock all Ambient Lo-Fi Background Beats',
-          cta: 'Unlock Lifetime Access',
-          processing: 'Processing...',
-          footer: 'One-time purchase. Yours forever.',
-          restore: 'Restore Previous Purchase',
-        };
+        const t = pw[localeKey] || pw['en'] || pw['ja'];
+        
         return (
           <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center animate-fade-in p-0 sm:p-6 pb-0 sm:pb-6">
             <div
               className="absolute inset-0 bg-stone-900/40 backdrop-blur-md transition-opacity duration-300"
               onClick={() => setShowPaywall(false)}
             />
-            <div className="relative w-full max-w-[440px] bg-gradient-to-b from-[#fdfaf5] to-[#f4eee6] rounded-t-[32px] sm:rounded-[32px] shadow-[0_20px_60px_-10px_rgba(40,36,32,0.25)] overflow-hidden animate-slide-up-fade border border-white/60 pt-8 pb-10 px-6 sm:px-8 text-center mt-auto sm:mt-0">
+            <div className="relative w-full max-w-[440px] bg-gradient-to-b from-[#fdfaf5] to-[#f4eee6] rounded-t-[32px] sm:rounded-[32px] shadow-[0_20px_60px_-10px_rgba(40,36,32,0.25)] overflow-hidden animate-slide-up-fade border border-white/60 pt-8 pb-8 px-6 sm:px-8 text-center mt-auto sm:mt-0">
               <button
                 onClick={() => setShowPaywall(false)}
                 className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-stone-200/50 text-stone-500 hover:text-stone-800 hover:bg-stone-200 transition-colors cursor-pointer z-10"
               >
                 <X className="w-4 h-4" />
               </button>
+              
               <div className="w-16 h-16 rounded-full bg-[#fdfaf5] border border-[#e2d5bd] flex items-center justify-center mx-auto mb-6 shadow-sm">
-                <Sparkles className="w-7 h-7 text-[#7c5e39]" />
+                <Sparkles className="w-7 h-7 text-amber-700" />
               </div>
-              <h2 className="font-serif text-3xl sm:text-[34px] font-bold text-stone-900 leading-tight tracking-tight mb-3">
+
+              <h2 className="font-serif text-3xl sm:text-4xl text-stone-900 font-bold tracking-tight mb-3">
                 {t.title}
               </h2>
-              <p className="font-sans text-[15px] text-stone-500 leading-relaxed mb-8 px-2 text-balance">
+              <p className="font-sans text-[14.5px] sm:text-[15.5px] text-stone-600 mb-8 leading-relaxed max-w-[90%] mx-auto">
                 {t.subtitle}
               </p>
-              <div className="bg-white/60 backdrop-blur-sm rounded-[20px] p-4 sm:p-5 border border-white mb-8 text-left space-y-4 shadow-sm">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#fefaec] border border-[#ecd29b] flex items-center justify-center shrink-0">
-                    <Bookmark className="w-4 h-4 text-[#8c6820] fill-current" />
+
+              <div className="flex flex-col gap-3.5 mb-8 text-left bg-white/40 backdrop-blur-sm rounded-2xl p-5 border border-white">
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-[#e1efe7] flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#376d54]" />
                   </div>
-                  <span className="font-sans text-[14.5px] text-stone-700 font-medium tracking-tight">{t.feature1}</span>
+                  <span className="font-sans text-[14.5px] text-stone-800 font-medium">{t.feature1}</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#ebf7f5] border border-[#b8dad4] flex items-center justify-center shrink-0">
-                    <BookOpen className="w-4 h-4 text-[#3d6e65] fill-current" />
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-[#e1efe7] flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#376d54]" />
                   </div>
-                  <span className="font-sans text-[14.5px] text-stone-700 font-medium tracking-tight">{t.feature2}</span>
+                  <span className="font-sans text-[14.5px] text-stone-800 font-medium">{t.feature2}</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#f6effa] border border-[#d9c9e0] flex items-center justify-center shrink-0">
-                    <Music className="w-4 h-4 text-[#7b5083] fill-current" />
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-[#e1efe7] flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#376d54]" />
                   </div>
-                  <span className="font-sans text-[14.5px] text-stone-700 font-medium tracking-tight">{t.feature3}</span>
+                  <span className="font-sans text-[14.5px] text-stone-800 font-medium">{t.feature3}</span>
                 </div>
               </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col gap-3 relative z-10 w-full sm:w-[90%] mx-auto pb-2">
+                {packages.length > 0 ? packages.map((pkg, idx) => {
+                  const isAnnual = pkg.identifier === '$rc_annual' || pkg.packageType === 'ANNUAL';
+                  const title = isAnnual ? t.annualBtn : t.monthlyBtn;
+                  const suffix = isAnnual ? t.annualSuffix : t.monthlySuffix;
+                  return (
+                    <button
+                      key={pkg.identifier}
+                      disabled={isUnlocking}
+                      onClick={async () => {
+                        setIsUnlocking(true);
+                        const success = await PurchasesService.purchasePackage(pkg);
+                        if (success) {
+                          setIsPremium(true);
+                          setShowPaywall(false);
+                        }
+                        setIsUnlocking(false);
+                      }}
+                      className={isAnnual 
+                        ? "w-full h-[58px] rounded-full bg-stone-900 text-white font-sans font-bold text-[15px] sm:text-[16px] tracking-wide hover:scale-[1.02] active:scale-[0.98] hover:bg-stone-800 transition-all shadow-[0_8px_20px_-4px_rgba(40,36,32,0.3)] cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 disabled:scale-100 disabled:cursor-not-allowed"
+                        : "w-full h-[54px] rounded-full bg-white text-stone-800 border-[1.5px] border-stone-200 font-sans font-bold text-[14px] sm:text-[15px] tracking-wide hover:bg-stone-50 transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                      }
+                    >
+                      {isUnlocking ? (
+                        <span className="flex items-center gap-2">
+                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                          {t.processing}
+                        </span>
+                      ) : (
+                        <span>
+                          {title} — {pkg.product.priceString}{suffix}
+                        </span>
+                      )}
+                    </button>
+                  );
+                }) : (
+                  <button
+                    disabled={isUnlocking}
+                    onClick={async () => {
+                      setIsUnlocking(true);
+                      const success = await PurchasesService.purchasePackage(null); // Fallback
+                      if (success) {
+                        setIsPremium(true);
+                        setShowPaywall(false);
+                      }
+                      setIsUnlocking(false);
+                    }}
+                    className="w-full h-[58px] rounded-full bg-stone-900 text-white font-sans font-bold text-[16px] tracking-wide hover:scale-[1.02] active:scale-[0.98] hover:bg-stone-800 transition-all shadow-[0_8px_20px_-4px_rgba(40,36,32,0.3)] cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 disabled:scale-100 disabled:cursor-not-allowed"
+                  >
+                    {isUnlocking ? (
+                      <span className="flex items-center gap-2">
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        {t.processing}
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        {t.cta}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-80"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                      </span>
+                    )}
+                  </button>
+                )}
+                
+                <button 
+                  disabled={isUnlocking}
+                  onClick={async () => {
+                    setIsUnlocking(true);
+                    const restored = await PurchasesService.restorePurchases();
+                    if (restored) {
+                      setIsPremium(true);
+                      setShowPaywall(false);
+                    }
+                    setIsUnlocking(false);
+                  }}
+                  className="font-sans text-[13px] text-stone-400 mt-1 underline cursor-pointer hover:text-stone-600 transition-colors"
+                >
+                  {t.restore}
+                </button>
+
+                <p className="font-sans text-[11px] text-stone-400 leading-relaxed mt-2 px-1 text-center">
+                  {t.disclaimer}
+                </p>
+
+                <div className="flex items-center justify-center gap-3 mt-1.5 text-[12px] text-stone-400">
+                  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer" className="hover:text-stone-600 underline">Terms of Use</a>
+                  <span>•</span>
+                  <a href="https://velumestudios.com/privacy.html" target="_blank" rel="noopener noreferrer" className="hover:text-stone-600 underline">Privacy Policy</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Floating Relax & Listen to All Controller Bar (Bottom) */}
+      {isListenToAllActive && (() => {
+        const storiesToPlay = selectedLevel !== null
+          ? STORIES_DATA.filter(s => s.id >= (selectedLevel - 1) * 10 + 1 && s.id <= selectedLevel * 10)
+          : STORIES_DATA;
+        const currentStory = storiesToPlay[listenToAllIndex] || storiesToPlay[0];
+
+        return (
+          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-md bg-stone-900/95 text-stone-100 backdrop-blur-xl p-3.5 px-5 rounded-full shadow-2xl border border-stone-700/60 flex items-center justify-between gap-4 animate-slide-up-fade font-sans">
+            <div className="flex items-center gap-3 overflow-hidden">
+              <div className="w-8 h-8 rounded-full bg-amber-400/20 text-amber-300 flex items-center justify-center shrink-0">
+                <Headphones className="w-4 h-4 animate-pulse" />
+              </div>
+              <div className="truncate text-left">
+                <p className="text-[13px] font-semibold truncate text-white leading-tight font-serif">
+                  {currentStory?.title || "Story"}
+                </p>
+                <p className="text-[10.5px] text-stone-400 tracking-wider">
+                  Story {listenToAllIndex + 1} of {storiesToPlay.length}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
               <button
-                disabled={isUnlocking}
-                onClick={async () => {
-                  setIsUnlocking(true);
-                  const success = await PurchasesService.purchaseLifetimeUnlock();
-                  if (success) {
-                    setIsPremium(true);
-                    setShowPaywall(false);
+                onClick={() => {
+                  if (listenToAllIndex > 0) {
+                    playListenToAllItem(storiesToPlay, listenToAllIndex - 1, isLoopingAll);
                   }
-                  setIsUnlocking(false);
                 }}
-                className="w-full h-[58px] rounded-full bg-stone-900 text-white font-sans font-bold text-[16px] tracking-wide hover:scale-[1.02] active:scale-[0.98] hover:bg-stone-800 transition-all shadow-[0_8px_20px_-4px_rgba(40,36,32,0.3)] cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 disabled:scale-100 disabled:cursor-not-allowed"
+                disabled={listenToAllIndex === 0}
+                className="w-8 h-8 rounded-full bg-stone-800 hover:bg-stone-700 disabled:opacity-30 text-stone-300 flex items-center justify-center transition-colors cursor-pointer"
+                title="Previous Story"
               >
-                <Lock className="w-4 h-4 opacity-70" />
-                {isUnlocking ? t.processing : t.cta}
+                <ChevronLeft className="w-4 h-4" />
               </button>
-              <p className="font-sans text-[13px] text-stone-400 mt-5 tracking-wide">
-                {t.footer}
-              </p>
+
               <button
-                onClick={async () => {
-                  setIsUnlocking(true);
-                  const restored = await PurchasesService.restorePurchases();
-                  if (restored) {
-                    setIsPremium(true);
-                    setShowPaywall(false);
+                onClick={() => {
+                  if (isListenToAllPaused) {
+                    setIsListenToAllPaused(false);
+                    playListenToAllItem(storiesToPlay, listenToAllIndex, isLoopingAll);
+                  } else {
+                    setIsListenToAllPaused(true);
+                    stopActiveSpeechAudio();
+                    if (listenTimerRef.current) {
+                      clearTimeout(listenTimerRef.current);
+                      listenTimerRef.current = null;
+                    }
                   }
-                  setIsUnlocking(false);
                 }}
-                className="font-sans text-[13px] text-stone-400 mt-2 underline cursor-pointer hover:text-stone-600 transition-colors"
+                className="w-9 h-9 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-950 flex items-center justify-center transition-colors shadow-sm cursor-pointer"
+                title={isListenToAllPaused ? "Resume" : "Pause"}
               >
-                {t.restore}
+                {isListenToAllPaused ? <Play className="w-4 h-4 fill-current ml-0.5" /> : <Pause className="w-4 h-4 fill-current" />}
+              </button>
+
+              <button
+                onClick={() => {
+                  if (listenToAllIndex < storiesToPlay.length - 1) {
+                    playListenToAllItem(storiesToPlay, listenToAllIndex + 1, isLoopingAll);
+                  } else if (isLoopingAll) {
+                    playListenToAllItem(storiesToPlay, 0, isLoopingAll);
+                  }
+                }}
+                disabled={!isLoopingAll && listenToAllIndex >= storiesToPlay.length - 1}
+                className="w-8 h-8 rounded-full bg-stone-800 hover:bg-stone-700 disabled:opacity-30 text-stone-300 flex items-center justify-center transition-colors cursor-pointer"
+                title="Next Story"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+
+              <button
+                onClick={stopListenToAll}
+                className="w-8 h-8 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-300 flex items-center justify-center transition-colors ml-1 cursor-pointer"
+                title="Stop Listening"
+              >
+                <X className="w-4 h-4" />
               </button>
             </div>
           </div>
