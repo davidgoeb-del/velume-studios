@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initComprehensionQuiz();
   initCanDo();
   initReflectionCopy();
+  initWhoIsItGame();
+  initConversationStartersActivity();
 });
 
 function initAudioElement() {
@@ -512,3 +514,128 @@ function showToast(msg) {
     toast.classList.replace('translate-y-0', 'translate-y-4');
   }, 2500);
 }
+
+/* ==========================================================================
+   9. Section 10: "Who Is It?" Matching Game
+   ========================================================================== */
+function initWhoIsItGame() {
+  const clueCards = document.querySelectorAll('.who-clue-card');
+
+  clueCards.forEach(card => {
+    const correctPerson = card.dataset.correct;
+    const btns = card.querySelectorAll('.who-btn');
+    const feedback = card.querySelector('.who-feedback');
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const chosen = btn.dataset.person;
+
+        if (chosen === correctPerson) {
+          btns.forEach(b => {
+            b.disabled = true;
+            b.classList.remove('bg-amber-400', 'text-slate-950', 'bg-slate-700');
+            b.classList.add('bg-slate-800', 'text-slate-500', 'opacity-50');
+          });
+          btn.classList.remove('opacity-50', 'bg-slate-800', 'text-slate-500');
+          btn.classList.add('bg-emerald-500', 'text-white', 'font-black');
+
+          if (feedback) {
+            feedback.innerHTML = `✓ Correct! That's <span class="text-emerald-300 font-bold">${correctPerson}</span>!`;
+            feedback.className = 'who-feedback text-xs font-bold text-emerald-400 pt-1 block';
+          }
+        } else {
+          btn.classList.add('bg-rose-700', 'text-white', 'line-through');
+          if (feedback) {
+            feedback.textContent = 'Not quite! Check the age, hobbies, or daily life clues above and try again.';
+            feedback.className = 'who-feedback text-xs font-medium text-rose-300 pt-1 block';
+          }
+        }
+      });
+    });
+  });
+}
+
+/* ==========================================================================
+   10. Section 10: "Choose 2 Great Conversation Starters"
+   ========================================================================== */
+function initConversationStartersActivity() {
+  const blocks = document.querySelectorAll('.starter-block');
+
+  blocks.forEach(block => {
+    const checkBtn = block.querySelector('.check-starters-btn');
+    const feedbackBox = block.querySelector('.starter-feedback');
+    const options = block.querySelectorAll('.starter-option');
+
+    checkBtn?.addEventListener('click', () => {
+      const selectedChecks = block.querySelectorAll('.starter-check:checked');
+
+      if (selectedChecks.length === 0) {
+        if (feedbackBox) {
+          feedbackBox.innerHTML = '<p class="text-xs font-bold text-amber-700 bg-amber-100 p-2.5 rounded-lg">Please select at least 1 or 2 choices to check!</p>';
+          feedbackBox.classList.remove('hidden');
+        }
+        return;
+      }
+
+      let html = '<div class="space-y-2 pt-2 border-t border-slate-200">';
+      let goodCount = 0;
+
+      options.forEach(opt => {
+        const input = opt.querySelector('.starter-check');
+        const isGood = input.dataset.type === 'good';
+        const isChecked = input.checked;
+        const exp = input.dataset.exp;
+
+        if (isGood) {
+          opt.classList.remove('border-slate-200', 'hover:bg-amber-50');
+          opt.classList.add('border-emerald-400', 'bg-emerald-50/70');
+
+          if (isChecked) {
+            goodCount++;
+            html += `
+              <div class="text-xs p-2.5 rounded-lg bg-emerald-100/90 border border-emerald-300 text-emerald-950">
+                <span class="font-bold">🟢 Great Choice (You picked this):</span> ${exp}
+              </div>
+            `;
+          } else {
+            html += `
+              <div class="text-xs p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900">
+                <span class="font-bold">🟢 Great Choice (Missed):</span> ${exp}
+              </div>
+            `;
+          }
+        } else {
+          if (isChecked) {
+            opt.classList.remove('border-slate-200', 'hover:bg-amber-50');
+            opt.classList.add('border-rose-400', 'bg-rose-50/70');
+            html += `
+              <div class="text-xs p-2.5 rounded-lg bg-rose-100/90 border border-rose-300 text-rose-950">
+                <span class="font-bold">🔴 Not a Good Choice (You picked this):</span> ${exp}
+              </div>
+            `;
+          } else {
+            opt.classList.remove('border-slate-200');
+            opt.classList.add('border-slate-200', 'opacity-70');
+            html += `
+              <div class="text-xs p-2.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-700">
+                <span class="font-bold">⚪ Correctly Avoided:</span> ${exp}
+              </div>
+            `;
+          }
+        }
+      });
+
+      if (goodCount === 2 && selectedChecks.length === 2) {
+        html = `<p class="text-xs font-bold text-emerald-800 bg-emerald-100 p-2.5 rounded-lg mb-2">🎉 Perfect! You picked both of the kindest, most supportive conversation starters!</p>` + html;
+      }
+
+      html += '</div>';
+
+      if (feedbackBox) {
+        feedbackBox.innerHTML = html;
+        feedbackBox.classList.remove('hidden');
+      }
+    });
+  });
+}
+
