@@ -527,7 +527,8 @@ function initWhoIsItGame() {
     const feedback = card.querySelector('.who-feedback');
 
     btns.forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
         const chosen = btn.dataset.person;
 
         if (chosen === correctPerson) {
@@ -565,13 +566,38 @@ function initConversationStartersActivity() {
     const checkBtn = block.querySelector('.check-starters-btn');
     const feedbackBox = block.querySelector('.starter-feedback');
     const options = block.querySelectorAll('.starter-option');
+    const checks = block.querySelectorAll('.starter-check');
 
-    checkBtn?.addEventListener('click', () => {
+    // Instant visual highlight on check
+    checks.forEach(chk => {
+      chk.addEventListener('change', () => {
+        const selected = block.querySelectorAll('.starter-check:checked');
+        if (selected.length > 2) {
+          chk.checked = false;
+          showToast('Please select only 2 choices per person!');
+          return;
+        }
+
+        options.forEach(opt => {
+          const input = opt.querySelector('.starter-check');
+          if (input.checked) {
+            opt.classList.add('border-amber-400', 'bg-amber-50');
+            opt.classList.remove('border-slate-200');
+          } else {
+            opt.classList.remove('border-amber-400', 'bg-amber-50', 'border-emerald-400', 'bg-emerald-50/70', 'border-rose-400', 'bg-rose-50/70');
+            opt.classList.add('border-slate-200');
+          }
+        });
+      });
+    });
+
+    checkBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
       const selectedChecks = block.querySelectorAll('.starter-check:checked');
 
       if (selectedChecks.length === 0) {
         if (feedbackBox) {
-          feedbackBox.innerHTML = '<p class="text-xs font-bold text-amber-700 bg-amber-100 p-2.5 rounded-lg">Please select at least 1 or 2 choices to check!</p>';
+          feedbackBox.innerHTML = '<p class="text-xs font-bold text-amber-900 bg-amber-100 p-2.5 rounded-lg border border-amber-300">⚠️ Please select 2 choices first!</p>';
           feedbackBox.classList.remove('hidden');
         }
         return;
@@ -587,8 +613,8 @@ function initConversationStartersActivity() {
         const exp = input.dataset.exp;
 
         if (isGood) {
-          opt.classList.remove('border-slate-200', 'hover:bg-amber-50');
-          opt.classList.add('border-emerald-400', 'bg-emerald-50/70');
+          opt.classList.remove('border-slate-200', 'hover:bg-amber-50', 'border-amber-400', 'bg-amber-50');
+          opt.classList.add('border-emerald-400', 'bg-emerald-50/80');
 
           if (isChecked) {
             goodCount++;
@@ -606,15 +632,15 @@ function initConversationStartersActivity() {
           }
         } else {
           if (isChecked) {
-            opt.classList.remove('border-slate-200', 'hover:bg-amber-50');
-            opt.classList.add('border-rose-400', 'bg-rose-50/70');
+            opt.classList.remove('border-slate-200', 'hover:bg-amber-50', 'border-amber-400', 'bg-amber-50');
+            opt.classList.add('border-rose-400', 'bg-rose-50/80');
             html += `
               <div class="text-xs p-2.5 rounded-lg bg-rose-100/90 border border-rose-300 text-rose-950">
                 <span class="font-bold">🔴 Not a Good Choice (You picked this):</span> ${exp}
               </div>
             `;
           } else {
-            opt.classList.remove('border-slate-200');
+            opt.classList.remove('border-slate-200', 'border-amber-400', 'bg-amber-50');
             opt.classList.add('border-slate-200', 'opacity-70');
             html += `
               <div class="text-xs p-2.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-700">
@@ -626,7 +652,9 @@ function initConversationStartersActivity() {
       });
 
       if (goodCount === 2 && selectedChecks.length === 2) {
-        html = `<p class="text-xs font-bold text-emerald-800 bg-emerald-100 p-2.5 rounded-lg mb-2">🎉 Perfect! You picked both of the kindest, most supportive conversation starters!</p>` + html;
+        html = `<p class="text-xs font-bold text-emerald-800 bg-emerald-100 p-2.5 rounded-lg mb-2 border border-emerald-300">🎉 Perfect! You picked both of the kindest, most supportive conversation starters!</p>` + html;
+      } else if (goodCount === 1) {
+        html = `<p class="text-xs font-bold text-amber-800 bg-amber-100 p-2.5 rounded-lg mb-2 border border-amber-300">👍 Good try! You found 1 great conversation starter. Review the green boxes above to see the other great choice!</p>` + html;
       }
 
       html += '</div>';
