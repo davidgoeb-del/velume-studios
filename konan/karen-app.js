@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReflectionCopy();
   initWhoIsItGame();
   initConversationStartersActivity();
+  initHangoutReflection();
 });
 
 function initAudioElement() {
@@ -608,6 +609,7 @@ function initConversationStartersActivity() {
 
       options.forEach(opt => {
         const input = opt.querySelector('.starter-check');
+        const letter = input.dataset.letter || 'Choice';
         const isGood = input.dataset.type === 'good';
         const isChecked = input.checked;
         const exp = input.dataset.exp;
@@ -620,13 +622,13 @@ function initConversationStartersActivity() {
             goodCount++;
             html += `
               <div class="text-xs p-2.5 rounded-lg bg-emerald-100/90 border border-emerald-300 text-emerald-950">
-                <span class="font-bold">🟢 Great Choice (You picked this):</span> ${exp}
+                <span class="font-bold">🟢 Choice ${letter} (Great Choice - You picked this):</span> ${exp}
               </div>
             `;
           } else {
             html += `
               <div class="text-xs p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900">
-                <span class="font-bold">🟢 Great Choice (Missed):</span> ${exp}
+                <span class="font-bold">🟢 Choice ${letter} (Great Choice - Missed):</span> ${exp}
               </div>
             `;
           }
@@ -636,7 +638,7 @@ function initConversationStartersActivity() {
             opt.classList.add('border-rose-400', 'bg-rose-50/80');
             html += `
               <div class="text-xs p-2.5 rounded-lg bg-rose-100/90 border border-rose-300 text-rose-950">
-                <span class="font-bold">🔴 Not a Good Choice (You picked this):</span> ${exp}
+                <span class="font-bold">🔴 Choice ${letter} (Not a Good Choice - You picked this):</span> ${exp}
               </div>
             `;
           } else {
@@ -644,7 +646,7 @@ function initConversationStartersActivity() {
             opt.classList.add('border-slate-200', 'opacity-70');
             html += `
               <div class="text-xs p-2.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-700">
-                <span class="font-bold">⚪ Correctly Avoided:</span> ${exp}
+                <span class="font-bold">⚪ Choice ${letter} (Correctly Avoided):</span> ${exp}
               </div>
             `;
           }
@@ -664,6 +666,49 @@ function initConversationStartersActivity() {
         feedbackBox.classList.remove('hidden');
       }
     });
+  });
+}
+
+/* ==========================================================================
+   11. Section 10: "Who Would You Like to Hang Out With?" Final Reflection
+   ========================================================================== */
+function initHangoutReflection() {
+  const btns = document.querySelectorAll('.hangout-btn');
+  const input = document.getElementById('hangout-input');
+  const saveBtn = document.getElementById('save-hangout-btn');
+  const status = document.getElementById('hangout-status');
+  let selectedPerson = '';
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedPerson = btn.dataset.person;
+      btns.forEach(b => {
+        b.classList.remove('border-amber-400', 'bg-amber-500/20', 'ring-2', 'ring-amber-400');
+        b.classList.add('border-slate-700', 'bg-slate-800/80');
+      });
+      btn.classList.add('border-amber-400', 'bg-amber-500/20', 'ring-2', 'ring-amber-400');
+      btn.classList.remove('border-slate-700', 'bg-slate-800/80');
+
+      const firstName = selectedPerson.split(' ')[0];
+      if (input) {
+        input.value = `I would like to hang out with ${firstName} because `;
+        input.focus();
+      }
+    });
+  });
+
+  saveBtn?.addEventListener('click', () => {
+    const text = (input?.value || '').trim();
+    if (!text || text.length < 15) {
+      showToast('Please select a person and write a complete sentence explaining why!');
+      return;
+    }
+
+    if (status) {
+      status.classList.remove('hidden');
+      status.textContent = '✓ Response saved for next class!';
+    }
+    showToast('✓ Saved for our in-person class role-play!');
   });
 }
 
