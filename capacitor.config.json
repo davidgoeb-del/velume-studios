@@ -6,6 +6,11 @@
     "scrollEnabled": true,
     "contentInset": "automatic"
   },
+  "android": {
+    "backgroundColor": "#FAF8F5",
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": true
+  },
   "server": {
     "cleartext": false,
     "allowNavigation": ["velumestudios.com", "*.velumestudios.com"]
