@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Velume Matte • Premium Editorial Framing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..600;1,300..600&family=Plus+Jakarta+Sans:wght@300..700&family=Caveat:wght@400;600&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..600;1,300..600&family=Plus+Jakarta+Sans:wght@300..700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-app: #f6f5f2;
-    --bg-card: rgba(255, 255, 255, 0.85);
-    --border-color: rgba(0, 0, 0, 0.12);
-    --text-primary: #121110;
-    --text-secondary: #383531;
-    --text-muted: #54504a;
-    --accent: #201f1d;
+    --bg-card: rgba(255, 255, 255, 0.75);
+    --border-color: rgba(0, 0, 0, 0.08);
+    --text-primary: #1a1a1a;
+    --text-secondary: #706e6a;
+    --text-muted: #a6a4a0;
+    --accent: #2e2c29;
     --shadow-premium: 0 30px 60px rgba(0, 0, 0, 0.06), 0 2px 10px rgba(0, 0, 0, 0.02);
     --shadow-photo: 0 16px 40px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.04);
     --font-serif: 'Cormorant Garamond', serif;
@@ -86,16 +86,6 @@
     text-align: center;
     margin-bottom: 24px;
     grid-column: 1 / -1;
-    position: relative;
-  }
-  .header-top-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    min-height: 28px;
-    margin-bottom: 8px;
   }
   .brand-title {
     font-family: var(--font-serif);
@@ -108,7 +98,7 @@
   }
   @media (max-width: 768px) {
     .brand-title {
-      font-size: 3.15rem;
+      font-size: 3.0rem;
     }
   }
   .brand-sub {
@@ -327,52 +317,41 @@
   }
 
   .section-title {
-    font-size: 0.70rem;
+    font-size: 0.62rem;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.20em;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
   }
 
   /* Preset Ratios Grid */
   .grid-ratios {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 8px;
-  }
-
-  .ratio-btn {
-    flex: 0 0 calc(25% - 6px);
-    padding: 10px 4px;
-    border: 1px solid rgba(0, 0, 0, 0.14);
-    border-radius: 8px;
-    background: #fff;
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    cursor: pointer;
-    text-align: center;
-    white-space: nowrap;
-    transition: var(--transition);
   }
   @media (max-width: 480px) {
     .grid-ratios {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
+      grid-template-columns: repeat(3, 1fr);
     }
-    .ratio-btn {
-      flex: 0 0 calc(33.333% - 6px);
-      min-width: 90px;
-    }
+  }
+
+  .ratio-btn {
+    padding: 10px 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    background: #fff;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition);
   }
   .ratio-btn:hover {
     border-color: var(--text-primary);
@@ -385,123 +364,24 @@
     font-weight: 600;
   }
 
-  /* Studio Pass Golden Ticket Corner Badge & Styling */
-  .studio-pill {
-    position: relative;
-    background: #ffffff !important;
-    border: 1px solid #dfc488 !important;
-    color: var(--text-primary) !important;
-    box-shadow: 0 2px 8px rgba(205, 142, 45, 0.12) !important;
-    overflow: hidden;
-    z-index: 1;
-  }
-  .studio-pill:hover {
-    border-color: #cca356 !important;
-    box-shadow: 0 3px 12px rgba(205, 142, 45, 0.20) !important;
-  }
-  .studio-pill::after {
-    content: 'PASS';
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: linear-gradient(135deg, #FFF7B2 0%, #F5C658 35%, #E5A328 75%, #B8790E 100%);
-    color: #261400;
-    font-family: var(--font-sans);
-    font-size: 0.46rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    padding: 2.5px 5px;
-    border-bottom-left-radius: 6px;
-    border-top-right-radius: inherit;
-    box-shadow: 0 1px 3px rgba(184, 121, 14, 0.35);
-    pointer-events: none;
-    z-index: 2;
-  }
-  .ratio-btn.studio-pill.active,
-  .style-btn.studio-pill.active,
-  .annotation-style-btn.studio-pill.active {
-    background: var(--accent) !important;
-    border-color: var(--accent) !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22) !important;
-  }
-  .datestamp-btn.studio-pill.active {
-    background: #1a1a1a !important;
-    border-color: #ff8800 !important;
-    color: #ffffff !important;
-    box-shadow: 0 2px 12px rgba(255, 136, 0, 0.32) !important;
-  }
-
-  /* Golden Ticket Badge for Section Headers / Palette Labels */
-  .golden-ticket-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    background: linear-gradient(135deg, #FFF7B2 0%, #F5C658 35%, #E5A328 75%, #B8790E 100%);
-    color: #261400;
-    font-family: var(--font-sans);
-    font-size: 0.50rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    padding: 2px 6px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(184, 121, 14, 0.3);
-    vertical-align: middle;
-    margin-left: 6px;
-    text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.4);
-  }
-
-  .tone-divider {
-    width: 1px;
-    height: 18px;
-    background: rgba(0, 0, 0, 0.15);
-    margin: 0 3px;
-    flex-shrink: 0;
-  }
-
-  /* Member State: Clean Unlocked State */
-  body.is-studio-member .studio-pill {
-    border-color: rgba(0, 0, 0, 0.14) !important;
-    box-shadow: none !important;
-  }
-  body.is-studio-member .studio-pill::after {
-    display: none !important;
-  }
-  body.is-studio-member .golden-ticket-badge {
-    display: none !important;
-  }
-  body.is-studio-member .tone-divider {
-    display: none !important;
-  }
-  body.is-studio-member .color-circle.studio-circle,
-  body.is-studio-member .tape-color-circle.studio-circle {
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    box-shadow: none !important;
-  }
-
   /* Frame Styles Selector */
   .style-selector {
     display: flex;
     gap: 8px;
     margin-bottom: 18px;
-    justify-content: center;
   }
   .style-btn {
     flex: 1;
     padding: 10px 4px;
-    border: 1px solid rgba(0, 0, 0, 0.14);
-    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
     background: #fff;
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
     cursor: pointer;
     text-align: center;
-    white-space: nowrap;
     transition: var(--transition);
   }
   .style-btn:hover {
@@ -519,35 +399,29 @@
   .range-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 6px;
+    gap: 8px;
     margin-bottom: 16px;
-    width: 100%;
   }
   .range-container:last-child {
     margin-bottom: 0;
   }
   .range-header {
     display: flex;
-    justify-content: center;
-    align-items: baseline;
-    gap: 8px;
-    text-align: center;
-    width: 100%;
+    justify-content: space-between;
+    align-items: center;
   }
   .range-label {
-    font-size: 0.82rem;
-    font-weight: 700;
+    font-size: 0.76rem;
+    font-weight: 600;
     color: var(--text-primary);
   }
   .range-val {
     font-family: var(--font-serif);
     font-style: italic;
     font-size: 1.05rem;
-    font-weight: 600;
-    color: #201f1d;
-    min-width: auto;
-    text-align: left;
+    color: var(--text-secondary);
+    min-width: 32px;
+    text-align: right;
   }
 
   .slider-wrapper {
@@ -585,34 +459,21 @@
   .palette-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-  }
-
-  .palette-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
+    gap: 14px;
   }
 
   .palette-label {
-    font-size: 0.70rem;
+    font-size: 0.72rem;
     font-weight: 600;
     color: var(--text-muted);
-    letter-spacing: 0.12em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    text-align: center;
   }
 
   .circle-row {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
-    justify-content: center;
     flex-wrap: wrap;
   }
 
@@ -640,24 +501,86 @@
     border: 1.5px solid var(--accent);
   }
 
-  /* Studio Circle & Slider Accents */
-  .color-circle.studio-circle {
-    border: 1.5px solid #dfc488 !important;
-    box-shadow: 0 1px 6px rgba(205, 142, 45, 0.25) !important;
+  /* Eye Dropper / Custom Color Pickers */
+  .picker-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 4px;
   }
-  .color-circle.studio-circle:hover {
-    transform: scale(1.16);
-    border-color: #cca356 !important;
-    box-shadow: 0 2px 10px rgba(205, 142, 45, 0.4) !important;
+
+  .eyedropper-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: var(--transition);
+    opacity: 0.8;
   }
-  .tape-color-circle.studio-circle {
-    border: 1.5px solid #dfc488 !important;
-    box-shadow: 0 1px 6px rgba(205, 142, 45, 0.25) !important;
+  .eyedropper-btn:hover {
+    opacity: 1;
+    transform: scale(1.08);
+    border-color: var(--text-primary);
   }
-  input[type=range].studio-slider::-webkit-slider-thumb {
-    background: #ffffff;
-    border: 1.5px solid #dfc488;
-    box-shadow: 0 1px 6px rgba(205, 142, 45, 0.35);
+  .eyedropper-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: var(--text-secondary);
+  }
+
+  .custom-picker-wrapper {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .custom-picker-wrapper:hover {
+    transform: scale(1.08);
+    border-color: var(--text-primary);
+  }
+  .custom-picker-wrapper input[type=color] {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 52px;
+    height: 52px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .hex-input-wrapper {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    padding: 6px 10px;
+    gap: 4px;
+  }
+  .hex-hash {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .hex-val {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    border: none;
+    outline: none;
+    width: 60px;
+    text-transform: uppercase;
   }
 
   /* Export Settings Controls */
@@ -682,8 +605,6 @@
     color: var(--text-primary);
     cursor: pointer;
     outline: none;
-    text-align: center;
-    text-align-last: center;
     -webkit-appearance: none;
     appearance: none;
     transition: var(--transition);
@@ -703,28 +624,6 @@
   }
 
   /* High Quality Buttons styling */
-  .export-quality-badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    margin-top: 10px;
-    text-align: center;
-    width: 100%;
-  }
-  .quality-line {
-    font-family: var(--font-sans);
-    font-size: 0.70rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    line-height: 1.4;
-    text-align: center;
-    white-space: nowrap;
-  }
-
   .action-buttons {
     display: flex;
     flex-direction: column;
@@ -816,11 +715,9 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 6px;
     transition: var(--transition);
-    align-self: center;
-    margin: 0 auto 16px auto;
+    align-self: flex-start;
   }
   .reset-btn:hover {
     color: var(--text-primary);
@@ -1114,213 +1011,193 @@
     margin-top: 32px;
   }
 
-  /* ==========================================================================
-     LUMORA SYMMETRICAL SOUNDSCAPE CAPSULE WIDGET (Bottom Left)
-     ========================================================================== */
+  /* --- Symmetrical Boutique Floating Soundscape Widget (Bottom Left) --- */
   .soundscape-widget-wrapper {
     position: fixed;
     bottom: 24px;
-    left: 14px;
+    left: 24px;
     z-index: 999;
     display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    background: rgba(253, 250, 245, 0.92);
-    border: 1px solid rgba(228, 224, 218, 0.7);
-    box-shadow: 0 8px 30px rgba(40, 36, 32, 0.08);
-    padding: 5px;
-    border-radius: 9999px;
-    user-select: none;
-    -webkit-user-select: none;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    gap: 6px;
-    pointer-events: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    pointer-events: none; /* Let clicks pass through empty space */
   }
 
-  .soundscape-widget-wrapper:hover {
-    background: rgba(253, 250, 245, 0.96);
-  }
-
-  /* Bottom toggle circle button */
   .soundscape-toggle-btn {
     position: relative;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #f0eee9;
-    background: #faf8f5;
-    color: #78716c;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    background: rgba(252, 249, 243, 0.96);
+    color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    padding: 0;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px rgba(40, 36, 32, 0.14), 0 1px 4px rgba(0,0,0,0.06);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto;
     touch-action: manipulation;
-    flex-shrink: 0;
   }
 
   .soundscape-toggle-btn:hover {
-    color: #292524;
+    color: var(--text-primary);
+    background: #fff;
+    border-color: rgba(0, 0, 0, 0.22);
+    box-shadow: 0 6px 24px rgba(40, 36, 32, 0.18), 0 1px 4px rgba(0,0,0,0.08);
+    transform: scale(1.08);
   }
 
-  /* When menu is expanded */
-  .soundscape-widget-wrapper.expanded .soundscape-toggle-btn {
-    background: #e7e5e4;
-    border-color: #d6d3d1;
-    color: #292524;
+  .soundscape-toggle-btn:active {
+    transform: scale(0.96);
   }
 
-  /* When music is playing */
+  /* Music active closed state — Velume purple */
   .soundscape-toggle-btn.playing {
-    background: #ecfdf5;
-    border-color: #d1fae5;
-    color: #047857;
+    background: rgba(171, 107, 255, 0.1);
+    border-color: rgba(171, 107, 255, 0.4);
+    color: #ab6bff;
+    box-shadow: 0 4px 20px rgba(171, 107, 255, 0.22), 0 1px 4px rgba(0,0,0,0.06);
   }
 
-  .soundscape-toggle-btn.playing .toggle-icon {
-    animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  .soundscape-toggle-btn.playing svg {
+    animation: spin-slow 5s linear infinite;
+    filter: drop-shadow(0 0 6px rgba(171, 107, 255, 0.7));
   }
 
-  /* Expanded Tracks List */
+  /* Expanded state for wrapper */
+  .soundscape-widget-wrapper.expanded .soundscape-toggle-btn {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.12);
+    color: var(--text-primary);
+  }
+
   .soundscape-menu {
-    display: none;
+    display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 6px;
-    padding-bottom: 2px;
+    background: rgba(253, 250, 245, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 25px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 8px 6px;
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    pointer-events: none;
+    box-shadow: 0 12px 32px rgba(40, 36, 32, 0.08);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .soundscape-widget-wrapper.expanded .soundscape-menu {
-    display: flex;
-    animation: soundscapeFadeIn 0.2s ease-out;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
   }
 
-  @keyframes soundscapeFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Track button in list */
   .soundscape-btn {
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
+    gap: 3px;
+    width: 54px;
+    height: 46px;
+    border-radius: 12px;
     border: 1px solid transparent;
     background: transparent;
-    color: #a8a29e;
+    color: var(--text-muted);
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto;
     touch-action: manipulation;
-    padding: 0;
-    flex-shrink: 0;
   }
+
+  /* Persistent track name label */
+  .track-name {
+    font-family: var(--font-sans);
+    font-size: 0.52rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    text-align: center;
+    white-space: nowrap;
+    display: block;
+    line-height: 1;
+    transition: color 0.25s ease;
+  }
+  .soundscape-btn:hover .track-name,
+  .soundscape-btn.active .track-name {
+    color: var(--text-secondary);
+  }
+  .soundscape-btn.active.playing .track-name {
+    color: #ab6bff;
+  }
+
+  /* Dot removed — button glow is the active signal */
+  .soundscape-btn-dot { display: none !important; }
 
   .soundscape-btn:hover {
-    background: #faf8f5;
-    color: #57534e;
+    color: var(--text-primary);
+    background: rgba(0, 0, 0, 0.04);
   }
 
-  /* Track active (selected) */
   .soundscape-btn.active {
-    background: #f5f5f4;
-    border-color: #d6d3d1;
-    color: #292524;
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: var(--text-primary);
   }
 
-  /* Track active & playing */
   .soundscape-btn.active.playing {
-    background: #ecfdf5;
-    border-color: #a7f3d0;
-    color: #065f46;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.12);
+    background: rgba(171, 107, 255, 0.07);
+    border-color: rgba(171, 107, 255, 0.22);
+    color: #ab6bff;
+    box-shadow: 0 2px 10px rgba(171, 107, 255, 0.14);
   }
 
-  .soundscape-btn.error {
-    background: rgba(245, 158, 11, 0.08);
-    border-color: rgba(245, 158, 11, 0.25);
-    color: #d97706;
-  }
-
-  /* Track abbreviation */
   .track-abbr {
-    position: relative;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 10px;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
     font-weight: 700;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.01em;
     text-transform: uppercase;
-    transition: transform 0.3s ease;
-    display: inline-block;
-    line-height: 1;
-    color: inherit;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .soundscape-btn:hover .track-abbr {
+    transform: scale(1.08);
   }
 
   .soundscape-btn.active.playing .track-abbr {
-    color: #047857;
-    font-weight: 800;
     animation: spin-slow 6s linear infinite;
+    color: #ab6bff;
+    display: inline-block;
   }
 
-  /* Repeat Single '1' badge */
-  .repeat-badge {
+  .soundscape-btn.error {
+    background: rgba(239, 68, 68, 0.06);
+    border-color: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+  }
+
+  /* Radar ping active dot styling */
+  .soundscape-btn-dot {
     position: absolute;
-    top: -3px;
-    right: -3px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #059669;
-    color: #ffffff;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 8px;
-    font-weight: 700;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    z-index: 2;
-    line-height: 1;
-    pointer-events: none;
-  }
-
-  .soundscape-btn.active.playing.repeat-single .repeat-badge {
-    display: flex;
-  }
-
-  /* Glowing active indicator dot */
-  .active-pulse-dot {
-    position: absolute;
-    bottom: -1px;
-    right: -1px;
+    bottom: 0px;
+    right: 0px;
     width: 6px;
     height: 6px;
-    display: none;
-    pointer-events: none;
-  }
-
-  .soundscape-btn.active.playing .active-pulse-dot {
     display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
-  .active-pulse-dot .pulse-wave {
+  .soundscape-btn-dot .ping-wave {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -1329,45 +1206,44 @@
     animation: dot-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
-  .active-pulse-dot .pulse-core {
+  .soundscape-btn-dot .core-dot {
     position: relative;
     width: 100%;
     height: 100%;
     border-radius: 50%;
     background-color: #10b981;
-    display: block;
   }
 
-  /* Desktop hover tooltips */
-  .soundscape-btn .tooltip {
-    display: none;
+  /* Tooltip overlay styling */
+  .soundscape-btn .tooltip,
+  .soundscape-toggle-btn .tooltip {
+    visibility: hidden;
+    background-color: #1e1e1e;
+    color: #fff;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1000;
+    left: 48px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.9);
+    opacity: 0;
+    font-family: inherit;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
   }
 
-  @media (min-width: 768px) {
-    .soundscape-btn .tooltip {
-      display: block;
-      position: absolute;
-      left: 48px;
-      top: 50%;
-      transform: translateY(-50%) scale(0.9);
-      background: rgba(28, 25, 23, 0.95);
-      color: #fafaf9;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-size: 10px;
-      font-weight: 500;
-      padding: 4px 8px;
-      border-radius: 6px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 1000;
-    }
-    .soundscape-btn:hover .tooltip {
-      opacity: 1;
-      transform: translateY(-50%) scale(1);
-    }
+  .soundscape-btn:hover .tooltip,
+  .soundscape-toggle-btn:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
   }
 
   @keyframes spin-slow {
@@ -1402,7 +1278,6 @@
     display: flex;
     gap: 8px;
     align-items: center;
-    justify-content: center;
     margin-bottom: 12px;
   }
   .annotation-input {
@@ -1415,7 +1290,6 @@
     font-size: 0.85rem;
     color: var(--text-primary);
     outline: none;
-    text-align: center;
     transition: var(--transition);
   }
   .annotation-input:focus {
@@ -1442,19 +1316,18 @@
     display: flex;
     gap: 8px;
     margin-bottom: 12px;
-    justify-content: center;
   }
   
   .annotation-style-btn {
     flex: 1;
     padding: 10px 4px;
-    border: 1px solid rgba(0, 0, 0, 0.14);
-    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
     background: #fff;
     font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
     cursor: pointer;
     text-align: center;
     transition: var(--transition);
@@ -1474,8 +1347,7 @@
     display: flex;
     gap: 8px;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 12px;
+    margin-top: 8px;
   }
 
   .tape-color-circle {
@@ -1499,112 +1371,6 @@
     inset: -3px;
     border-radius: 6px;
     border: 1.5px solid var(--accent);
-  }
-
-  .ink-color-circle {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    transition: var(--transition);
-    position: relative;
-    flex-shrink: 0;
-  }
-  .ink-color-circle:hover {
-    transform: scale(1.14);
-  }
-  .ink-color-circle.active {
-    transform: scale(1.18);
-  }
-  .ink-color-circle.active::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    border: 1.5px solid var(--accent);
-  }
-  .ink-color-circle.studio-circle {
-    border: 1.5px solid #dfc488 !important;
-    box-shadow: 0 1px 6px rgba(205, 142, 45, 0.25) !important;
-  }
-  body.is-studio-member .ink-color-circle.studio-circle {
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    box-shadow: none !important;
-  }
-
-  /* 90s Film Date Stamp Controls */
-  .datestamp-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 12px;
-    gap: 8px;
-    width: 100%;
-  }
-
-  .datestamp-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 18px;
-    border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.14);
-    background: #fff;
-    color: var(--text-primary);
-    font-family: var(--font-sans);
-    font-size: 0.80rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-  }
-
-  .datestamp-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #ccc;
-    transition: var(--transition);
-  }
-
-  .datestamp-btn:hover {
-    border-color: #ff8800;
-    color: var(--text-primary);
-  }
-
-  .datestamp-btn.active {
-    background: #1a1a1a;
-    border-color: #ff8800;
-    color: #fff;
-    box-shadow: 0 2px 10px rgba(255, 136, 0, 0.25);
-  }
-
-  .datestamp-btn.active .datestamp-dot {
-    background: #ff8800;
-    box-shadow: 0 0 8px #ff8800;
-  }
-
-  .datestamp-input-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .datestamp-input {
-    width: 120px;
-    padding: 5px 10px;
-    font-family: 'VT323', 'SF Mono', monospace;
-    font-size: 1.05rem;
-    letter-spacing: 0.10em;
-    color: #ff8500;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 133, 0, 0.45);
-    border-radius: 6px;
-    text-align: center;
-    outline: none;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
   }
 
   /* Hidden Canvas */
@@ -1927,290 +1693,42 @@
     color: #1a1a1a;
   }
 
-  .pass-ownership-tag {
-    font-family: var(--font-sans);
-    font-size: 0.76rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: #201f1d;
-    text-align: center;
-    margin-bottom: 2px;
-  }
-
-  .pass-legal-links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 0.74rem;
-    color: #54504a;
-    margin-top: 2px;
-  }
-  .pass-legal-links a {
-    color: #54504a;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    font-weight: 500;
-    transition: color 0.2s ease;
-  }
-  .pass-legal-links a:hover {
-    color: #121110;
-  }
-  .pass-legal-links .legal-dot {
-    opacity: 0.5;
-  }
-
   .pass-legal {
     font-size: 0.68rem;
-    color: #54504a;
+    color: #a6a4a0;
     text-align: center;
     line-height: 1.4;
-    margin-top: 10px;
+    margin-top: 16px;
   }
 
-  /* Irresistible Golden Ticket Studio Pass */
   .studio-pass-pill {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #FFF7B2 0%, #F5C658 30%, #E5A328 70%, #B8790E 100%);
-    border: 1.5px solid #FFF1A8;
-    color: #261400;
-    padding: 6px 18px;
-    border-radius: 22px;
+    background: rgba(201, 153, 61, 0.12);
+    border: 1px solid rgba(201, 153, 61, 0.35);
+    color: #a47622;
+    padding: 3px 10px;
+    border-radius: 20px;
     font-family: var(--font-sans);
-    font-size: 0.70rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 0 4px 18px rgba(229, 163, 40, 0.45), 0 1px 3px rgba(0,0,0,0.12), inset 0 1px 2px rgba(255,255,255,0.95);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    margin: 8px auto 0 auto;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-    animation: goldPulse 3.5s infinite ease-in-out;
-  }
-
-  /* Shimmer light sweep animation across ticket */
-  .studio-pass-pill::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
-    transform: translateX(-160%) skewX(-25deg);
-    animation: goldenSweep 3.2s infinite ease-in-out;
-  }
-
-  @keyframes goldenSweep {
-    0% { transform: translateX(-160%) skewX(-25deg); }
-    26%, 100% { transform: translateX(360%) skewX(-25deg); }
-  }
-
-  @keyframes goldPulse {
-    0%, 100% {
-      box-shadow: 0 4px 18px rgba(229, 163, 40, 0.45), 0 1px 3px rgba(0,0,0,0.12), inset 0 1px 2px rgba(255,255,255,0.95);
-    }
-    50% {
-      box-shadow: 0 6px 26px rgba(245, 198, 88, 0.8), 0 2px 6px rgba(0,0,0,0.15), inset 0 1px 3px rgba(255,255,255,1);
-      transform: translateY(-1px);
-    }
+    margin-left: 8px;
+    vertical-align: middle;
+    transition: all 0.25s ease;
   }
 
   .studio-pass-pill:hover {
-    transform: scale(1.06) translateY(-1px);
-    box-shadow: 0 8px 28px rgba(229, 163, 40, 0.65), inset 0 1px 3px rgba(255,255,255,1);
-    filter: brightness(1.08);
+    background: rgba(201, 153, 61, 0.22);
+    border-color: rgba(201, 153, 61, 0.6);
+    color: #835b13;
   }
 
-  .studio-pass-pill:active {
-    transform: scale(0.96);
-  }
-
-  .studio-pass-pill.unlocked,
-  .studio-pass-pill.is-member {
-    background: linear-gradient(135deg, #181818 0%, #262626 100%);
-    border: 1px solid rgba(229, 164, 40, 0.5);
-    color: #F6C85F;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    cursor: default;
-    animation: none;
-    text-shadow: none;
-  }
-  .studio-pass-pill.unlocked::before,
-  .studio-pass-pill.is-member::before {
-    display: none;
-  }
-
-  /* Prevent iOS Safari / WKWebView auto-zoom on input focus */
-  @media screen and (max-width: 768px) {
-    input, select, textarea {
-      font-size: 16px !important;
-    }
-  }
-
-  /* VELUME STUDIOS Top Header Label (Purely Decorative) */
-  .brand-top-label {
-    font-family: var(--font-sans);
-    font-size: 0.70rem;
-    font-weight: 700;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    margin-bottom: 2px;
+  .studio-pass-pill.unlocked {
+    background: rgba(46, 125, 50, 0.1);
+    border-color: rgba(46, 125, 50, 0.25);
+    color: #2e7d32;
     pointer-events: none;
-    user-select: none;
-    cursor: default;
-  }
-
-  .footer-brand {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.15rem;
-    color: var(--text-secondary);
-    pointer-events: none;
-    user-select: none;
-    cursor: default;
-  }
-
-  .brand-slogan {
-    font-style: italic;
-    font-family: var(--font-serif);
-    font-size: 1.35rem;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    color: var(--text-primary);
-    text-transform: none;
-    line-height: 1.25;
-    margin: 4px 0 8px 0;
-  }
-
-  /* Two-line drop title */
-  .drop-title {
-    font-family: var(--font-serif);
-    font-size: 1.65rem;
-    font-style: italic;
-    font-weight: 400;
-    line-height: 1.25;
-    color: var(--text-primary);
-    margin-bottom: 10px;
-  }
-
-  /* Desktop Sticky Workbench */
-  @media (min-width: 1025px) {
-    .preview-wrapper {
-      position: sticky;
-      top: 32px;
-      z-index: 10;
-    }
-  }
-
-  /* Mobile Sticky Top Photo Stage & Natural Scroll */
-  @media (max-width: 1024px) {
-    .container {
-      grid-template-columns: 1fr !important;
-      padding: 0 14px 60px 14px !important;
-      gap: 16px !important;
-    }
-
-    .header {
-      margin-bottom: 20px !important;
-      padding-top: max(2px, calc(env(safe-area-inset-top) - 14px)) !important;
-    }
-
-    .brand-top-label {
-      font-size: 0.65rem !important;
-      letter-spacing: 0.28em !important;
-      margin-top: 0 !important;
-      margin-bottom: 4px !important;
-      opacity: 0.9;
-    }
-
-    .brand-title {
-      font-size: 3.15rem !important;
-      margin: 4px 0 6px 0 !important;
-      line-height: 1.05 !important;
-    }
-
-    .brand-sub {
-      font-size: 0.70rem !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 8px !important;
-    }
-
-    .brand-slogan {
-      font-style: italic;
-      font-family: var(--font-serif);
-      font-size: 1.25rem !important;
-      font-weight: 500 !important;
-      letter-spacing: -0.01em !important;
-      color: var(--text-primary) !important;
-      line-height: 1.25 !important;
-      margin: 2px 0 4px 0 !important;
-    }
-
-    /* THE PHOTO STAYS STICKY AT THE TOP */
-    .preview-wrapper {
-      position: -webkit-sticky !important;
-      position: sticky !important;
-      top: max(8px, env(safe-area-inset-top)) !important;
-      z-index: 40 !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      height: 42vh !important;
-      max-height: 380px !important;
-      aspect-ratio: auto !important;
-      border-radius: 16px !important;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.09) !important;
-      margin: 0 0 12px 0 !important;
-      overflow: hidden !important;
-      background: #eae8e3 !important;
-    }
-
-    .output-container {
-      padding: 10px !important;
-      width: 100% !important;
-      height: 100% !important;
-    }
-
-    .result-img-wrapper {
-      width: 100% !important;
-      height: 100% !important;
-      max-height: 100% !important;
-      max-width: 100% !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-    }
-
-    #result-image {
-      max-width: 100% !important;
-      max-height: 100% !important;
-      width: auto !important;
-      height: auto !important;
-      object-fit: contain !important;
-    }
-
-    .drop-zone {
-      width: 86% !important;
-      max-height: 90% !important;
-      padding: 20px 16px !important;
-    }
-
-    .control-panel {
-      padding: 22px 16px !important;
-      border-radius: 18px !important;
-      position: relative !important;
-      z-index: 1 !important;
-    }
   }
 </style>
 </head>
@@ -2227,17 +1745,8 @@
   
   <!-- Header Block -->
   <div class="header">
-    <div class="brand-top-label"><span class="shimmer-text">VELUME STUDIOS</span></div>
     <h1 class="brand-title">Velume Matte</h1>
-    <div class="brand-sub">
-      <div class="brand-slogan">It’s art because you say it is.</div>
-      <div>
-        <button class="studio-pass-pill" id="header-pass-pill" onclick="openStudioPassPaywall('header')" title="Studio Pass">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/></svg>
-          <span>Studio Pass</span>
-        </button>
-      </div>
-    </div>
+    <div class="brand-sub"><a href="https://velumestudios.com" target="_blank" style="text-decoration: none; color: inherit; cursor: pointer;"><span class="shimmer-text">Velume Studios</span></a> &bull; Archival Framing <button class="studio-pass-pill" id="header-pass-pill" onclick="openStudioPassPaywall('header')" title="Unlock All Aspect Ratios, Inks & Soundscapes">Studio Pass</button></div>
   </div>
 
   <!-- Left Column: Workshop Workbench -->
@@ -2264,7 +1773,7 @@
         <button class="dismiss-overlay-btn" onclick="hideRenderOverlay()">Dismiss</button>
       </div>
     </div>    <!-- Upload State Drop Zone -->
-    <div class="drop-zone" id="drop-zone" onclick="openPhotoPicker()">
+    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
       <!-- Corner bracket viewfinder marks -->
       <span class="corner-tr" aria-hidden="true"></span>
       <span class="corner-bl" aria-hidden="true"></span>
@@ -2274,9 +1783,9 @@
         <line x1="4" y1="12" x2="20" y2="12"/>
         <circle cx="12" cy="12" r="2"/>
       </svg>
-      <div class="drop-title">Your work is art.<br>Never compromise.</div>
+      <div class="drop-title">Your work is art. Never compromise.</div>
       <div class="drop-subtitle">Velume Matte &bull; Lossless Archival Frame</div>
-      <p class="drop-specs">Tap to frame your print</p>
+      <p class="drop-specs">Drop your print here, or tap to open.</p>
     </div>
     <input type="file" id="file-input" accept="image/*">
 
@@ -2304,39 +1813,39 @@
     <!-- Layout section -->
     <div class="control-section">
       <div class="section-title">
-        <span>Frame &amp; Ratio</span>
+        <span>Format &amp; Ratio</span>
       </div>
       
       <!-- Frame Style buttons -->
       <div class="style-selector">
         <button class="style-btn active" id="style-classic" onclick="setStyle('classic')">Classic Centered</button>
-        <button class="style-btn studio-pill" id="style-polaroid" onclick="setStyle('polaroid')">Polaroid Matte</button>
-        <button class="style-btn studio-pill" id="style-gallery" onclick="setStyle('gallery')">Museum Matte</button>
+        <button class="style-btn" id="style-polaroid" onclick="setStyle('polaroid')">Polaroid Matte</button>
+        <button class="style-btn" id="style-gallery" onclick="setStyle('gallery')">Museum Matte</button>
       </div>
 
       <!-- Ratio Button Grid -->
       <div class="grid-ratios">
         <button class="ratio-btn active" data-w="1" data-h="1" onclick="setRatio(this)">1:1 Square</button>
-        <button class="ratio-btn studio-pill" data-w="4" data-h="5" onclick="setRatio(this)">4:5 Portrait</button>
-        <button class="ratio-btn studio-pill" data-w="9" data-h="16" onclick="setRatio(this)">9:16 Canvas</button>
-        <button class="ratio-btn studio-pill" data-w="5" data-h="4" onclick="setRatio(this)">5:4 Fine Art</button>
-        <button class="ratio-btn studio-pill" data-w="2" data-h="3" onclick="setRatio(this)">2:3 35mm</button>
-        <button class="ratio-btn studio-pill" data-w="3" data-h="2" onclick="setRatio(this)">3:2 Original</button>
-        <button class="ratio-btn studio-pill" data-w="16" data-h="9" onclick="setRatio(this)">16:9 Cinema</button>
-        <button class="ratio-btn studio-pill" id="ratio-native" data-w="native" data-h="native" onclick="setRatio(this)">Native Aspect</button>
+        <button class="ratio-btn" data-w="4" data-h="5" onclick="setRatio(this)">4:5 Portrait</button>
+        <button class="ratio-btn" data-w="9" data-h="16" onclick="setRatio(this)">9:16 Canvas</button>
+        <button class="ratio-btn" data-w="5" data-h="4" onclick="setRatio(this)">5:4 Fine Art</button>
+        <button class="ratio-btn" data-w="2" data-h="3" onclick="setRatio(this)">2:3 35mm</button>
+        <button class="ratio-btn" data-w="3" data-h="2" onclick="setRatio(this)">3:2 Original</button>
+        <button class="ratio-btn" data-w="16" data-h="9" onclick="setRatio(this)">16:9 Cinema</button>
+        <button class="ratio-btn" id="ratio-native" data-w="native" data-h="native" onclick="setRatio(this)">Native Aspect</button>
       </div>
     </div>
 
-    <!-- Matte Border Controls -->
+    <!-- Fine Art Sliders -->
     <div class="control-section">
       <div class="section-title">
-        <span>Matte Border</span>
+        <span>Matte Weight &amp; Finish</span>
       </div>
 
       <!-- Width Slider -->
       <div class="range-container">
         <div class="range-header">
-          <span class="range-label">Border Width</span>
+          <span class="range-label">Matte Border Weight</span>
           <span class="range-val" id="val-border">5%</span>
         </div>
         <div class="slider-wrapper">
@@ -2347,35 +1856,35 @@
       <!-- Rounded Corners Slider -->
       <div class="range-container">
         <div class="range-header">
-          <span class="range-label">Corner Radius</span>
+          <span class="range-label">Corner Softness</span>
           <span class="range-val" id="val-radius">0px</span>
         </div>
         <div class="slider-wrapper">
-          <input type="range" id="slide-radius" class="studio-slider" min="0" max="50" value="0" oninput="updateRadius(this.value)">
+          <input type="range" id="slide-radius" min="0" max="50" value="0" oninput="updateRadius(this.value)">
         </div>
       </div>
 
       <!-- Keyline Stroke Slider -->
       <div class="range-container">
         <div class="range-header">
-          <span class="range-label">Inner Keyline</span>
+          <span class="range-label">Fine Gallery Keyline</span>
           <span class="range-val" id="val-keyline">0px</span>
         </div>
         <div class="slider-wrapper">
-          <input type="range" id="slide-keyline" class="studio-slider" min="0" max="6" value="0" oninput="updateKeyline(this.value)">
+          <input type="range" id="slide-keyline" min="0" max="6" value="0" oninput="updateKeyline(this.value)">
         </div>
       </div>
     </div>
 
-    <!-- Customization System -->
+    <!-- Edition Mark System -->
     <div class="control-section">
       <div class="section-title">
-        <span>Customize</span>
+        <span>Edition Mark</span>
       </div>
 
       <!-- Text Input & Date Auto-fill -->
       <div class="annotation-input-wrapper">
-        <input type="text" id="annotation-input" class="annotation-input" placeholder="Add a caption, title, or date..." oninput="updateAnnotationText(this.value)">
+        <input type="text" id="annotation-input" class="annotation-input" placeholder="Type annotation... (e.g. Kyoto, 2026)" oninput="updateAnnotationText(this.value)">
         <button class="autofill-btn" onclick="insertCurrentDate()" title="Insert Current Date">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -2389,65 +1898,68 @@
       <!-- Annotation Style Buttons -->
       <div class="annotation-styles">
         <button class="annotation-style-btn active" id="astyle-sharpie" onclick="setAnnotationStyle('sharpie')">Felt Sharpie</button>
-        <button class="annotation-style-btn studio-pill" id="astyle-pencil" onclick="setAnnotationStyle('pencil')">Museum Pencil</button>
-        <button class="annotation-style-btn studio-pill" id="astyle-dymo" onclick="setAnnotationStyle('dymo')">Label Tape</button>
-      </div>
-
-      <!-- Felt Sharpie Ink Color Options -->
-      <div id="ink-colors-section" class="tape-colors-row">
-        <span class="palette-label" style="margin-right: 8px;">Ink Color <span class="golden-ticket-badge">PASS</span></span>
-        <div class="ink-color-circle active" style="background:#1e1e1e;" data-color="black" onclick="setInkColor(this)" title="Jet Black (Standard)"></div>
-        <div class="tone-divider"></div>
-        <div class="ink-color-circle studio-circle" style="background:#0e2a47;" data-color="indigo" onclick="setInkColor(this)" title="Prussian Indigo"></div>
-        <div class="ink-color-circle studio-circle" style="background:#8b1e22;" data-color="crimson" onclick="setInkColor(this)" title="Editorial Crimson"></div>
-        <div class="ink-color-circle studio-circle" style="background:#1b442b;" data-color="green" onclick="setInkColor(this)" title="Hunter Green"></div>
+        <button class="annotation-style-btn" id="astyle-pencil" onclick="setAnnotationStyle('pencil')">Museum Pencil</button>
+        <button class="annotation-style-btn" id="astyle-dymo" onclick="setAnnotationStyle('dymo')">Dymo Tape</button>
       </div>
 
       <!-- Dymo Tape Color Options -->
       <div id="tape-colors-section" class="tape-colors-row" style="display: none;">
-        <span class="palette-label" style="margin-right: 8px;">Tape Color <span class="golden-ticket-badge">PASS</span></span>
+        <span class="palette-label" style="margin-right: 8px;">Tape Color:</span>
         <div class="tape-color-circle active" style="background:#1a1a1a;" data-color="black" onclick="setTapeColor(this)" title="Embassy Black"></div>
-        <div class="tone-divider"></div>
-        <div class="tape-color-circle studio-circle" style="background:#901a1e;" data-color="red" onclick="setTapeColor(this)" title="Vintage Red"></div>
-        <div class="tape-color-circle studio-circle" style="background:#134e32;" data-color="green" onclick="setTapeColor(this)" title="Studio Green"></div>
-        <div class="tape-color-circle studio-circle" style="background:#003c71;" data-color="blue" onclick="setTapeColor(this)" title="Pacific Blue"></div>
-      </div>
-
-      <!-- 90s Film Date Stamp -->
-      <div class="datestamp-section">
-        <button class="datestamp-btn studio-pill" id="datestamp-btn" onclick="toggleDateStamp()" title="Toggle '90s Film Date Stamp">
-          <span class="datestamp-dot"></span>
-          <span>'90s Film Date</span>
-        </button>
-        <div id="datestamp-input-row" class="datestamp-input-row" style="display: none;">
-          <input type="text" id="datestamp-input" class="datestamp-input" value="'26 09 04" maxlength="14" oninput="updateDateStampText(this.value)">
-        </div>
+        <div class="tape-color-circle" style="background:#901a1e;" data-color="red" onclick="setTapeColor(this)" title="Vintage Red"></div>
+        <div class="tape-color-circle" style="background:#134e32;" data-color="green" onclick="setTapeColor(this)" title="Studio Green"></div>
+        <div class="tape-color-circle" style="background:#003c71;" data-color="blue" onclick="setTapeColor(this)" title="Pacific Blue"></div>
       </div>
     </div>
 
     <!-- Palette and Preset Colors -->
     <div class="control-section">
+      <div class="section-title">
+        <span>Color Curation</span>
+      </div>
+
       <div class="palette-wrapper">
         
-        <!-- Standard Matte Colors / Tones -->
-        <div class="palette-group">
-          <div class="palette-label">Matte Tones <span class="golden-ticket-badge">PASS</span></div>
+        <!-- Standard Studio Colors -->
+        <div>
+          <div class="palette-label" style="margin-bottom:8px;">Studio Colorways</div>
           <div class="circle-row" id="presets-row">
-            <div class="color-circle active" style="background:#ffffff;" data-color="#ffffff" onclick="setColor(this)" title="Studio White (Standard)"></div>
-            <div class="tone-divider"></div>
-            <div class="color-circle studio-circle" style="background:#fcf9f2;" data-color="#fcf9f2" onclick="setColor(this)" title="Pure Cream"></div>
-            <div class="color-circle studio-circle" style="background:#efeae0;" data-color="#efeae0" onclick="setColor(this)" title="Warm Sand"></div>
-            <div class="color-circle studio-circle" style="background:#d4d8cf;" data-color="#d4d8cf" onclick="setColor(this)" title="Soft Eucalyptus"></div>
-            <div class="color-circle studio-circle" style="background:#ebdcd4;" data-color="#ebdcd4" onclick="setColor(this)" title="Muted Terracotta"></div>
-            <div class="color-circle studio-circle" style="background:#1e1e1e;" data-color="#1e1e1e" onclick="setColor(this)" title="Gallery Charcoal"></div>
+            <div class="color-circle active" style="background:#ffffff;" data-color="#ffffff" onclick="setColor(this)" title="Studio White"></div>
+            <div class="color-circle" style="background:#fcf9f2;" data-color="#fcf9f2" onclick="setColor(this)" title="Pure Cream"></div>
+            <div class="color-circle" style="background:#efeae0;" data-color="#efeae0" onclick="setColor(this)" title="Warm Sand"></div>
+            <div class="color-circle" style="background:#d4d8cf;" data-color="#d4d8cf" onclick="setColor(this)" title="Soft Eucalyptus"></div>
+            <div class="color-circle" style="background:#ebdcd4;" data-color="#ebdcd4" onclick="setColor(this)" title="Muted Terracotta"></div>
+            <div class="color-circle" style="background:#1e1e1e;" data-color="#1e1e1e" onclick="setColor(this)" title="Gallery Charcoal"></div>
           </div>
         </div>
 
         <!-- Intelligent Extracted Colors -->
-        <div id="palette-auto-section" class="palette-group" style="display:none;">
-          <div class="palette-label">Extracted Tones <span class="golden-ticket-badge">PASS</span></div>
+        <div id="palette-auto-section" style="display:none;">
+          <div class="palette-label" style="margin-bottom:8px;">Coordinated Palette (Auto)</div>
           <div class="circle-row" id="palette-auto-row">
             <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Custom picker and HEX display -->
+        <div>
+          <div class="palette-label" style="margin-bottom:8px;">Surgical Color Picker</div>
+          <div class="picker-controls">
+            <!-- EyeDropper API Button -->
+            <button class="eyedropper-btn" id="eyedropper-btn" onclick="triggerEyeDropper()" title="Pick color from screen">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.707 5.826l-2.533-2.533a1.996 1.996 0 00-2.828 0L3.53 15.109a1 1 0 00-.263.464l-1.25 5a1 1 0 001.213 1.213l5-1.25a1 1 0 00.464-.263l11.813-11.813a2.001 2.001 0 000-2.834zM5.414 17l9-9 1.586 1.586-9 9H5.414V17zm11.758-10.172l-1.586-1.586 1.066-1.066 1.586 1.586-1.066 1.066z"/>
+              </svg>
+            </button>
+            <!-- Custom HTML Color Picker -->
+            <div class="custom-picker-wrapper" title="Select color wheel">
+              <input type="color" id="custom-color-input" value="#ffffff" oninput="setCustomColor(this.value)">
+            </div>
+            <!-- Text HEX view -->
+            <div class="hex-input-wrapper">
+              <span class="hex-hash">#</span>
+              <input type="text" class="hex-val" id="hex-text-input" maxlength="6" value="FFFFFF" oninput="setHexColor(this.value)">
+            </div>
           </div>
         </div>
 
@@ -2455,13 +1967,24 @@
     </div>
 
     <!-- Export Panel -->
-    <div class="control-section" id="export-section">
+    <div class="control-section" id="export-section" style="opacity: 0.4; pointer-events: none;">
       <div class="section-title">
         <span>Print &amp; Share</span>
       </div>
 
       <div class="action-buttons">
-        <div class="action-buttons-container" style="margin-top: 2px;">
+        <div class="export-row">
+          <div class="select-wrapper">
+            <select id="export-res-select">
+              <option value="export-1080">Social Feed (1080px)</option>
+              <option value="export-2048">Digital Portfolio (2048px)</option>
+              <option value="export-4k">Fine Art Exhibition (4K - 3840px)</option>
+              <option value="export-original" selected>Archival Master (Original Resolution)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="action-buttons-container">
           <!-- Consolidated Smart Share Your Art Button -->
           <button class="pill-btn pill-btn-primary" onclick="exportPrint()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -2469,10 +1992,6 @@
             </svg>
             Share Your Art
           </button>
-          <div class="export-quality-badge">
-            <div class="quality-line">Full Original Resolution</div>
-            <div class="quality-line">Lossless Print Quality</div>
-          </div>
         </div>
       </div>
     </div>
@@ -2484,9 +2003,40 @@
 <!-- Footer Branding -->
 <div class="footer">
   <div class="footer-links-row">
-    <span class="footer-brand"><span class="shimmer-text">velumestudios.com</span></span>
+    <a href="https://velumestudios.com" class="footer-link" target="_blank"><span class="shimmer-text">velumestudios.com</span></a>
+    <span class="footer-dot">&bull;</span>
+    <button class="manifesto-trigger-btn" onclick="openManifesto()">The Manifesto</button>
     <span class="footer-dot">&bull;</span>
     <span class="footer-credit"><em>David Goeb</em></span>
+  </div>
+</div>
+
+<!-- The Manifesto Slide-Up Overlay -->
+<div class="manifesto-overlay" id="manifesto-modal" onclick="closeManifesto(event)">
+  <div class="manifesto-card" onclick="event.stopPropagation()">
+    <button class="close-manifesto-btn" onclick="closeManifesto(event)">&times;</button>
+    <div class="manifesto-title">The Manifesto</div>
+    <div class="manifesto-text">
+      <p>Photography has become strangely competitive.</p>
+      <p>Somewhere along the way, we started believing that every photo needs to be technically perfect, shot on the latest camera, edited just right, and approved by strangers before it's worthy of being shared. We spend so much time comparing our work to everyone else's that we forget why we picked up a camera in the first place.</p>
+      <p>Here's what we believe.</p>
+      <p>If a photograph made you stop for a second and hit the shutter, then it already did its job. It captured something that meant something to you. That's enough.</p>
+      <p>Sure, we can all improve. That's part of the fun. But improvement shouldn't come at the cost of confidence. Too many great photographs stay hidden because the person who took them decided they weren't good enough.</p>
+      <p>We don't buy that.</p>
+      <p>Putting a border around your photo doesn't magically make it better. The photograph was already yours. The border simply changes the way you present it. It says, "I believe this moment is worth sharing." And it's amazing how much confidence can come from making that small decision.</p>
+      <p>That's why we built Velume Matte.</p>
+      <p>Not to hide your work behind filters or overwhelm it with effects. Quite the opposite. We wanted to give photographs room to breathe and a simple, elegant way to present them with a little more intention.</p>
+      <p>Because the goal isn't perfection.</p>
+      <p>The goal is to stop second-guessing yourself, share the moments that matter to you, and remember that your perspective is the one thing no one else has.</p>
+      <p>So if you like the photograph, that's reason enough.</p>
+      <p>Frame it.</p>
+      <p>Share it.</p>
+      <p>Let it speak.</p>
+      <div class="manifesto-highlight">
+        "The border doesn't make the photo better. You do."
+      </div>
+    </div>
+    <div class="manifesto-author">&mdash; David Goeb, Velume Studios</div>
   </div>
 </div>
 
@@ -2495,223 +2045,143 @@
   <div class="studio-pass-card" onclick="event.stopPropagation()">
     <button class="close-pass-btn" onclick="closeStudioPassPaywall(event)">&times;</button>
     
-    <!-- Non-Member Purchase / Upgrade View -->
-    <div id="pass-view-upgrade">
-      <div class="pass-badge">VELUME STUDIOS &bull; LOSSLESS ARCHIVAL</div>
-      <div class="pass-title">Studio Pass</div>
-      <div class="pass-subtitle">Unlock the darkroom. Yours forever.</div>
-      
-      <div class="pass-features-list">
-        <div class="pass-feature-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-            <path d="M9 3v18M15 3v18M3 9h18M3 15h18"></path>
-          </svg>
-          <span><strong>All Canvas &amp; Film Ratios:</strong> 4:5, 9:16, Cinema &amp; 35mm</span>
-        </div>
-        <div class="pass-feature-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          <span><strong>'90s Quartz Date Stamp:</strong> Glowing amber retro film dates</span>
-        </div>
-        <div class="pass-feature-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 20h9"></path>
-            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-          </svg>
-          <span><strong>Vintage Label Tape &amp; Inks:</strong> Vintage labels, pencil &amp; sharpie</span>
-        </div>
-        <div class="pass-feature-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18V5l12-2v13"></path>
-            <circle cx="6" cy="18" r="3"></circle>
-            <circle cx="18" cy="16" r="3"></circle>
-          </svg>
-          <span><strong>All 6 Darkroom Soundscapes:</strong> Late-Night Lo-Fi &amp; Smokey Jazz</span>
-        </div>
+    <div class="pass-badge">VELUME STUDIOS &bull; ARCHIVAL</div>
+    <div class="pass-title">Studio Pass</div>
+    <div class="pass-subtitle">Lifetime darkroom access. One-time unlock, yours forever.</div>
+    
+    <div class="pass-features-list">
+      <div class="pass-feature-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+          <path d="M9 3v18M15 3v18M3 9h18M3 15h18"></path>
+        </svg>
+        <span><strong>All Aspect Ratios:</strong> 4:5 Portrait, 9:16 Canvas, 16:9 Cinema &amp; 35mm formats.</span>
       </div>
-
-      <div class="pass-action-box">
-        <div class="pass-ownership-tag">Pay once. No subscriptions. Yours for life.</div>
-        <button class="pass-unlock-btn" id="btn-unlock-pass" onclick="handlePurchaseStudioPass()">
-          <span id="pass-price-display">Launch Special &bull; $1.49</span>
-        </button>
-        <button class="pass-restore-btn" onclick="handleRestorePurchases()">
-          Restore Existing Purchase
-        </button>
-        <div class="pass-legal-links">
-          <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer">Terms of Use</a>
-          <span class="legal-dot">&bull;</span>
-          <a href="https://velumestudios.com/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-        </div>
+      <div class="pass-feature-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+        <span><strong>Studio Inks &amp; Dymo Tape:</strong> Museum pencil, vintage embossing &amp; palettes.</span>
       </div>
-
-      <div class="pass-legal">
-        One-time purchase charged to your Apple ID. Restores anytime across your devices.
+      <div class="pass-feature-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+        <span><strong>All 6 Nosnikwah Soundscapes:</strong> Wet Pavement, Smokey Jazz, Velvet Pressure &amp; more.</span>
+      </div>
+      <div class="pass-feature-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span><strong>Pure Craftsman Ownership:</strong> Zero subscriptions. No recurring fees.</span>
       </div>
     </div>
 
-    <!-- Member Status Confirmation View -->
-    <div id="pass-view-member" style="display: none;">
-      <div class="pass-badge">VELUME STUDIOS &bull; STUDIO MEMBER</div>
-      <div class="pass-title">Studio Member</div>
-      <div class="pass-subtitle">Lifetime darkroom access is active on this device.</div>
-      
-      <div class="pass-features-list">
-        <div class="pass-feature-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669;">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <span><strong>All Ratios &amp; Mattes Unlocked:</strong> Lossless compilation across all film &amp; canvas formats</span>
-        </div>
-        <div class="pass-feature-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669;">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <span><strong>All 6 Darkroom Soundscapes:</strong> Full offline Lo-Fi &amp; Smokey Jazz suite</span>
-        </div>
-        <div class="pass-feature-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669;">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <span><strong>Vintage Craftsmanship:</strong> '90s amber date stamps &amp; embossed label tape</span>
-        </div>
-      </div>
-
-      <div class="pass-action-box">
-        <div class="pass-ownership-tag" style="color: #059669; font-weight: 600;">Thank you for supporting independent photography craftsmanship.</div>
-        <button class="pass-unlock-btn" onclick="closeStudioPassPaywall(event)">
-          Return to Studio
-        </button>
-      </div>
+    <div class="pass-action-box">
+      <button class="pass-unlock-btn" id="btn-unlock-pass" onclick="handlePurchaseStudioPass()">
+        <span id="pass-price-display">Unlock Lifetime Studio Pass &bull; ¥500 / $2.99</span>
+      </button>
+      <button class="pass-restore-btn" onclick="handleRestorePurchases()">
+        Restore Existing Purchase
+      </button>
     </div>
 
+    <div class="pass-legal">
+      Payment is charged to your Apple ID upon confirmation. Purchases are non-consumable and restore anytime across your devices.
+    </div>
   </div>
 </div>
 
 <!-- Symmetrical Boutique Floating Vertical Background Music Control Widget (Bottom Left) -->
 <div class="soundscape-widget-wrapper" id="soundscape-widget-wrapper" onclick="event.stopPropagation()">
-  <!-- Toggle Button: classic music note -->
-  <button class="soundscape-toggle-btn" id="soundscape-toggle" onclick="toggleWidgetMenu()" aria-label="Background Music" title="Choose Background Music">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon">
+  <!-- Expanded Tracks List (Vertical stacking, flows upward) -->
+  <div class="soundscape-menu" id="soundscape-menu" aria-hidden="true">
+    <!-- Marigold Lofi -->
+    <button class="soundscape-btn" id="sbtn-marigold" onclick="selectTrack('marigold')" aria-label="Play Marigold Lofi">
+      <span class="track-abbr">mgd</span>
+      <span class="track-name">Marigold</span>
+    </button>
+
+    <!-- Not My Sun (Smokey Jazz) -->
+    <button class="soundscape-btn" id="sbtn-notmysun" onclick="selectTrack('notmysun')" aria-label="Play Not My Sun (Smokey Jazz)">
+      <span class="track-abbr">nms</span>
+      <span class="track-name">Not My Sun</span>
+    </button>
+
+    <!-- Wet Pavement Zen -->
+    <button class="soundscape-btn" id="sbtn-pavement" onclick="selectTrack('pavement')" aria-label="Play Wet Pavement Zen">
+      <span class="track-abbr">wp</span>
+      <span class="track-name">Wet Pavement</span>
+    </button>
+
+    <!-- Stonewater Hymn -->
+    <button class="soundscape-btn" id="sbtn-stonewater" onclick="selectTrack('stonewater')" aria-label="Play Stonewater Hymn">
+      <span class="track-abbr">sh</span>
+      <span class="track-name">Stonewater</span>
+    </button>
+    
+    <!-- Velvet Pressure -->
+    <button class="soundscape-btn" id="sbtn-velvet" onclick="selectTrack('velvet')" aria-label="Play Velvet Pressure">
+      <span class="track-abbr">vp</span>
+      <span class="track-name">Velvet</span>
+    </button>
+    
+    <!-- Harmonic Safety -->
+    <button class="soundscape-btn" id="sbtn-harmonic" onclick="selectTrack('harmonic')" aria-label="Play Harmonic Safety">
+      <span class="track-abbr">hs</span>
+      <span class="track-name">Harmonic</span>
+    </button>
+  </div>
+
+  <!-- Toggle Button: classic music note — no tooltip span (fixes mobile sticky label bug) -->
+  <button class="soundscape-toggle-btn" id="soundscape-toggle" onclick="toggleWidgetMenu()" aria-label="Background Music" title="Background Music">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon">
       <path d="M9 18V5l12-2v13"></path>
       <circle cx="6" cy="18" r="3"></circle>
       <circle cx="18" cy="16" r="3"></circle>
     </svg>
   </button>
-
-  <!-- Expanded Tracks List (Lumora Vertical Circle Stacking) -->
-  <div class="soundscape-menu" id="soundscape-menu">
-    <!-- Marigold Lofi -->
-    <button class="soundscape-btn active" id="sbtn-marigold" onclick="selectTrack('marigold')" aria-label="Marigold" title="Marigold">
-      <span class="track-abbr">mgd</span>
-      <span class="repeat-badge">1</span>
-      <span class="active-pulse-dot"><span class="pulse-wave"></span><span class="pulse-core"></span></span>
-      <span class="tooltip">Marigold</span>
-    </button>
-
-    <!-- Not My Sun (Smokey Jazz) -->
-    <button class="soundscape-btn" id="sbtn-notmysun" onclick="selectTrack('notmysun')" aria-label="Not My Sun" title="Not My Sun">
-      <span class="track-abbr">nms</span>
-      <span class="repeat-badge">1</span>
-      <span class="active-pulse-dot"><span class="pulse-wave"></span><span class="pulse-core"></span></span>
-      <span class="tooltip">Not My Sun (Smokey Jazz)</span>
-    </button>
-
-    <!-- Wet Pavement Zen -->
-    <button class="soundscape-btn" id="sbtn-pavement" onclick="selectTrack('pavement')" aria-label="Wet Pavement" title="Wet Pavement">
-      <span class="track-abbr">wp</span>
-      <span class="repeat-badge">1</span>
-      <span class="active-pulse-dot"><span class="pulse-wave"></span><span class="pulse-core"></span></span>
-      <span class="tooltip">Wet Pavement Zen</span>
-    </button>
-
-    <!-- Stonewater Hymn -->
-    <button class="soundscape-btn" id="sbtn-stonewater" onclick="selectTrack('stonewater')" aria-label="Stonewater" title="Stonewater">
-      <span class="track-abbr">sh</span>
-      <span class="repeat-badge">1</span>
-      <span class="active-pulse-dot"><span class="pulse-wave"></span><span class="pulse-core"></span></span>
-      <span class="tooltip">Stonewater Hymn</span>
-    </button>
-    
-    <!-- Velvet Pressure -->
-    <button class="soundscape-btn" id="sbtn-velvet" onclick="selectTrack('velvet')" aria-label="Velvet" title="Velvet">
-      <span class="track-abbr">vp</span>
-      <span class="repeat-badge">1</span>
-      <span class="active-pulse-dot"><span class="pulse-wave"></span><span class="pulse-core"></span></span>
-      <span class="tooltip">Velvet Pressure</span>
-    </button>
-    
-    <!-- Harmonic Safety -->
-    <button class="soundscape-btn" id="sbtn-harmonic" onclick="selectTrack('harmonic')" aria-label="Harmonic" title="Harmonic">
-      <span class="track-abbr">hs</span>
-      <span class="repeat-badge">1</span>
-      <span class="active-pulse-dot"><span class="pulse-wave"></span><span class="pulse-core"></span></span>
-      <span class="tooltip">Harmonic Safety</span>
-    </button>
-  </div>
 </div>
 
 <!-- Hidden drawing canvas -->
 <canvas id="hidden-canvas"></canvas>
 
 <script>
-  // Framing Engine Master State Variables
-  let loadedImg = null;
-  let ratioW = 1;
-  let ratioH = 1;
-  let layoutStyle = 'classic';
-  let borderPct = 5;
-  let borderRadius = 0;
-  let keylineThickness = 0;
-  let keylineColor = 'rgba(0, 0, 0, 0.14)';
-  let borderColor = '#ffffff';
-  let annotationText = '';
-  let annotationStyle = 'sharpie';
-  let tapeColor = 'black';
-  let inkColor = 'black';
-  let originalFileName = 'velume-print';
-
   // Symmetrical Soundscape Tracks (Nosnikwah / Blue Seriously Reworks)
-  // Root .mp3 files matching Lumora American English 1.0.2 production setup
+  // Localized and completely playable offline!
   const SOUNDSCAPE_TRACKS = {
     marigold: {
       id: 'marigold',
       name: 'Marigold Lofi',
-      file: 'marigold_lofi.mp3',
-      abbr: 'mgd'
+      file: './nosnikwah/01 Marigold 1 1.m4a'
     },
     notmysun: {
       id: 'notmysun',
       name: 'Not My Sun (Smokey Jazz)',
-      file: 'Not My Sun (LowFi Smokey Jazz Mix).mp3',
-      abbr: 'nms'
+      file: './nosnikwah/Not My Sun (LowFi Smokey Jazz Mix).m4a'
     },
     pavement: {
       id: 'pavement',
       name: 'Wet Pavement Zen',
-      file: 'Wet Pavement Zen.mp3',
-      abbr: 'wp'
+      file: './nosnikwah/Wet Pavement Zen.m4a'
     },
     stonewater: {
       id: 'stonewater',
       name: 'Stonewater Hymn',
-      file: 'Stonewater Hymn.mp3',
-      abbr: 'sh'
+      file: './nosnikwah/Stonewater Hymn.m4a'
     },
     velvet: {
       id: 'velvet',
       name: 'Velvet Pressure',
-      file: 'Velvet Pressure.mp3',
-      abbr: 'vp'
+      file: './nosnikwah/Velvet Pressure.m4a'
     },
     harmonic: {
       id: 'harmonic',
       name: 'Harmonic Safety',
-      file: 'Harmonic Safety.mp3',
-      abbr: 'hs'
+      file: './nosnikwah/Harmonic Safety.m4a'
     }
   };
 
@@ -2720,17 +2190,14 @@
 
   window.setPremiumUnlocked = function(status) {
     isPremium = !!status;
-    document.body.classList.toggle('is-studio-member', isPremium);
     const pill = document.getElementById('header-pass-pill');
     if (pill) {
       if (isPremium) {
-        pill.innerHTML = '&bull; Studio Member';
-        pill.classList.add('unlocked', 'is-member');
-        pill.title = 'Studio Member — Lifetime Access';
+        pill.textContent = 'Studio Active';
+        pill.classList.add('unlocked');
       } else {
         pill.textContent = 'Studio Pass';
-        pill.classList.remove('unlocked', 'is-member');
-        pill.title = 'Studio Pass';
+        pill.classList.remove('unlocked');
       }
     }
   };
@@ -2738,20 +2205,9 @@
   window.openStudioPassPaywall = function(trigger) {
     console.log('Studio Pass requested via:', trigger);
     const modal = document.getElementById('studio-pass-modal');
-    if (!modal) return;
-
-    const upgradeView = document.getElementById('pass-view-upgrade');
-    const memberView = document.getElementById('pass-view-member');
-
-    if (isPremium) {
-      if (upgradeView) upgradeView.style.display = 'none';
-      if (memberView) memberView.style.display = 'block';
-    } else {
-      if (upgradeView) upgradeView.style.display = 'block';
-      if (memberView) memberView.style.display = 'none';
+    if (modal) {
+      modal.classList.add('active');
     }
-
-    modal.classList.add('active');
   };
 
   window.closeStudioPassPaywall = function(e) {
@@ -2772,97 +2228,55 @@
     // 2. Layout style not classic
     if (layoutStyle !== 'classic') return true;
 
-    // 3. Annotation style not sharpie or custom tape/ink color
-    if ((annotationStyle !== 'sharpie' || inkColor !== 'black') && annotationText && annotationText.trim().length > 0) return true;
+    // 3. Annotation style not sharpie or custom tape color
+    if (annotationStyle !== 'sharpie' && annotationText && annotationText.trim().length > 0) return true;
 
     // 4. Border color not #ffffff (or white)
     const isWhite = borderColor.toLowerCase() === '#ffffff' || borderColor.toLowerCase() === '#fff';
     if (!isWhite) return true;
 
-    // 5. '90s Quartz Film Date Stamp active
-    if (dateStampEnabled && dateStampText && dateStampText.trim().length > 0) return true;
-
-    // 6. Custom Inner Keyline stroke active
-    if (keylineThickness > 0) return true;
-
-    // 7. Rounded photo corners active
-    if (borderRadius > 0) return true;
-
     return false;
   }
 
-
-  // Lumora Symmetrical Soundscape Engine (Persistent Audio Instance)
-  let activeTrack = SOUNDSCAPE_TRACKS['marigold'];
+  let activeTrack = null;
+  let audioPlayer = null;
   let isPlayingMusic = false;
-  let musicRepeatMode = 'playlist'; // 'playlist' or 'single'
-  let musicVolume = 0.45; // Warm, audible default volume
+  let musicVolume = 0.15; // Cozy default volume (15%) matching Lumora and Velume Studios
 
-  // Pre-instantiate single persistent audio player on load (Lumora pattern)
-  const audioPlayer = new Audio();
-  audioPlayer.preload = 'auto';
-  audioPlayer.volume = musicVolume;
-  audioPlayer.src = activeTrack.file;
-
-  audioPlayer.addEventListener('canplay', () => {
-    const btn = document.getElementById(`sbtn-${activeTrack.id}`);
-    if (btn) {
-      btn.classList.remove('error');
-      if (isPlayingMusic) btn.classList.add('playing');
-    }
-    updateWidgetPlayingState(isPlayingMusic);
-    updateTrackButtonStyles();
-  });
-
-  audioPlayer.addEventListener('ended', onTrackEnded);
-
-  audioPlayer.addEventListener('error', (e) => {
-    if (!audioPlayer.src || audioPlayer.src === window.location.href) return;
-    const err = audioPlayer.error;
-    console.warn('Audio load error:', err ? { code: err.code, message: err.message } : e);
-    const btn = document.getElementById(`sbtn-${activeTrack.id}`);
-    if (btn) {
-      btn.classList.remove('playing');
-      btn.classList.add('error');
-    }
-    isPlayingMusic = false;
-    updateWidgetPlayingState(false);
-    updateTrackButtonStyles();
-  });
-
-  function updateTrackButtonStyles() {
-    Object.keys(SOUNDSCAPE_TRACKS).forEach(key => {
-      const btn = document.getElementById(`sbtn-${key}`);
-      if (btn) {
-        btn.classList.remove('active', 'playing', 'repeat-single');
-        if (activeTrack && activeTrack.id === key) {
-          btn.classList.add('active');
-          if (isPlayingMusic) {
-            btn.classList.add('playing');
-            if (musicRepeatMode === 'single') {
-              btn.classList.add('repeat-single');
-            }
-          }
-        }
-      }
-    });
+  // Fully release an audio element to prevent memory leaks on track switching
+  function teardownAudioPlayer() {
+    if (!audioPlayer) return;
+    audioPlayer.pause();
+    audioPlayer.src = ''; // releases the media resource handle
+    audioPlayer.load();   // resets internal buffer state
+    audioPlayer.oncanplay = null;
+    audioPlayer.onerror = null;
+    audioPlayer = null;
   }
 
   function updateWidgetPlayingState(isPlaying) {
     const toggleBtn = document.getElementById('soundscape-toggle');
-    if (toggleBtn) {
-      if (isPlaying) toggleBtn.classList.add('playing');
-      else toggleBtn.classList.remove('playing');
+    if (!toggleBtn) return;
+
+    if (isPlaying) {
+      toggleBtn.classList.add('playing');
+    } else {
+      toggleBtn.classList.remove('playing');
     }
   }
 
   function toggleWidgetMenu() {
     const wrapper = document.getElementById('soundscape-widget-wrapper');
+    const menu = document.getElementById('soundscape-menu');
     if (!wrapper) return;
-    const isExpanded = wrapper.classList.toggle('expanded');
-    const toggleBtn = document.getElementById('soundscape-toggle');
-    if (toggleBtn) {
-      toggleBtn.title = isExpanded ? 'Close Music Menu' : 'Choose Background Music';
+
+    const isExpanded = wrapper.classList.contains('expanded');
+    if (!isExpanded) {
+      wrapper.classList.add('expanded');
+      if (menu) menu.removeAttribute('aria-hidden');
+    } else {
+      wrapper.classList.remove('expanded');
+      if (menu) menu.setAttribute('aria-hidden', 'true');
     }
   }
 
@@ -2884,72 +2298,107 @@
       return;
     }
 
-    // EXACT LUMORA LOGIC:
-    // Click 1: Play
-    // Click 2 (same track): Loop single track (repeat single mode + show '1' badge)
-    // Click 3 (same track): Stop / Pause music
-    if (activeTrack.id === trackId) {
-      if (!isPlayingMusic) {
-        musicRepeatMode = 'playlist';
-        playCurrentTrack();
-      } else if (musicRepeatMode === 'playlist') {
-        musicRepeatMode = 'single';
-        audioPlayer.loop = true;
-        updateTrackButtonStyles();
-      } else {
-        musicRepeatMode = 'playlist';
-        stopTrack();
+    // Double-tap active track: immediately rewind to 0:00 to repeat from beginning
+    if (activeTrack && activeTrack.id === trackId) {
+      if (audioPlayer) {
+        audioPlayer.currentTime = 0;
+        if (!isPlayingMusic) {
+          audioPlayer.play().catch(e => console.warn(e));
+          isPlayingMusic = true;
+          updateWidgetPlayingState(true);
+          const btn = document.getElementById(`sbtn-${trackId}`);
+          if (btn) btn.classList.add('playing');
+        }
       }
-    } else {
-      activeTrack = track;
-      musicRepeatMode = 'playlist';
-      audioPlayer.loop = false;
-      audioPlayer.src = track.file;
-      playCurrentTrack();
+      return;
     }
-  }
 
-  function playCurrentTrack() {
-    audioPlayer.loop = (musicRepeatMode === 'single');
+    // Clear visual states for all buttons
+    document.querySelectorAll('.soundscape-btn').forEach(btn => {
+      btn.classList.remove('active', 'playing', 'error');
+    });
+
+    // Fully release old audio before creating new (T2: audio teardown)
+    teardownAudioPlayer();
+    updateWidgetPlayingState(false);
+
+    activeTrack = track;
+    const btn = document.getElementById(`sbtn-${trackId}`);
+    if (btn) btn.classList.add('active');
+    
+    // Create and launch audio stream
+    audioPlayer = new Audio(track.file);
+    audioPlayer.loop = true;
     audioPlayer.volume = musicVolume;
-    isPlayingMusic = true;
-    updateWidgetPlayingState(true);
-    updateTrackButtonStyles();
 
-    audioPlayer.play().catch(err => {
-      console.warn('Audio play failed:', err);
-      const btn = document.getElementById(`sbtn-${activeTrack.id}`);
+    audioPlayer.addEventListener('canplay', () => {
+      if (btn) {
+        btn.classList.remove('error');
+        btn.classList.add('playing');
+      }
+      isPlayingMusic = true;
+      updateWidgetPlayingState(true);
+    });
+
+    audioPlayer.addEventListener('error', (e) => {
+      console.warn("Audio load error:", e);
+      if (btn) btn.classList.remove('playing', 'active');
       if (btn) btn.classList.add('error');
       isPlayingMusic = false;
       updateWidgetPlayingState(false);
-      updateTrackButtonStyles();
+    });
+
+    audioPlayer.play().then(() => {
+      // Play resolved
+    }).catch(err => {
+      console.warn("Autoplay blocked:", err);
+      if (btn) btn.classList.add('error');
+      isPlayingMusic = false;
+      updateWidgetPlayingState(false);
     });
   }
 
-  function stopTrack() {
-    isPlayingMusic = false;
-    audioPlayer.pause();
-    updateTrackButtonStyles();
-    updateWidgetPlayingState(false);
-  }
+  function toggleMusic() {
+    if (!audioPlayer || !activeTrack) return;
+    const btn = document.getElementById(`sbtn-${activeTrack.id}`);
 
-  function onTrackEnded() {
-    if (musicRepeatMode === 'playlist') {
-      const trackKeys = Object.keys(SOUNDSCAPE_TRACKS);
-      const currentIndex = trackKeys.indexOf(activeTrack.id);
-      const nextIndex = (currentIndex + 1) % trackKeys.length;
-      const nextKey = trackKeys[nextIndex];
-      
-      if (!isPremium && nextKey !== 'marigold') {
-        selectTrack('marigold');
-      } else {
-        selectTrack(nextKey);
-      }
+    if (isPlayingMusic) {
+      audioPlayer.pause();
+      if (btn) btn.classList.remove('playing');
+      isPlayingMusic = false;
+      updateWidgetPlayingState(false);
+    } else {
+      audioPlayer.play().then(() => {
+        if (btn) btn.classList.add('playing');
+        isPlayingMusic = true;
+        updateWidgetPlayingState(true);
+      }).catch(err => {
+        console.warn("Trigger failed:", err);
+        if (btn) btn.classList.add('error');
+        updateWidgetPlayingState(false);
+      });
     }
   }
 
-  // Set initial active track state
-  updateTrackButtonStyles();
+  let loadedImg = null;
+  let originalFileName = "velume-matte";
+  
+  // Design properties defaults
+  let borderPct = 5;
+  let borderRadius = 0;
+  let keylineThickness = 0;
+  let layoutStyle = 'classic'; // 'classic', 'polaroid', 'gallery'
+  let borderColor = '#ffffff';
+  let keylineColor = 'rgba(0, 0, 0, 0.15)'; // Elegant default inner stroke
+
+  // Annotation properties
+  let annotationText = "";
+  let annotationStyle = "sharpie";
+  let tapeColor = "black";
+  
+  // Ratio sizing (null/native means original aspect ratio of image)
+  let ratioW = 1;
+  let ratioH = 1;
 
   // Initialize
   const dropZone = document.getElementById('drop-zone');
@@ -2960,54 +2409,6 @@
   const exportSection = document.getElementById('export-section');
   const resetBtn = document.getElementById('reset-btn');
   const canvas = document.getElementById('hidden-canvas');
-
-  // Open Native Photo Library or File Dialog fallback
-  async function openPhotoPicker() {
-    if (window.pickPhotoFromLibrary) {
-      try {
-        const webPath = await window.pickPhotoFromLibrary();
-        if (webPath) {
-          loadImageFromUri(webPath, 'velume-photo');
-          return;
-        }
-        // Native picker was displayed; if cancelled or failed, exit cleanly without opening web file input
-        if (window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()) {
-          return;
-        }
-      } catch (err) {
-        console.log('openPhotoPicker native error:', err);
-      }
-    }
-    const fi = document.getElementById('file-input');
-    if (fi) fi.click();
-  }
-
-  function loadImageFromUri(srcUri, name = 'velume-print') {
-    originalFileName = name;
-    
-    // Clear caption text so each new print begins fresh
-    annotationText = '';
-    const annotInput = document.getElementById('annotation-input');
-    if (annotInput) annotInput.value = '';
-
-    const img = new Image();
-    img.onload = () => {
-      loadedImg = img;
-      
-      // Hide upload dropzone, reveal edit screen
-      dropZone.style.display = 'none';
-      outputView.style.display = 'flex';
-      exportSection.style.opacity = '1';
-      exportSection.style.pointerEvents = 'auto';
-      resetBtn.style.display = 'flex';
-      // Auto-extract photo color palette
-      generateAutoPalette(img);
-
-      // Perform initial draw
-      renderPreview();
-    };
-    img.src = srcUri;
-  }
 
   // Drag & drop triggers
   fileInput.addEventListener('change', e => { if(e.target.files[0]) handleFile(e.target.files[0]); });
@@ -3024,11 +2425,27 @@
   function handleFile(file) {
     // Keep original filename
     const dotIdx = file.name.lastIndexOf('.');
-    const name = dotIdx !== -1 ? file.name.substring(0, dotIdx) : file.name;
+    originalFileName = dotIdx !== -1 ? file.name.substring(0, dotIdx) : file.name;
 
     const r = new FileReader();
     r.onload = ev => {
-      loadImageFromUri(ev.target.result, name);
+      const img = new Image();
+      img.onload = () => {
+        loadedImg = img;
+        
+        // Hide upload dropzone, reveal edit screen
+        dropZone.style.display = 'none';
+        outputView.style.display = 'flex';
+        exportSection.style.opacity = '1';
+        exportSection.style.pointerEvents = 'auto';
+        resetBtn.style.display = 'flex';
+        // Auto-extract photo color palette
+        generateAutoPalette(img);
+
+        // Perform initial draw
+        renderPreview();
+      };
+      img.src = ev.target.result;
     };
     r.readAsDataURL(file);
   }
@@ -3165,42 +2582,6 @@
     ctx.drawImage(loadedImg, 0, 0, loadedImg.width, loadedImg.height, dx, dy, dw, dh);
     ctx.restore();
 
-    // 5b. Draw Authentic '90s Quartz Date Stamp on photo
-    if (dateStampEnabled && dateStampText && dateStampText.trim() !== "") {
-      ctx.save();
-      // Clip strictly inside the photo boundary so it never touches the mat
-      ctx.beginPath();
-      if (scaledRadius > 0 && typeof ctx.roundRect === 'function') {
-        ctx.roundRect(dx, dy, dw, dh, scaledRadius);
-      } else {
-        ctx.rect(dx, dy, dw, dh);
-      }
-      ctx.clip();
-
-      const stampFontSize = Math.max(18, Math.round(s_min * 0.038));
-      ctx.font = `700 ${stampFontSize}px 'VT323', 'SF Mono', 'Menlo', 'Courier New', monospace`;
-      ctx.textAlign = 'right';
-      ctx.textBaseline = 'bottom';
-      
-      const stampMarginX = Math.max(16, Math.round(dw * 0.045));
-      const stampMarginY = Math.max(14, Math.round(dh * 0.045));
-      const stampX = dx + dw - stampMarginX;
-      const stampY = dy + dh - stampMarginY;
-
-      // Authentic 90s Quartz Amber Glow (LED light bleeding onto film)
-      ctx.shadowColor = 'rgba(255, 95, 0, 0.95)';
-      ctx.shadowBlur = Math.max(4, Math.round(stampFontSize * 0.38));
-      ctx.fillStyle = '#ff8200';
-      ctx.fillText(dateStampText, stampX, stampY);
-      
-      // Radiant inner core for authentic LED diode luminance
-      ctx.shadowBlur = 0;
-      ctx.fillStyle = '#ffc55a';
-      ctx.fillText(dateStampText, stampX, stampY);
-
-      ctx.restore();
-    }
-
     // 6. Draw Fine Art Keyline Frame
     if (keylineThickness > 0) {
       ctx.beginPath();
@@ -3222,18 +2603,15 @@
       ctx.textBaseline = 'middle';
       
       if (annotationStyle === 'sharpie') {
-        const fontSize = Math.max(16, Math.round(s_min * 0.038));
+        const fontSize = Math.max(14, Math.round(s_min * 0.032));
         ctx.font = `600 ${fontSize}px 'Caveat', cursive`;
-        let actualInkColor = 'rgba(30, 30, 30, 0.85)';
-        if (inkColor === 'indigo') actualInkColor = 'rgba(14, 42, 71, 0.88)';
-        else if (inkColor === 'crimson') actualInkColor = 'rgba(139, 30, 34, 0.88)';
-        else if (inkColor === 'green') actualInkColor = 'rgba(27, 68, 43, 0.88)';
-        ctx.fillStyle = actualInkColor;
+        // Draw elegant pen ink (deep charcoal, slightly translucent like real ink)
+        ctx.fillStyle = 'rgba(30, 30, 30, 0.85)';
         ctx.fillText(annotationText, cw / 2, (dy + dh + ch) / 2);
       } else if (annotationStyle === 'pencil') {
-        const fontSize = Math.max(13, Math.round(s_min * 0.022));
+        const fontSize = Math.max(10, Math.round(s_min * 0.015));
         ctx.font = `400 ${fontSize}px 'Plus Jakarta Sans', sans-serif`;
-        ctx.fillStyle = 'rgba(45, 43, 40, 0.88)'; // Rich soft 2B graphite
+        ctx.fillStyle = 'rgba(90, 88, 84, 0.72)'; // Pencil graphite
         const spacedText = annotationText.split('').join('  ').toUpperCase();
         ctx.fillText(spacedText, cw / 2, (dy + dh + ch) / 2);
       } else if (annotationStyle === 'dymo') {
@@ -3362,6 +2740,10 @@
     document.querySelectorAll('.color-circle').forEach(e => e.classList.remove('active'));
     el.classList.add('active');
     borderColor = el.dataset.color;
+    
+    // Update pickers visual representation
+    document.getElementById('custom-color-input').value = borderColor;
+    document.getElementById('hex-text-input').value = borderColor.replace('#', '').toUpperCase();
 
     // Re-evaluate keyline contrast
     if (isColorDark(borderColor)) {
@@ -3371,6 +2753,46 @@
     }
 
     renderPreview();
+  }
+
+  // Custom Color Wheel Picker
+  function setCustomColor(color) {
+    // Remove active markers on preset circles
+    document.querySelectorAll('.color-circle').forEach(e => e.classList.remove('active'));
+    borderColor = color;
+    document.getElementById('hex-text-input').value = color.replace('#', '').toUpperCase();
+    
+    if (isColorDark(borderColor)) {
+      keylineColor = 'rgba(255, 255, 255, 0.15)';
+    } else {
+      keylineColor = 'rgba(0, 0, 0, 0.14)';
+    }
+
+    renderPreview();
+  }
+
+  // Text Hex Picker Input
+  function setHexColor(hex) {
+    if (hex.length === 6) {
+      const color = '#' + hex;
+      setCustomColor(color);
+      document.getElementById('custom-color-input').value = color;
+    }
+  }
+
+  // Trigger EyeDropper API (Chromium native screen pixel selector)
+  function triggerEyeDropper() {
+    if (!window.EyeDropper) {
+      alert("The Screen Eyedropper is not fully supported in your current browser. Try Chrome, Edge, or Opera!");
+      return;
+    }
+    const dropper = new EyeDropper();
+    dropper.open().then(result => {
+      setCustomColor(result.sRGBHex);
+      document.getElementById('custom-color-input').value = result.sRGBHex;
+    }).catch(err => {
+      console.log("Eyedropper cancelled or failed", err);
+    });
   }
 
   // Calculate HSL brightness to choose contrasting colors automatically
@@ -3396,25 +2818,12 @@
     annotationStyle = style;
     
     const tapeColorsSec = document.getElementById('tape-colors-section');
-    const inkColorsSec = document.getElementById('ink-colors-section');
     if (style === 'dymo') {
-      if (tapeColorsSec) tapeColorsSec.style.display = 'flex';
-      if (inkColorsSec) inkColorsSec.style.display = 'none';
-    } else if (style === 'sharpie') {
-      if (tapeColorsSec) tapeColorsSec.style.display = 'none';
-      if (inkColorsSec) inkColorsSec.style.display = 'flex';
+      tapeColorsSec.style.display = 'flex';
     } else {
-      if (tapeColorsSec) tapeColorsSec.style.display = 'none';
-      if (inkColorsSec) inkColorsSec.style.display = 'none';
+      tapeColorsSec.style.display = 'none';
     }
     
-    renderPreview();
-  }
-
-  function setInkColor(el) {
-    document.querySelectorAll('.ink-color-circle').forEach(e => e.classList.remove('active'));
-    el.classList.add('active');
-    inkColor = el.dataset.color;
     renderPreview();
   }
 
@@ -3435,42 +2844,6 @@
     const input = document.getElementById('annotation-input');
     input.value = formatted;
     annotationText = formatted;
-    renderPreview();
-  }
-
-  // 90s Quartz Film Date Stamp State & Controls
-  let dateStampEnabled = false;
-  let dateStampText = getInitialDateStamp();
-
-  function getInitialDateStamp() {
-    const d = new Date();
-    const yy = String(d.getFullYear()).slice(-2);
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    const dd = String(d.getDate()).padStart(2, '0');
-    return `${mm}  ${dd}  '${yy}`;
-  }
-
-  function toggleDateStamp() {
-    dateStampEnabled = !dateStampEnabled;
-    const btn = document.getElementById('datestamp-btn');
-    const inputRow = document.getElementById('datestamp-input-row');
-    const input = document.getElementById('datestamp-input');
-    
-    if (btn) {
-      if (dateStampEnabled) {
-        btn.classList.add('active');
-        if (inputRow) inputRow.style.display = 'flex';
-        if (input) input.value = dateStampText;
-      } else {
-        btn.classList.remove('active');
-        if (inputRow) inputRow.style.display = 'none';
-      }
-    }
-    renderPreview();
-  }
-
-  function updateDateStampText(val) {
-    dateStampText = val;
     renderPreview();
   }
 
@@ -3543,14 +2916,14 @@
     
     extracted.forEach(color => {
       const node = document.createElement('div');
-      node.className = 'color-circle studio-circle';
+      node.className = 'color-circle';
       node.style.background = color;
       node.dataset.color = color;
       node.onclick = function() { setColor(this); };
       autoRow.appendChild(node);
     });
 
-    autoSection.style.display = 'flex';
+    autoSection.style.display = 'block';
   }
 
   // Color conversion tools
@@ -3643,10 +3016,7 @@
 
   // Smart Consolidated Export Engine
   function exportPrint() {
-    if (!loadedImg) {
-      openPhotoPicker();
-      return;
-    }
+    if (!loadedImg) return;
 
     // Freemium Safeguard: Check if custom ratios, colored borders, or dymo tape are active
     if (!isPremium && hasPremiumFeaturesActive()) {
@@ -3659,7 +3029,7 @@
 
     // 2. Perform compilation after small delay to let the spinner render smoothly
     setTimeout(() => {
-      const exportResSelect = document.getElementById('export-res-select') ? document.getElementById('export-res-select').value : 'export-original';
+      const exportResSelect = document.getElementById('export-res-select').value;
       const exportCanvas = document.createElement('canvas');
       
       // Draw full resolution specifications (drawToCanvas sets canvas dimensions)
@@ -3698,7 +3068,7 @@
           navigator.share({
             files: [file],
             title: 'Velume Matte Print',
-            text: 'Framed with Velume Matte'
+            text: 'Your Archival Print from Velume Matte.'
           })
           .then(() => {
             console.log('Successfully shared/saved via system sheet');
@@ -3736,16 +3106,30 @@
     loadedImg = null;
     fileInput.value = '';
     
-    // Clear caption text
-    annotationText = '';
-    const annotInput = document.getElementById('annotation-input');
-    if (annotInput) annotInput.value = '';
-    
     dropZone.style.display = 'flex';
     outputView.style.display = 'none';
+    exportSection.style.opacity = '0.4';
+    exportSection.style.pointerEvents = 'none';
     resetBtn.style.display = 'none';
     document.getElementById('palette-auto-section').style.display = 'none';
   }
+
+  // Manifesto modal controls
+  function openManifesto() {
+    document.getElementById('manifesto-modal').classList.add('active');
+  }
+  function closeManifesto(e) {
+    if (e) e.preventDefault();
+    document.getElementById('manifesto-modal').classList.remove('active');
+  }
+
+  // T4: EyeDropper feature detection — hide button on unsupported browsers (Firefox etc.)
+  document.addEventListener('DOMContentLoaded', () => {
+    const eyedropperBtn = document.getElementById('eyedropper-btn');
+    if (eyedropperBtn && !('EyeDropper' in window)) {
+      eyedropperBtn.hidden = true;
+    }
+  });
 </script>
 <!-- RevenueCat & Native Purchase Bridge -->
 <script type="module" src="./src/purchases-bridge.js"></script>

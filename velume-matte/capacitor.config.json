@@ -1,0 +1,17 @@
+{
+  "appId": "com.velumestudios.velumematte",
+  "appName": "Velume Matte",
+  "webDir": "dist",
+  "ios": {
+    "scrollEnabled": true,
+    "contentInset": "automatic"
+  },
+  "server": {
+    "cleartext": false
+  },
+  "plugins": {
+    "CapacitorPreferences": {
+      "group": "velume_matte_prefs"
+    }
+  }
+}
