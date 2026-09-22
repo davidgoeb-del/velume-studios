@@ -85,7 +85,7 @@ export class PurchasesService {
 
   static async purchaseLifetime() {
     if (Capacitor.getPlatform() === 'web') {
-      alert('In-App Purchases are handled through Apple App Store on iOS.');
+      window.open('https://apps.apple.com/app/id6808384129', '_blank');
       return false;
     }
     try {
@@ -112,7 +112,8 @@ export class PurchasesService {
 
   static async restorePurchases() {
     if (Capacitor.getPlatform() === 'web') {
-      alert('Restore Purchases is available in the iOS app.');
+      alert('Studio Pass purchases are linked to your Apple ID on iOS.\n\nOpen Velume Matte on the Apple App Store to download on your iPhone or iPad.');
+      window.open('https://apps.apple.com/app/id6808384129', '_blank');
       return false;
     }
     try {

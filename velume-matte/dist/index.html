@@ -2047,6 +2047,39 @@
     display: none;
   }
 
+  /* Editorial Apple App Store Link Pill */
+  .appstore-pill {
+    position: relative;
+    background: #18181b;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 22px;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 8px 0 0 6px;
+  }
+  .appstore-pill:hover {
+    background: #27272a;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+    color: #ffffff;
+  }
+  .appstore-pill:active {
+    transform: scale(0.96);
+  }
+
   /* Prevent iOS Safari / WKWebView auto-zoom on input focus */
   @media screen and (max-width: 768px) {
     input, select, textarea {
@@ -2054,7 +2087,7 @@
     }
   }
 
-  /* VELUME STUDIOS Top Header Label (Purely Decorative) */
+  /* VELUME STUDIOS Top Header Label */
   .brand-top-label {
     font-family: var(--font-sans);
     font-size: 0.70rem;
@@ -2063,9 +2096,7 @@
     text-transform: uppercase;
     color: var(--text-secondary);
     margin-bottom: 2px;
-    pointer-events: none;
     user-select: none;
-    cursor: default;
   }
 
   .footer-brand {
@@ -2213,7 +2244,6 @@
     }
   }
 </style>
-  <script type="module" crossorigin src="/assets/index--L7tNBGL.js"></script>
 </head>
 <body>
 
@@ -2228,15 +2258,19 @@
   
   <!-- Header Block -->
   <div class="header">
-    <div class="brand-top-label"><span class="shimmer-text">VELUME STUDIOS</span></div>
+    <div class="brand-top-label"><a href="/" style="text-decoration:none; color:inherit;" title="Velume Studios Homepage"><span class="shimmer-text">VELUME STUDIOS</span></a></div>
     <h1 class="brand-title">Velume Matte</h1>
     <div class="brand-sub">
       <div class="brand-slogan">It’s art because you say it is.</div>
-      <div>
+      <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
         <button class="studio-pass-pill" id="header-pass-pill" onclick="openStudioPassPaywall('header')" title="Studio Pass">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/></svg>
           <span>Studio Pass</span>
         </button>
+        <a href="https://apps.apple.com/app/id6808384129" target="_blank" rel="noopener noreferrer" class="appstore-pill" id="header-appstore-link" title="Get Velume Matte on the Apple App Store">
+          <svg style="width:11px;height:11px;fill:currentColor;" viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.58-7.7-11.64-13.98-5.54-8.59-9.87-18.49-13-29.69-3.13-11.2-4.7-21.72-4.7-31.56 0-13.37 3.39-24.64 10.17-33.8 6.78-9.16 15.35-13.82 25.72-13.98 5.43 0 11.19 1.54 17.3 4.62 6.1 3.08 10.15 4.67 12.13 4.77 1.52 0 5.8-1.63 12.84-4.89 7.03-3.26 13.06-4.73 18.08-4.42 14.02 1.09 24.67 6.47 31.95 16.14-12.4 7.5-18.49 17.61-18.28 30.33.22 10.01 4.08 18.37 11.59 25.07 7.51 6.71 16.3 10.55 26.37 11.53-2.18 6.74-4.8 13.59-7.87 20.55zM119.22 31.84c0-7.39 2.66-14.18 7.98-20.37 5.33-6.19 11.85-10.05 19.57-11.57.22 1.3.33 2.5.33 3.59 0 7.39-2.77 14.35-8.31 20.88-5.54 6.53-12.28 10.38-20.22 11.53-.21-1.3-.35-2.65-.35-4.06z"/></svg>
+          <span>App Store</span>
+        </a>
       </div>
     </div>
   </div>
@@ -2537,7 +2571,7 @@
       <div class="pass-action-box">
         <div class="pass-ownership-tag">Pay once. No subscriptions. Yours for life.</div>
         <button class="pass-unlock-btn" id="btn-unlock-pass" onclick="handlePurchaseStudioPass()">
-          <span id="pass-price-display">Launch Special &bull; $1.49</span>
+          <span id="pass-price-display"><svg style="width:15px;height:15px;fill:currentColor;vertical-align:-2px;margin-right:6px;" viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.58-7.7-11.64-13.98-5.54-8.59-9.87-18.49-13-29.69-3.13-11.2-4.7-21.72-4.7-31.56 0-13.37 3.39-24.64 10.17-33.8 6.78-9.16 15.35-13.82 25.72-13.98 5.43 0 11.19 1.54 17.3 4.62 6.1 3.08 10.15 4.67 12.13 4.77 1.52 0 5.8-1.63 12.84-4.89 7.03-3.26 13.06-4.73 18.08-4.42 14.02 1.09 24.67 6.47 31.95 16.14-12.4 7.5-18.49 17.61-18.28 30.33.22 10.01 4.08 18.37 11.59 25.07 7.51 6.71 16.3 10.55 26.37 11.53-2.18 6.74-4.8 13.59-7.87 20.55zM119.22 31.84c0-7.39 2.66-14.18 7.98-20.37 5.33-6.19 11.85-10.05 19.57-11.57.22 1.3.33 2.5.33 3.59 0 7.39-2.77 14.35-8.31 20.88-5.54 6.53-12.28 10.38-20.22 11.53-.21-1.3-.35-2.65-.35-4.06z"/></svg>Get on App Store &bull; $1.49</span>
         </button>
         <button class="pass-restore-btn" onclick="handleRestorePurchases()">
           Restore Existing Purchase
@@ -3748,6 +3782,21 @@
     document.getElementById('palette-auto-section').style.display = 'none';
   }
 </script>
-<!-- RevenueCat & Native Purchase Bridge -->
+<!-- RevenueCat & Universal App Store Funnel Bridge -->
+<script>
+  // Web browser fallback: Direct App Store Funnel
+  if (typeof window.handlePurchaseStudioPass === 'undefined') {
+    window.handlePurchaseStudioPass = function() {
+      window.open('https://apps.apple.com/app/id6808384129', '_blank');
+    };
+  }
+  if (typeof window.handleRestorePurchases === 'undefined') {
+    window.handleRestorePurchases = function() {
+      alert('Studio Pass purchases are linked to your Apple ID on iOS.\n\nOpen Velume Matte on the Apple App Store to download on your iPhone or iPad.');
+      window.open('https://apps.apple.com/app/id6808384129', '_blank');
+    };
+  }
+</script>
+<script src="./assets/purchases-bridge.bundle.js"></script>
 </body>
 </html>
