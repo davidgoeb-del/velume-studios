@@ -10,6 +10,26 @@ import { PurchasesService } from './purchases';
 
 const storiesEn = storiesEnData as Record<string, { american_moment_en: string; reflection_en: string }>;
 
+const LAUNCH_BANNERS: Record<string, string> = {
+  'ja': '🎉 リリース記念セール：永久アクセス ¥200（買い切り）',
+  'en': '🎉 Launch Special: Lifetime Access $0.99 (One-Time)',
+  'ko': '🎉 출시 기념 특가: 평생 이용권 ₩1,500 (영구 소장)',
+  'zh-TW': '🎉 上線特惠：永久暢享版 NT$30（買斷制）',
+  'zh-CN': '🎉 上线特惠：终身畅享版 ¥6（买断制）',
+  'th': '🎉 ฉลองเปิดตัว: เข้าถึงตลอดชีพ ฿29 (ชำระครั้งเดียว)',
+  'vi': '🎉 Ưu đãi ra mắt: Sở hữu Trọn đời 19.000₫ (Mua một lần)'
+};
+
+const LOCK_PRICE_TAGS: Record<string, string> = {
+  'ja': '¥200',
+  'en': '$0.99',
+  'ko': '₩1,500',
+  'zh-TW': 'NT$30',
+  'zh-CN': '¥6',
+  'th': '฿29',
+  'vi': '19.000₫'
+};
+
 
 // Import localized catalogs
 import jaLocale from './locales/ja.json';
@@ -710,6 +730,19 @@ export default function App() {
     initPurchases();
   }, []);
 
+  // First-launch welcome paywall (shows once per install after 1.5s delay so user sees the deal)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hasSeenWelcome = localStorage.getItem('lumora_has_seen_welcome_v1');
+    if (!hasSeenWelcome && !isPremium) {
+      const timer = setTimeout(() => {
+        setShowPaywall(true);
+        localStorage.setItem('lumora_has_seen_welcome_v1', 'true');
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [isPremium]);
+
   const toggleStoryCompleted = (storyId: number, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     
@@ -728,6 +761,13 @@ export default function App() {
         localStorage.setItem('david_goeb_completed_stories', JSON.stringify(updated));
         return updated;
       });
+      // Milestone trigger after Story 1
+      if (!isPremium && storyId === 1 && !sessionStorage.getItem('lumora_post_story1_paywall')) {
+        sessionStorage.setItem('lumora_post_story1_paywall', 'true');
+        setTimeout(() => {
+          setShowPaywall(true);
+        }, 1200);
+      }
       // Collapse card cleanly after a short delay so the user feels the completion
       setTimeout(() => {
         setExpandedStories(prev => ({ ...prev, [storyId]: false }));
@@ -2393,6 +2433,21 @@ export default function App() {
               <p className="font-sans text-[16px] sm:text-[18px] text-stone-500 mt-1 transition-colors group-hover:text-stone-600 text-balance leading-relaxed">
                 Learn English vocabulary &amp; expressions in real everyday situations
               </p>
+
+              {!isPremium && (
+                <div className="flex justify-center mt-3 animate-fade-in">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPaywall(true);
+                    }}
+                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-100/90 via-amber-50 to-orange-100/90 border border-amber-300/80 text-amber-900 font-sans text-[12.5px] sm:text-[14px] font-semibold tracking-wide shadow-sm hover:scale-[1.03] active:scale-[0.98] transition-all cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-pulse shrink-0" />
+                    <span>{LAUNCH_BANNERS[localeKey] || LAUNCH_BANNERS['en']}</span>
+                  </button>
+                </div>
+              )}
             </header>
 
             {selectedLevel === null ? (
@@ -2776,9 +2831,9 @@ export default function App() {
                         
                         <div className="flex items-center gap-2 shrink-0 mt-1">
                           {!isPremium && story.id > 1 && (
-                            <span className="flex items-center gap-1 text-[11px] font-sans font-bold text-stone-400 bg-stone-50 px-2.5 py-1 rounded-full border border-stone-200">
-                              <Lock className="w-3 h-3" />
-                              Premium
+                            <span className="inline-flex items-center gap-1 text-[11px] font-sans font-bold text-amber-900 bg-amber-100/90 px-2.5 py-1 rounded-full border border-amber-300/60 shadow-xs">
+                              <Lock className="w-3 h-3 text-amber-700 shrink-0" />
+                              {LOCK_PRICE_TAGS[localeKey] || LOCK_PRICE_TAGS['en']}
                             </span>
                           )}
                           {isPremium && completedStories.includes(story.id) && (

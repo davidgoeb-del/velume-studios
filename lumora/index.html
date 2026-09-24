@@ -180,6 +180,42 @@
       max-width: 440px;
     }
 
+    /* Launch Special Pill */
+    .launch-banner-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2.2rem;
+      width: 100%;
+    }
+
+    #launch-banner-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
+      border: 1.5px solid #f59e0b;
+      color: #78350f;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(217, 119, 6, 0.18);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    #launch-banner-pill:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 6px 22px rgba(217, 119, 6, 0.28);
+    }
+
+    #launch-banner-pill:active {
+      transform: scale(0.98);
+    }
+
     /* Menu List */
     .menu-container {
       display: flex;
@@ -418,6 +454,14 @@
   </header>
 
   <main>
+    <!-- Launch Special Deal Banner -->
+    <div class="launch-banner-wrapper">
+      <a href="essentials/index.html?paywall=true" id="launch-banner-pill">
+        <span style="font-size: 1.05rem; line-height: 1;">✨</span>
+        <span id="trans-launch-banner">🎉 Launch Special: Lifetime Access $0.99 (One-Time)</span>
+      </a>
+    </div>
+
     <div class="menu-container">
       
       <!-- Essentials -->
@@ -470,7 +514,8 @@
         subMoments: 'cadence and audio stories 1–100',
         transMoments: '',
         subCafe: 'situational language and etiquette',
-        transCafe: ''
+        transCafe: '',
+        launchBanner: '🎉 Launch Special: Lifetime Access $0.99 (One-Time)'
       },
       ja: {
         subtitle: '美式英語と文化の中を歩む、心安らぐ旅',
@@ -480,7 +525,8 @@
         subMoments: 'cadence and audio stories 1–100<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">語調與有聲故事 1–100</span>',
         transMoments: 'アメリカの日常生活、習慣、慣用句を描いた100のストーリー。リラックスできる環境音に浸りながら、文化的なニュアンスを理解しましょう。',
         subCafe: 'situational language and etiquette<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">情境語言與社交禮儀</span>',
-        transCafe: 'カフェでの注文や現地の習慣、社交マナーを体験。リアルで心地よい対話を通じて、日常生活の文化的背景を学びます。'
+        transCafe: 'カフェでの注文や現地の習慣、社交マナーを体験。リアルで心地よい対話を通じて、日常生活の文化的背景を学びます。',
+        launchBanner: '🎉 リリース記念セール：永久アクセス ¥200（買い切り）'
       },
       'zh-TW': {
         subtitle: '在美式英語與文化中平靜探索',
@@ -490,7 +536,8 @@
         subMoments: 'cadence and audio stories 1–100<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">語調與有聲故事 1–100</span>',
         transMoments: '走進 100 個關於美國生活、日常習慣與慣用語的真實故事。在放鬆的音景中聆聽，感受語言背後的文化底蘊。',
         subCafe: 'situational language and etiquette<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">情境語言與社交禮儀</span>',
-        transCafe: '輕鬆掌握咖啡廳點餐、當地習慣與社交禮儀。透過真實而溫暖的情境對話，深入理解生活中的文化細節。'
+        transCafe: '輕鬆掌握咖啡廳點餐、當地習慣與社交禮儀。透過真實而溫暖的情境對話，深入理解生活中的文化細節。',
+        launchBanner: '🎉 上線特惠：永久暢享版 NT$30（買斷制）'
       },
       'zh-CN': {
         subtitle: '在美式英语与文化中平静探索',
@@ -500,7 +547,8 @@
         subMoments: 'cadence and audio stories 1–100<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">语调与有声故事 1–100</span>',
         transMoments: '走进 100 个关于美国生活、日常习惯与惯用语的真实故事。在放松的音景中聆听，感受语言背后的文化底蕴。',
         subCafe: 'situational language and etiquette<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">情境语言与社交礼仪</span>',
-        transCafe: '轻松掌握咖啡厅点餐、当地习惯与社交礼仪。透过真实而温暖的情境对话，深入理解生活中的文化细节。'
+        transCafe: '轻松掌握咖啡厅点餐、当地习惯与社交礼仪。透过真实而温暖的情境对话，深入理解生活中的文化细节。',
+        launchBanner: '🎉 上线特惠：终身畅享版 ¥6（买断制）'
       },
       ko: {
         subtitle: '미국 영어와 문화 속의 평온한 여정',
@@ -510,7 +558,8 @@
         subMoments: 'cadence and audio stories 1–100<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">리듬과 오디오 스토리 1–100</span>',
         transMoments: '미국 생활, 일상, 관용구에 관한 100가지 일상 이야기 속으로 들어가 보세요. 편안한 사운드스케이프에 빠져들며 문화적 뉘앙스를 듣고 이해하세요.',
         subCafe: '상황별 언어와 에티켓<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">상황별 언어와 에티켓</span>',
-        transCafe: '카페 주문, 현지 습관, 사회적 예절을 배워보세요. 실제적이고 아늑한 상황별 대화를 통해 이러한 환경 속 삶의 문화적 뉘앙스를 이해하세요.'
+        transCafe: '카페 주문, 현지 습관, 사회적 예절을 배워보세요. 실제적이고 아늑한 상황별 대화를 통해 이러한 환경 속 삶의 문화적 뉘앙스를 이해하세요.',
+        launchBanner: '🎉 출시 기념 특가: 평생 이용권 ₩1,500 (영구 소장)'
       },
       th: {
         subtitle: 'การเดินทางอันสงบในภาษาอังกฤษและวัฒนธรรมอเมริกัน',
@@ -520,7 +569,8 @@
         subMoments: 'cadence and audio stories 1–100<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">จังหวะและเรื่องราวเสียง 1–100</span>',
         transMoments: 'ก้าวเข้าสู่ 100 เรื่องราวในชีวิตประจำวันของชาวอเมริกัน กิจวัตร และสำนวน idioms ฟังและทำความเข้าใจความแตกต่างทางวัฒนธรรมไปพร้อมกับดนตรีบรรเลงที่ผ่อนคลาย',
         subCafe: 'ภาษาและมารยาทตามสถานการณ์<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">ภาษาและมารยาทตามสถานการณ์</span>',
-        transCafe: 'เรียนรู้การสั่งกาแฟ มารยาทท้องถิ่น และการเข้าสังคม ทำความเข้าใจความแตกต่างทางวัฒนธรรมผ่านบทสนทนาสถานการณ์จริงที่อบอุ่นและเป็นธรรมชาติ'
+        transCafe: 'เรียนรู้การสั่งกาแฟ มารยาทท้องถิ่น และการเข้าสังคม ทำความเข้าใจความแตกต่างทางวัฒนธรรมผ่านบทสนทนาสถานการณ์จริงที่อบอุ่นและเป็นธรรมชาติ',
+        launchBanner: '🎉 ฉลองเปิดตัว: เข้าถึงตลอดชีพ ฿29 (ชำระครั้งเดียว)'
       },
       vi: {
         subtitle: 'Hành Trình Bình Yên Trong Tiếng Anh Và Văn Hóa Mỹ',
@@ -530,7 +580,8 @@
         subMoments: 'cadence and audio stories 1–100<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">Nhịp điệu và những câu chuyện âm thanh 1–100</span>',
         transMoments: 'Bước vào 100 câu chuyện đời thường về cuộc sống, thói quen và thành ngữ Mỹ. Lắng nghe và thấu hiểu những sắc thái văn hóa qua những bản nhạc nền thư giãn.',
         subCafe: 'Ngôn ngữ tình huống và phép tắc xã hội<br><span class="card-translation" style="margin-top:0.2rem; display:inline-block;">Ngôn ngữ tình huống và phép tắc xã hội</span>',
-        transCafe: 'Tìm hiểu cách gọi món ở quán cà phê, thói quen địa phương và phép tắc xã hội. Thấu hiểu những sắc thái văn hóa thông qua các đoạn hội thoại tình huống chân thực và ấm cúng.'
+        transCafe: 'Tìm hiểu cách gọi món ở quán cà phê, thói quen địa phương và phép tắc xã hội. Thấu hiểu những sắc thái văn hóa thông qua các đoạn hội thoại tình huống chân thực và ấm cúng.',
+        launchBanner: '🎉 Ưu đãi ra mắt: Sở hữu Trọn đời 19.000₫ (Mua một lần)'
       }
     };
 
@@ -574,6 +625,12 @@
         } else {
           cafeTrans.style.display = 'none';
         }
+      }
+
+      // Launch banner translation
+      const bannerTrans = document.getElementById('trans-launch-banner');
+      if (bannerTrans && trans.launchBanner) {
+        bannerTrans.innerHTML = trans.launchBanner;
       }
     }
 

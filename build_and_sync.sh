@@ -8,6 +8,9 @@ echo " Lumora Multi-Platform Build & Sync"
 echo " Target: $PLATFORM"
 echo "========================================="
 
+echo "📄 Step 0: Syncing Lumora Root Portal..."
+cp /Users/david/Desktop/velume-studios/lumora/index.html /Users/david/Desktop/velume-studios/www/lumora/index.html
+
 echo "🚀 Step 1: Building Lumora Essentials..."
 cd /Users/david/Desktop/Lumora
 npm run build
