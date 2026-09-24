@@ -28,7 +28,7 @@ export class PurchasesService {
 
   static async purchaseLifetimeUnlock(): Promise<boolean> {
     if (Capacitor.getPlatform() === 'web') {
-      alert('In-App Purchases are only available on iOS.');
+      window.open('https://apps.apple.com/app/id6791710672', '_blank');
       return false;
     }
     try {
@@ -49,7 +49,10 @@ export class PurchasesService {
   }
 
   static async restorePurchases(): Promise<boolean> {
-    if (Capacitor.getPlatform() === 'web') return false;
+    if (Capacitor.getPlatform() === 'web') {
+      window.open('https://apps.apple.com/app/id6791710672', '_blank');
+      return false;
+    }
     try {
       const customerInfo = await Purchases.restorePurchases();
       return typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== 'undefined';
