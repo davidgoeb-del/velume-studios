@@ -1124,22 +1124,99 @@
 
     .companion-bubble {
       position: absolute;
-      bottom: 84px;
+      bottom: 118px;
       z-index: 6;
       background: var(--surface);
       border: 1.5px solid var(--border);
       border-radius: 14px;
-      padding: 7px 10px;
-      min-width: 138px;
-      max-width: 175px;
+      padding: 8px 12px;
+      min-width: 148px;
+      max-width: 210px;
       text-align: left;
       box-shadow: 0 8px 20px rgba(45, 32, 18, 0.14);
       pointer-events: none;
     }
 
+    .companion-bubble::before,
+    .companion-bubble::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+
     .path-node-wrap.pos-1 .companion-bubble { right: -102px; }
     .path-node-wrap.pos-2 .companion-bubble { left: -104px; }
     .path-node-wrap.pos-3 .companion-bubble { right: -102px; }
+
+    /* Mobile: tail points down toward mascot without covering its face */
+    @media (max-width: 680px) {
+      .companion-bubble::before {
+        bottom: -9px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 9px 7px 0 7px;
+        border-color: var(--border) transparent transparent transparent;
+      }
+      .companion-bubble::after {
+        bottom: -7px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 8px 6px 0 6px;
+        border-color: var(--surface) transparent transparent transparent;
+      }
+    }
+
+    /* Desktop/Tablet: bubble sits cleanly off to the outer side of the character */
+    @media (min-width: 681px) {
+      .companion-bubble {
+        bottom: 46px;
+        min-width: 168px;
+        max-width: 230px;
+      }
+      .path-node-wrap.pos-1 .companion-bubble,
+      .path-node-wrap.pos-3 .companion-bubble {
+        right: auto;
+        left: calc(100% + 104px);
+      }
+      .path-node-wrap.pos-2 .companion-bubble {
+        left: auto;
+        right: calc(100% + 106px);
+      }
+
+      .path-node-wrap.pos-1 .companion-bubble::before,
+      .path-node-wrap.pos-3 .companion-bubble::before {
+        left: -9px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-width: 7px 9px 7px 0;
+        border-color: transparent var(--border) transparent transparent;
+      }
+      .path-node-wrap.pos-1 .companion-bubble::after,
+      .path-node-wrap.pos-3 .companion-bubble::after {
+        left: -7px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-width: 6px 8px 6px 0;
+        border-color: transparent var(--surface) transparent transparent;
+      }
+
+      .path-node-wrap.pos-2 .companion-bubble::before {
+        right: -9px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-width: 7px 0 7px 9px;
+        border-color: transparent transparent transparent var(--border);
+      }
+      .path-node-wrap.pos-2 .companion-bubble::after {
+        right: -7px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-width: 6px 0 6px 8px;
+        border-color: transparent transparent transparent var(--surface);
+      }
+    }
 
     .companion-bubble-jp {
       font-size: 0.86rem;
