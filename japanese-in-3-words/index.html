@@ -1150,21 +1150,24 @@
     .path-node-wrap.pos-2 .companion-bubble { left: -104px; }
     .path-node-wrap.pos-3 .companion-bubble { right: -102px; }
 
-    /* Mobile: tail points down toward mascot without covering its face */
+    /* Mobile: dock mascot speech cleanly above bottom nav so it never blocks characters or path */
     @media (max-width: 680px) {
-      .companion-bubble::before {
-        bottom: -9px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-width: 9px 7px 0 7px;
-        border-color: var(--border) transparent transparent transparent;
+      .companion-bubble {
+        position: fixed;
+        left: 16px !important;
+        right: 16px !important;
+        bottom: calc(74px + env(safe-area-inset-bottom));
+        margin: 0 auto;
+        width: auto;
+        min-width: 0;
+        max-width: 340px;
+        text-align: center;
+        z-index: 25;
+        box-shadow: 0 12px 28px rgba(45, 32, 18, 0.22);
       }
+      .companion-bubble::before,
       .companion-bubble::after {
-        bottom: -7px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-width: 8px 6px 0 6px;
-        border-color: var(--surface) transparent transparent transparent;
+        display: none;
       }
     }
 
@@ -1568,9 +1571,42 @@
       box-shadow: 0 1px 0 var(--border);
     }
 
+    @media (max-width: 680px) {
+      header { padding: calc(6px + env(safe-area-inset-top)) 12px 4px; }
+      .studio-bar {
+        margin-bottom: 4px;
+        padding: 0;
+        gap: 6px;
+        font-size: 0.68rem;
+      }
+      .studio-link {
+        padding: 3px 6px;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+      .studio-pill-btn {
+        font-size: 0.68rem;
+        padding: 4px 9px;
+        white-space: nowrap;
+      }
+      .hide-xs { display: none; }
+      main {
+        padding: 6px 14px calc(96px + env(safe-area-inset-bottom));
+        gap: 12px;
+      }
+      .card { padding: 18px 16px; border-radius: 20px; gap: 12px; }
+      .jp-main { font-size: clamp(1.32rem, 5.8vw, 2rem); }
+      .btn { line-height: 1.1; }
+      .dict-row { gap: 10px; padding: 12px; }
+      .dict-row-actions { gap: 6px; }
+      .dict-row-actions .star-btn { width: 38px; height: 38px; }
+      .dict-row-actions .btn-hear { min-height: 38px; padding: 6px 11px; }
+      .nav-pill { padding: 6px 9px; font-size: 0.76rem; }
+    }
+
     @media (max-width: 480px) {
-      .card { padding: 20px 16px; border-radius: 20px; gap: 16px; }
-      .nav-pill { padding: 6px 9px; font-size: 0.78rem; }
+      .card { padding: 16px 14px; border-radius: 18px; gap: 11px; }
+      .nav-pill { padding: 5px 8px; font-size: 0.74rem; }
       .toggle-btn { padding: 6px 10px; font-size: 0.78rem; }
     }
   </style>
@@ -1624,7 +1660,7 @@
     <div class="studio-bar">
       <a class="studio-link" href="https://velumestudios.com" title="Back to Velume Studios">← Velume Studios</a>
       <div class="studio-actions">
-        <button type="button" class="studio-pill-btn" id="open-method-btn">Method &amp; Shortcuts</button>
+        <button type="button" class="studio-pill-btn" id="open-method-btn">Method<span class="hide-xs"> &amp; Shortcuts</span></button>
         <a class="studio-pill-btn" href="privacy.html">Privacy</a>
       </div>
     </div>
@@ -1724,7 +1760,7 @@
     <section id="dict-view" class="hidden" aria-label="Dictionary">
       <div class="dict-controls">
         <label for="dict-search" style="position:absolute;left:-9999px">Search English or Japanese</label>
-        <input class="dict-search" id="dict-search" type="search" placeholder="Search English or Japanese (e.g. receipt, トイレ, sumimasen)...">
+        <input class="dict-search" id="dict-search" type="search" placeholder="Search English, kana, or romaji...">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
           <div style="display:flex;align-items:center;gap:8px">
             <button type="button" class="dict-chip" id="dict-saved-only" aria-pressed="false">★ Saved (0)</button>
