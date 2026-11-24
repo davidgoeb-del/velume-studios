@@ -1657,7 +1657,7 @@
   </div>
 
   <header>
-    <div class="studio-bar">
+    <div class="studio-bar" id="studio-bar">
       <a class="studio-link" href="https://velumestudios.com" title="Back to Velume Studios">← Velume Studios</a>
       <div class="studio-actions">
         <button type="button" class="studio-pill-btn" id="open-method-btn">Method<span class="hide-xs"> &amp; Shortcuts</span></button>
@@ -2505,6 +2505,7 @@
         $(views[k]).classList.toggle("hidden", k !== name);
         $(tabs[k]).setAttribute("aria-selected", String(k === name));
       });
+      $("studio-bar").classList.toggle("hidden", name !== "home");
       if (name === "home") renderHome();
       if (name === "practice") { buildSession(); renderStep(); }
       if (name === "dict") renderDictionary();
